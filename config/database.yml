@@ -6,7 +6,8 @@
 #   gem install postgres-pr
 development:
   adapter: postgresql
-  database: clubcar_development
+  # database: clubcar_development
+  database: clubcar
   username: clubcar
   password:
 
@@ -20,13 +21,14 @@ development:
   #schema_search_path: myapp,sharedapp,public
 
   # Character set encoding.  The server defaults to sql_ascii.
-  #encoding: UTF8
+  encoding: UTF8
 
   # Minimum log levels, in increasing order:
   #   debug5, debug4, debug3, debug2, debug1,
   #   info, notice, warning, error, log, fatal, or panic
   # The server defaults to notice.
   #min_messages: warning
+  min_messages: debug5
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
