@@ -1,0 +1,27 @@
+<h1>Editing mood</h1>
+
+<%= error_messages_for :mood %>
+
+<% form_for(:mood, :url => mood_path(@mood), :html => { :method => :put }) do |f| %>
+  <p>
+    <b>User</b><br />
+    <%= f.text_field :user_id %>
+  </p>
+
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Sort order</b><br />
+    <%= f.text_field :sort_order %>
+  </p>
+
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', mood_path(@mood) %> |
+<%= link_to 'Back', moods_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: MyString
+  address: MyString
+  city: MyString
+  distance: 9.99
+  image: MyString
+two:
+  id: 2
+  name: MyString
+  address: MyString
+  city: MyString
+  distance: 9.99
+  image: MyString

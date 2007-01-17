@@ -1,0 +1,28 @@
+<p>
+  <b>Name:</b>
+  <%=h @restaurant.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%=h @restaurant.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @restaurant.city %>
+</p>
+
+<p>
+  <b>Distance:</b>
+  <%=h @restaurant.distance %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%=h @restaurant.image %>
+</p>
+
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>

@@ -1,0 +1,22 @@
+<h1>Listing labels</h1>
+
+<table>
+  <tr>
+    <th>Restaurant</th>
+    <th>Tag</th>
+  </tr>
+  
+<% for label in @labels %>
+  <tr>
+    <td><%=h label.restaurant_id %></td>
+    <td><%=h label.tag_id %></td>
+    <td><%= link_to 'Show', label_path(label) %></td>
+    <td><%= link_to 'Edit', edit_label_path(label) %></td>
+    <td><%= link_to 'Destroy', label_path(label), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New label', new_label_path %>

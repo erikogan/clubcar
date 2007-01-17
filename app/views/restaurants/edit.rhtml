@@ -1,0 +1,37 @@
+<h1>Editing restaurant</h1>
+
+<%= error_messages_for :restaurant %>
+
+<% form_for(:restaurant, :url => restaurant_path(@restaurant), :html => { :method => :put }) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Address</b><br />
+    <%= f.text_field :address %>
+  </p>
+
+  <p>
+    <b>City</b><br />
+    <%= f.text_field :city %>
+  </p>
+
+  <p>
+    <b>Distance</b><br />
+    <%= f.text_field :distance %>
+  </p>
+
+  <p>
+    <b>Image</b><br />
+    <%= f.text_field :image %>
+  </p>
+
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>

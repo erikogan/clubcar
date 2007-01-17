@@ -1,0 +1,24 @@
+<h1>Listing moods</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Name</th>
+    <th>Sort order</th>
+  </tr>
+  
+<% for mood in @moods %>
+  <tr>
+    <td><%=h mood.user_id %></td>
+    <td><%=h mood.name %></td>
+    <td><%=h mood.sort_order %></td>
+    <td><%= link_to 'Show', mood_path(mood) %></td>
+    <td><%= link_to 'Edit', edit_mood_path(mood) %></td>
+    <td><%= link_to 'Destroy', mood_path(mood), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mood', new_mood_path %>
