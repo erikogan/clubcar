@@ -5,6 +5,7 @@ class CreateTags < ActiveRecord::Migration
       t.column :display_name, :string
       t.column :type_id, :integer
     end
+    execute "ALTER TABLE tags ADD CONSTRAINT fk_tag_types FOREIGN KEY (type_id) REFERENCES tag_types(id)"
   end
 
   def self.down
