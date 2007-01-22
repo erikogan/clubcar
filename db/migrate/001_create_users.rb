@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :name, :string
       t.column :password, :string, :null => false
     end
+    add_index :users, :login
   end
 
   def self.down
