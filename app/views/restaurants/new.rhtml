@@ -3,34 +3,49 @@
 <%= error_messages_for :restaurant %>
 
 <% form_for(:restaurant, :url => restaurants_path) do |f| %>
-  <p>
-    <b>Name</b><br />
-    <%= f.text_field :name %>
-  </p>
+  <fieldset id="restaurant">
+    <legend>Restaurant</legend>
+    <p>
+      <label for="name">Name</label><br />
+      <%= f.text_field :name %>
+    </p>
 
-  <p>
-    <b>Address</b><br />
-    <%= f.text_field :address %>
-  </p>
+    <p>
+      <label for="address">Address</label><br />
+      <%= f.text_field :address %>
+    </p>
 
-  <p>
-    <b>City</b><br />
-    <%= f.text_field :city %>
-  </p>
+    <p>
+      <label for="city">City</label><br />
+      <%= f.text_field :city %>
+    </p>
 
-  <p>
-    <b>Distance</b><br />
-    <%= f.text_field :distance %>
-  </p>
+    <p>
+      <label for="distance">Distance</label><br />
+      <%= f.text_field :distance %>
+    </p>
 
-  <p>
-    <b>Image</b><br />
-    <%= f.text_field :image %>
-  </p>
+    <p>
+      <label for="image">Image</label><br />
+      <%= f.text_field :image %>
+    </p>
+  </fieldset>
 
-  <p>
-    <%= submit_tag "Create" %>
-  </p>
+  <fieldset id="tags">
+    <legend>Tags</legend>
+    <p>
+      <label for="new_genres">Genres</label><br/>
+      <!-- %= f.text_field :new_genres % -->
+    </p>
+
+    <p>
+      <label for="new_tags">Tags</label><br/>
+      <!-- %= f.text_field :new_tags % -->
+    </p>
+  </fieldset>
+    <p>
+      <%= submit_tag "Create" %>
+    </p>
 <% end %>
 
 <%= link_to 'Back', restaurants_path %>

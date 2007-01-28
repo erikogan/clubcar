@@ -4,27 +4,27 @@
 
 <% form_for(:restaurant, :url => restaurant_path(@restaurant), :html => { :method => :put }) do |f| %>
   <p>
-    <b>Name</b><br />
+    <label for="name">Name</label><br />
     <%= f.text_field :name %>
   </p>
 
   <p>
-    <b>Address</b><br />
+    <label for="address">Address</label><br />
     <%= f.text_field :address %>
   </p>
 
   <p>
-    <b>City</b><br />
+    <label for="city">City</label><br />
     <%= f.text_field :city %>
   </p>
 
   <p>
-    <b>Distance</b><br />
+    <label for="distance">Distance</label><br />
     <%= f.text_field :distance %>
   </p>
 
   <p>
-    <b>Image</b><br />
+    <label for="image">Image</label><br />
     <%= f.text_field :image %>
   </p>
 
