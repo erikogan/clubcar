@@ -1,8 +1,12 @@
 class MoodsController < ApplicationController
+
+  before_filter :find_user
+
   # GET /moods
   # GET /moods.xml
   def index
-    @moods = Mood.find(:all)
+    # @moods = Mood.find_by_user_id(session[:user_id])
+    @moods = @user.moods
 
     respond_to do |format|
       format.html # index.rhtml
@@ -13,7 +17,8 @@ class MoodsController < ApplicationController
   # GET /moods/1
   # GET /moods/1.xml
   def show
-    @mood = Mood.find(params[:id])
+    # @mood = Mood.find(params[:id])
+    @mood = @user.moods.find(params[:id])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -28,16 +33,18 @@ class MoodsController < ApplicationController
 
   # GET /moods/1;edit
   def edit
-    @mood = Mood.find(params[:id])
+    # @mood = Mood.find(params[:id])
+    @mood = @user.moods.find(params[:id])
   end
 
   # POST /moods
   # POST /moods.xml
   def create
     @mood = Mood.new(params[:mood])
-
+    
     respond_to do |format|
-      if @mood.save
+      # if @mood.save
+      if @user.moods << @mood 
         flash[:notice] = 'Mood was successfully created.'
         format.html { redirect_to mood_url(@mood) }
         format.xml  { head :created, :location => mood_url(@mood) }
@@ -51,7 +58,8 @@ class MoodsController < ApplicationController
   # PUT /moods/1
   # PUT /moods/1.xml
   def update
-    @mood = Mood.find(params[:id])
+    # @mood = Mood.find(params[:id])
+    @mood = @user.moods.find(params[:id])
 
     respond_to do |format|
       if @mood.update_attributes(params[:mood])
@@ -68,12 +76,24 @@ class MoodsController < ApplicationController
   # DELETE /moods/1
   # DELETE /moods/1.xml
   def destroy
-    @mood = Mood.find(params[:id])
-    @mood.destroy
+    # @mood = Mood.find(params[:id])
+    # why does only this one need the .to_i ?
+    mood = @user.moods.find(params[:id].to_i)
+    mood.destroy
+    @user.moods.delete(mood)
 
     respond_to do |format|
       format.html { redirect_to moods_url }
       format.xml  { head :ok }
     end
   end
+
+private
+
+  def find_user
+    @user_id = params[:user_id]
+    redirect_to users_url unless @user_id
+    @user = User.find(@user_id)
+  end
+
 end

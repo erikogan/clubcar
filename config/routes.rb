@@ -1,8 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :preferences
-
-  map.resources :moods
-
   map.resources :labels
 
   map.resources :tag_types
@@ -11,7 +7,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :restaurants
 
-  map.resources :users
+  # special case for login
+  map.connect '/users/login', :controller => "users", :action => "login"
+  map.connect '/users/logout', :controller => "users", :action => "logout"
+
+  map.resources :users do |mood|
+    mood.resources :moods
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   
