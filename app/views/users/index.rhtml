@@ -11,7 +11,6 @@
   <tr>
     <td><%=h user.login %></td>
     <td><%=h user.name %></td>
-    <td><%=h user.password %></td>
     <td><%= link_to 'Show', user_path(user) %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>

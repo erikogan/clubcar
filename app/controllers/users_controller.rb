@@ -76,4 +76,28 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def login
+    session[:user_id] = nil
+    session[:real_id] = nil
+    if request.post?
+		  
+      user = User.authenticate(params[:login], params[:plain_password])
+      if user
+	session[:user_id] = user.id
+	session[:real_id] = user.id
+	uri = session[:original_uri]
+	session[:original_uri] = nil
+	redirect_to(uri || { :action => :index })
+      else
+	flash[:notice] = "Invalid username/password"
+      end
+    end
+  end
+
+  def logout
+    session[:user_id] = nil
+    session[:real_id] = nil
+  end
+
 end

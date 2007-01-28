@@ -15,7 +15,12 @@
 
   <p>
     <b>Password</b><br />
-    <%= f.text_field :password %>
+    <%= f.password_field :plain_password %>
+  </p>
+
+  <p>
+    <b>Password</b><br />
+    <%= f.password_field :plain_password_confirmation %>
   </p>
 
   <p>
