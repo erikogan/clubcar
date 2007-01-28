@@ -1,4 +1,5 @@
 class Mood < ActiveRecord::Base
   belongs_to :user
-  belongs_to :preference
+  has_many :preferences
+  has_many :restaurants, :through => :preferences
 end
