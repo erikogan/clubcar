@@ -2,20 +2,20 @@
 
 <%= error_messages_for :mood %>
 
-<% form_for(:mood, :url => moods_path) do |f| %>
+<% form_for(:mood, :url => moods_path) do |f| %> 
   <p>
     <b>User</b><br />
     <%= f.text_field :user_id %>
   </p>
 
-  <p>
+ <p>
     <b>Name</b><br />
     <%= f.text_field :name %>
   </p>
 
   <p>
     <b>Sort order</b><br />
-    <%= f.text_field :sort_order %>
+    <%= f.text_field :order %>
   </p>
 
   <p>
