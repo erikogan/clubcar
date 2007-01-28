@@ -1,4 +1,10 @@
 class Preference < ActiveRecord::Base
-  has_one :mood
-  # has_one :user, :through => :mood
+  belongs_to :mood
+  belongs_to :restaurant
+  #has_one :user, :through => :mood
+
+  POSITIVE = 5
+  NEUTRAL = 0
+  NEGATIVE = -5
+  VETO = -100
 end
