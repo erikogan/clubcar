@@ -7,7 +7,9 @@ class CreateRestaurants < ActiveRecord::Migration
       t.column :distance,	:decimal
       t.column :image,		:string
     end
-    # We'll be searching by city
+    add_index :restaurants, :name
+
+    # We'll also be searching by city
     add_index :restaurants, :city
   end
 
