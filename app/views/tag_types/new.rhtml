@@ -2,15 +2,9 @@
 
 <%= error_messages_for :tag_type %>
 
-<% form_for(:tag_type, :url => tag_types_path) do |f| %>
-  <p>
-    <b>Name</b><br />
+<% tagged_form_for(:tag_type, :url => tag_types_path) do |f| %>
     <%= f.text_field :name %>
-  </p>
-
-  <p>
     <%= submit_tag "Create" %>
-  </p>
 <% end %>
 
 <%= link_to 'Back', tag_types_path %>

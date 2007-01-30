@@ -2,20 +2,10 @@
 
 <%= error_messages_for :label %>
 
-<% form_for(:label, :url => labels_path) do |f| %>
-  <p>
-    <b>Restaurant</b><br />
+<% tagged_form_for(:label, :url => labels_path) do |f| %>
     <%= f.text_field :restaurant_id %>
-  </p>
-
-  <p>
-    <b>Tag</b><br />
     <%= f.text_field :tag_id %>
-  </p>
-
-  <p>
     <%= submit_tag "Create" %>
-  </p>
 <% end %>
 
 <%= link_to 'Back', labels_path %>

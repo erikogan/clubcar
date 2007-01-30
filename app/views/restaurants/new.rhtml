@@ -2,50 +2,22 @@
 
 <%= error_messages_for :restaurant %>
 
-<% form_for(:restaurant, :url => restaurants_path) do |f| %>
+<% tagged_form_for(:restaurant, :url => restaurants_path) do |f| %>
   <fieldset id="restaurant">
     <legend>Restaurant</legend>
-    <p>
-      <label for="name">Name</label><br />
       <%= f.text_field :name %>
-    </p>
-
-    <p>
-      <label for="address">Address</label><br />
       <%= f.text_field :address %>
-    </p>
-
-    <p>
-      <label for="city">City</label><br />
       <%= f.text_field :city %>
-    </p>
-
-    <p>
-      <label for="distance">Distance</label><br />
       <%= f.text_field :distance %>
-    </p>
-
-    <p>
-      <label for="image">Image</label><br />
       <%= f.text_field :image %>
-    </p>
   </fieldset>
 
   <fieldset id="tags">
     <legend>Tags</legend>
-    <p>
-      <label for="new_genres">Genres</label><br/>
       <!-- %= f.text_field :new_genres % -->
-    </p>
-
-    <p>
-      <label for="new_tags">Tags</label><br/>
       <!-- %= f.text_field :new_tags % -->
-    </p>
   </fieldset>
-    <p>
-      <%= submit_tag "Create" %>
-    </p>
+  <%= submit_tag "Create" %>
 <% end %>
 
 <%= link_to 'Back', restaurants_path %>

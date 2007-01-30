@@ -2,20 +2,10 @@
 
 <%= error_messages_for :mood %>
 
-<% form_for(:mood, :url => mood_path(@mood), :html => { :method => :put }) do |f| %>
-  <p>
-    <b>Name</b><br />
+<% tagged_form_for(:mood, :url => mood_path(@mood), :html => { :method => :put }) do |f| %>
     <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <b>Sort order</b><br />
     <%= f.text_field :order %>
-  </p>
-
-  <p>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', mood_path(@mood) %> |

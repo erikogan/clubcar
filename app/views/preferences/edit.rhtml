@@ -2,25 +2,11 @@
 
 <%= error_messages_for :preference %>
 
-<% form_for(:preference, :url => preference_path(@preference), :html => { :method => :put }) do |f| %>
-  <p>
-    <b>Mood</b><br />
+<% tagged_form_for(:preference, :url => preference_path(@preference), :html => { :method => :put }) do |f| %>
     <%= f.text_field :mood_id %>
-  </p>
-
-  <p>
-    <b>Restaurant</b><br />
     <%= f.text_field :restaurant_id %>
-  </p>
-
-  <p>
-    <b>Value</b><br />
     <%= f.text_field :value %>
-  </p>
-
-  <p>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', preference_path(@preference) %> |

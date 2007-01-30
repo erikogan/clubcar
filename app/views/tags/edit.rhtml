@@ -2,25 +2,11 @@
 
 <%= error_messages_for :tag %>
 
-<% form_for(:tag, :url => tag_path(@tag), :html => { :method => :put }) do |f| %>
-  <p>
-    <b>Name</b><br />
+<% tagged_form_for(:tag, :url => tag_path(@tag), :html => { :method => :put }) do |f| %>
     <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <b>Display name</b><br />
     <%= f.text_field :display_name %>
-  </p>
-
-  <p>
-    <b>Type</b><br />
     <%= f.text_field :type_id %>
-  </p>
-
-  <p>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', tag_path(@tag) %> |

@@ -2,35 +2,13 @@
 
 <%= error_messages_for :restaurant %>
 
-<% form_for(:restaurant, :url => restaurant_path(@restaurant), :html => { :method => :put }) do |f| %>
-  <p>
-    <label for="name">Name</label><br />
+<% tagged_form_for(:restaurant, :url => restaurant_path(@restaurant), :html => { :method => :put }) do |f| %>
     <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <label for="address">Address</label><br />
     <%= f.text_field :address %>
-  </p>
-
-  <p>
-    <label for="city">City</label><br />
     <%= f.text_field :city %>
-  </p>
-
-  <p>
-    <label for="distance">Distance</label><br />
     <%= f.text_field :distance %>
-  </p>
-
-  <p>
-    <label for="image">Image</label><br />
     <%= f.text_field :image %>
-  </p>
-
-  <p>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', restaurant_path(@restaurant) %> |

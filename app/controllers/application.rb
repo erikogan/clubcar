@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   session :session_key => '_clubcar_session_id'
 
   before_filter :authorize, :except => [ :login, :logout ]
+  
+  helper :builder
 
   private
 
