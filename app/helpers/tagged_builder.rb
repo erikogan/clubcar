@@ -29,4 +29,7 @@ class TaggedBuilder < ActionView::Helpers::FormBuilder
     create_tagged_field(name)
   end
 
+  # I wonder....
+  create_tagged_field('select')
+
 end

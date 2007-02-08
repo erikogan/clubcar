@@ -1,8 +1,12 @@
 class PreferencesController < ApplicationController
+
+  before_filter :find_user_mood
+  before_filter :get_preference_values, :only => [:edit, :change]
+
   # GET /preferences
   # GET /preferences.xml
   def index
-    @preferences = Preference.find(:all)
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant)
 
     respond_to do |format|
       format.html # index.rhtml
@@ -13,7 +17,7 @@ class PreferencesController < ApplicationController
   # GET /preferences/1
   # GET /preferences/1.xml
   def show
-    @preference = Preference.find(params[:id])
+    @preference = Preference.find(params[:id], :include => :restaurant)
 
     respond_to do |format|
       format.html # show.rhtml
@@ -74,6 +78,68 @@ class PreferencesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to preferences_url }
       format.xml  { head :ok }
+    end
+  end
+
+  # GET /preferences;change
+  # GET /preferences.xml;change
+  def change 
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant)
+    @missing = Preference.missing_for(@mood)
+
+    respond_to do |format|
+      format.html # index.rhtml
+      format.xml  { render :xml => @preferences.to_xml }
+    end
+  end
+
+  # POST /preferences;save
+  def save
+    updated = false;
+
+    if params.has_key?(:new) 
+      # Turn params[new] into an array of hashes (from a hash of hashes)
+      # (I suspect there's an easier way to do this)
+      create = Array.new
+      params[:new].keys.sort_by {|a| a.to_i}.collect do |k|
+	create.push(params[:new][k])
+      end
+      updated = true if Preference.create(create)
+	
+    end
+    
+    if params.has_key?(:preference)
+      updated = true if
+	Preference.update(params[:preference].keys,params[:preference].values)
+    end
+
+      if updated
+        flash[:notice] = 'Preferences successfully updated.'
+      end
+
+    respond_to do |format|
+        format.html { redirect_to change_preferences_url(@user_id,@mood_id) }
+        format.xml  { head :ok }
+    end
+  end
+
+private
+
+  # I should abstract find_user, and share that with MoodsController
+  def find_user_mood 
+    @user_id = params[:user_id]
+    @mood_id = params[:mood_id]
+    if @user_id && @mood_id
+      @user = User.find(@user_id)
+      @mood = Mood.find(@mood_id)
+    else
+      redirect_to users_url
+    end
+  end
+
+  def get_preference_values
+    @preference_values =  Preference.value_order.collect do |v|
+      [v.to_s.humanize, v, Preference.value(v) ]
     end
   end
 end

@@ -3,10 +3,11 @@
 <%= error_messages_for :mood %>
 
 <% tagged_form_for(:mood, :url => mood_path(@mood), :html => { :method => :put }) do |f| %>
-    <%= f.text_field :name %>
-    <%= f.text_field :order %>
-    <%= submit_tag "Update" %>
+  <%= f.text_field :name %>
+  <%= f.text_field :order %>
+  <%= submit_tag "Update" %>
 <% end %>
 
 <%= link_to 'Show', mood_path(@mood) %> |
-<%= link_to 'Back', moods_path %>
+<%= link_to 'Back', moods_path %> |
+<%= link_to 'Preferences', preferences_path(@user, @mood) %> |

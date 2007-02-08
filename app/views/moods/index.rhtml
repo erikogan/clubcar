@@ -8,9 +8,8 @@
   
 <% for mood in @moods %>
   <tr>
-    <td><%=h mood.name %></td>
+    <td><%=link_to h(mood.name) mood_path(@user,mood) %></td>
     <td><%=h mood.order %></td>
-    <td><%= link_to 'Show', mood_path(@user, mood) %></td>
     <td><%= link_to 'Edit', edit_mood_path(@user, mood) %></td>
     <td><%= link_to 'Destroy', mood_path(@user, mood), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

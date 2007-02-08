@@ -1,18 +1,22 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :labels
-
+  
   map.resources :tag_types
-
+  
   map.resources :tags
-
-  map.resources :restaurants
+  
+  map.resources :restaurants do |restaurant|
+    restaurant.resources :tags
+  end
 
   # special case for login
   map.connect '/users/login', :controller => "users", :action => "login"
   map.connect '/users/logout', :controller => "users", :action => "logout"
-
-  map.resources :users do |mood|
-    mood.resources :moods
+  
+  map.resources :users do |user|
+    user.resources :moods do |pref|
+      pref.resources :preferences, :collection => { :change => :get, :save => :post }
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

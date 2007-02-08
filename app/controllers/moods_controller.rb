@@ -92,8 +92,10 @@ private
 
   def find_user
     @user_id = params[:user_id]
-    redirect_to users_url unless @user_id
-    @user = User.find(@user_id)
+    if @user_id
+      @user = User.find(@user_id)
+    else
+      redirect_to users_url
+    end
   end
-
 end

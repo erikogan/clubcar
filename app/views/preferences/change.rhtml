@@ -1,0 +1,28 @@
+  <h1>Preferences for <%= @mood.name %></h1>
+
+  <% form_tag :action => :save do %>
+  <table>
+    <tr>
+      <th>Restaurant</th>
+      <th>Value</th>
+    </tr>
+    <% for @new in @missing %>
+      <tr class="<%= cycle('missingA', 'missingB') %>">
+        <td>
+	  <%= @new.restaurant.name %>
+	  <%= hidden_field "new[]", :restaurant_id %>
+	  <%= hidden_field "new[]", :mood_id %>
+        </td>
+        <td><%= select "new[]", :value, @preference_values %></td>
+      </tr>
+    <% end %>
+
+    <% for @preference in @preferences %>
+      <tr class="<%= cycle('rowA', 'rowB') %>">
+        <td><%= @preference.restaurant.name %></td>
+        <td><%= select "preference[]", :value, @preference_values %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag %>
+  <% end %>

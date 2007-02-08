@@ -1,20 +1,19 @@
-<h1>Listing preferences</h1>
+<h1>Listing preferences (for <%= @mood.name %>)</h1>
 
 <table>
   <tr>
-    <th>Mood</th>
+    <!-- th>Mood</th -->
     <th>Restaurant</th>
     <th>Value</th>
   </tr>
   
 <% for preference in @preferences %>
   <tr>
-    <td><%=h preference.mood_id %></td>
-    <td><%=h preference.restaurant_id %></td>
-    <td><%=h preference.value %></td>
-    <td><%= link_to 'Show', preference_path(preference) %></td>
-    <td><%= link_to 'Edit', edit_preference_path(preference) %></td>
-    <td><%= link_to 'Destroy', preference_path(preference), :confirm => 'Are you sure?', :method => :delete %></td>
+    <!-- td><%=h preference.mood_id %></td -->
+    <td><%=h preference.restaurant.name %></td>
+    <td><%=h Preference.value(preference.value) %></td>
+    <td><%= link_to 'Edit', edit_preference_path(@user, @mood, preference) %></td>
+    <td><%= link_to 'Destroy', preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

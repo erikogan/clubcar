@@ -1,16 +1,16 @@
 <p>
   <b>Mood:</b>
-  <%=h @preference.mood_id %>
+  <%=h @preference.mood.name %>
 </p>
 
 <p>
   <b>Restaurant:</b>
-  <%=h @preference.restaurant_id %>
+  <%=h @preference.restaurant.name %>
 </p>
 
 <p>
   <b>Value:</b>
-  <%=h @preference.value %>
+  <%=h Preference.value(@preference.value) %>
 </p>
 
 

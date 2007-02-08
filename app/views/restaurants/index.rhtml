@@ -11,12 +11,11 @@
   
 <% for restaurant in @restaurants %>
   <tr>
-    <td><%=h restaurant.name %></td>
+    <td><%= link_to h(restaurant.name), restaurant_path(restaurant) %></td>
     <td><%=h restaurant.address %></td>
     <td><%=h restaurant.city %></td>
     <td><%=h restaurant.distance %></td>
     <td><%=h restaurant.image %></td>
-    <td><%= link_to 'Show', restaurant_path(restaurant) %></td>
     <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
     <td><%= link_to 'Destroy', restaurant_path(restaurant), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

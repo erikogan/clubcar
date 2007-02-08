@@ -3,9 +3,10 @@
 <%= error_messages_for :preference %>
 
 <% tagged_form_for(:preference, :url => preference_path(@preference), :html => { :method => :put }) do |f| %>
-    <%= f.text_field :mood_id %>
-    <%= f.text_field :restaurant_id %>
-    <%= f.text_field :value %>
+  <div class="tagged_display">
+    <p><strong>Mood:</strong><br/><%= h @mood.name %></p>
+    <p><strong>Restaurant:</strong><br/><%= h @preference.restaurant.name %></p>
+    <%= f.select :value, @preference_values %>
     <%= submit_tag "Update" %>
 <% end %>
 
