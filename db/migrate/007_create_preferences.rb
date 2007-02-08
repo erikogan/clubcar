@@ -10,6 +10,8 @@ class CreatePreferences < ActiveRecord::Migration
 
     execute "ALTER TABLE preferences ADD CONSTRAINT fk_preferences_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)"
 
+    execute "ALTER TABLE preferences ADD CONSTRAINT uniq_preferences_mood_restaurant UNIQUE (mood_id,restaurant_id);
+
     add_index :preferences, :mood_id
     add_index :preferences, :restaurant_id
   end
