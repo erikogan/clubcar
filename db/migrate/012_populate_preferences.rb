@@ -7,7 +7,7 @@ class PopulatePreferences < ActiveRecord::Migration
   def self.up
     pref = Preference.new(:mood_id => @@default.id, 
 			  :restaurant_id => @@zibibbo.id, 
-			  :value => Preference::POSITIVE)
+			  :value => Preference::DEFAULT)
 
     @@default.preferences << pref;
   end
