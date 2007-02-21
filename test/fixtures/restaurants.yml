@@ -1,15 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
+zibibbo:
   id: 1
-  name: MyString
-  address: MyString
-  city: MyString
+  name: Zibibbo
+  address: 430 Kipling St.
+  city: Palo Alto
   distance: 9.99
-  image: MyString
-two:
+  image: http://www.rbw.com.sg/Lulu/images/mo_gallery24.jpg
+le_boulanger:
   id: 2
-  name: MyString
-  address: MyString
-  city: MyString
+  name: Le Boulanger
+  address: 305 N. Mathilda Ave.
+  city: Sunnyvale
   distance: 9.99
-  image: MyString

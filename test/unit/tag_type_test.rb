@@ -3,8 +3,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TagTypeTest < Test::Unit::TestCase
   fixtures :tag_types
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_unique_name
+    type = TagType.new(:name => tag_types(:genre).name)
+
+    assert !type.save
+    assert_equal ActiveRecord::Errors.default_error_messages[:taken],
+      type.errors.on(:name)
   end
 end

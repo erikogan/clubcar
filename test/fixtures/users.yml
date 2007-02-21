@@ -1,11 +1,18 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
+
+<% SALT1 = User.encrypted_password('NaCl','') %>
+<% SALT2 = User.encrypted_password('KCl','') %>
+
+average_joe:
   id: 1
-  login: MyString
-  name: MyString
-  password: MyString
-two:
+  login: joe
+  name: Average Joe
+  salt: <%= SALT1 %>
+  password: <%= User.encrypted_password('joseph', SALT1) %>
+
+admin:
   id: 2
-  login: MyString
-  name: MyString
-  password: MyString
+  login: admin
+  name: An Admin
+  salt: <%= SALT2 %>
+  password: <%= User.encrypted_password('a better password', SALT2) %>

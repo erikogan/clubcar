@@ -1,9 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
+<% ZIBIBBO = Restaurant_find_by_name('Zibibbo').id
+   YUMMY = Tag.find_by_name("Yummy!").id
+   SMALL_PLATES = Tag.find_by_name("Italian").id %>
+
+yummy:
   id: 1
-  restaurant_id: 1
-  tag_id: 1
-two:
+  restaurant_id: <%= ZIBIBBO %>
+  tag_id: <%= YUMMY %>
+small_plates:
   id: 2
-  restaurant_id: 1
-  tag_id: 1
+  restaurant_id: <%= ZIBIBBO %>
+  tag_id: <%= SMALL_PLATES %>
