@@ -1,0 +1,15 @@
+<% unless list.empty? -%>
+  <table class="moods">
+    <thead>
+      <th>Name</th>
+      <th>Sort Order</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+    </thead>
+    <tbody>
+      <%= render :partial => '/moods/row', :collection => list -%>
+    </tbody>
+  </table>
+<% end -%>
+
+<%= link_to 'New mood', new_mood_path(@user) %>

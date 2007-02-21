@@ -1,14 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :labels
-  
-  map.resources :tag_types
-  
-  map.resources :tags
-  
-  map.resources :restaurants do |restaurant|
-    restaurant.resources :tags
-  end
-
   # special case for login
   map.connect '/users/login', :controller => "users", :action => "login"
   map.connect '/users/logout', :controller => "users", :action => "logout"
@@ -19,6 +9,17 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.resources :restaurants do |restaurant|
+    restaurant.resources :labels, :collection => { :change => :get, :save => :post }
+    # restaurant.resources :labels  do |label|
+    #   label.resources :tags
+    # end
+  end
+
+  map.resources :tags
+
+  map.resources :tag_types
+  
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:

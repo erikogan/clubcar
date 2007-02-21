@@ -8,11 +8,11 @@
   
 <% for label in @labels %>
   <tr>
-    <td><%=h label.restaurant_id %></td>
-    <td><%=h label.tag_id %></td>
-    <td><%= link_to 'Show', label_path(label) %></td>
-    <td><%= link_to 'Edit', edit_label_path(label) %></td>
-    <td><%= link_to 'Destroy', label_path(label), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h label.restaurant.name %></td>
+    <td><%=h label.tag.name %></td>
+    <td><%= link_to 'Show', label_path(label.restaurant, label) %></td>
+    <td><%= link_to 'Edit', edit_label_path(label.restaurant, label) %></td>
+    <td><%= link_to 'Destroy', label_path(label.restaurant, label), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

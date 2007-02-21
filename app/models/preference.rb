@@ -43,7 +43,7 @@ public
       raise "No value for \"#{key}\""
     end
 
-    if (key.class == Symbol)
+    if key.instance_of?(Symbol)
       VALUES[key]
     else
       VALUES[key].to_s.humanize

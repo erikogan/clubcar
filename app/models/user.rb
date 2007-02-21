@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
   def validate_on_create 
     valid = true;
     if @plain_password != @plain_password_confirmation
-      errors.add(:plain_password, "doesn't match confirmation")
+      errors.add(:plain_password,  "should match confirmation")
       valid = false; 
     elsif @plain_password.blank?
-      errors.add(:plain_password, "must be entered")
+      errors.add(:plain_password, "can't be blank")
       valid = false
     end
     valid
@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
 
   def validate_on_update
     valid = true;
-    if (!@plain_password.blank? && !@plain_password_confirmation.blank? && @plain_password != @plain_password_confirmation)
-      errors.add(:plain_password, "doesn't match confirmation")
+    if (!(@plain_password.blank? && @plain_password_confirmation.blank?) && @plain_password != @plain_password_confirmation)
+      errors.add(:plain_password, "should match confirmation")
       valid = false; 
     end
     valid

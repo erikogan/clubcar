@@ -1,0 +1,12 @@
+<% unless restaurant.tags.empty? %>
+  <h2>Tags</h2>
+  <ul id="restaurantTags">
+    <%= render :partial => '/labels/row', :collection => restaurant.tags %>
+  </ul>
+<% end %>
+<% unless restaurant.genres.empty? %>
+  <h2>Genres</h2>
+  <ul id="restaurantGenres">
+    <%= render :partial => '/labels/row', :collection => restaurant.genres %>
+  </ul>
+<% end %>

@@ -1,0 +1,6 @@
+  <tr>
+    <td><%= link_to h(row.name), mood_path(@user,row) %></td>
+    <td><%= h row.order %></td>
+    <td><%= link_to 'Edit', edit_mood_path(@user, row) %></td>
+    <td><%= link_to 'Destroy', mood_path(@user, row), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>

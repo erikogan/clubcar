@@ -4,7 +4,7 @@
 
 <% tagged_form_for(:tag, :url => tag_path(@tag), :html => { :method => :put }) do |f| %>
     <%= f.text_field :name %>
-    <%= f.text_field :display_name %>
+    <% ### MAKE THIS USE A SELECT BOX! ### %>
     <%= f.text_field :type_id %>
     <%= submit_tag "Update" %>
 <% end %>

@@ -13,7 +13,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.xml
   def show
-    @restaurant = Restaurant.find(params[:id])
+    # For some reason, when I :include => :genres, it's empty
+    @restaurant = Restaurant.find(params[:id], :include => [ :tags ]) #, :genres
 
     respond_to do |format|
       format.html # show.rhtml
