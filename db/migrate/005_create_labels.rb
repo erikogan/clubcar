@@ -9,6 +9,8 @@ class CreateLabels < ActiveRecord::Migration
 
     execute "ALTER TABLE labels ADD CONSTRAINT fk_label_tags FOREIGN KEY (tag_id) REFERENCES tags(id)"
     
+    execute "ALTER TABLE labels ADD CONSTRAINT uniq_label_restaurant_tag UNIQUE (tag_id,restaurant_id)"
+
     add_index :labels, :restaurant_id
     add_index :labels, :tag_id
   end
