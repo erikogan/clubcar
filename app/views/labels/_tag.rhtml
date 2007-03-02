@@ -1,0 +1,6 @@
+<% unless tag.labels.empty? %>
+  <h2>Restaurants</h2>
+  <ul id="tagRestaurants">
+    <%= render :partial => '/labels/restaurants', :collection => tag.labels %>
+  </ul>
+<% end %>
