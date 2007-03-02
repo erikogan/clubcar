@@ -4,8 +4,8 @@
 </p>
 
 <p>
-  <b>Display name:</b>
-  <%=h @tag.display_name %>
+  <b>Canonical name:</b>
+  <%=h @tag.canonical %>
 </p>
 
 <p>
@@ -16,3 +16,5 @@
 
 <%= link_to 'Edit', edit_tag_path(@tag) %> |
 <%= link_to 'Back', tags_path %>
+
+<%= render :partial => '/labels/tag', :object => @tag %>
