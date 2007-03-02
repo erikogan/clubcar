@@ -2,13 +2,13 @@
 
 <%= error_messages_for :preference %>
 
-<% tagged_form_for(:preference, :url => preference_path(@preference), :html => { :method => :put }) do |f| %>
+<% tagged_form_for(:preference, :url => preference_path(@user, @mood, @preference), :html => { :method => :put }) do |f| %>
   <div class="tagged_display">
-    <p><strong>Mood:</strong><br/><%= h @mood.name %></p>
-    <p><strong>Restaurant:</strong><br/><%= h @preference.restaurant.name %></p>
+    <p><strong>Mood:</strong><br/><%= link_to h(@mood.name), mood_path(@user, @mood) %></p>
+    <p><strong>Restaurant:</strong><br/><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></p>
     <%= f.select :value, @preference_values %>
     <%= submit_tag "Update" %>
 <% end %>
 
-<%= link_to 'Show', preference_path(@preference) %> |
-<%= link_to 'Back', preferences_path %>
+<%= link_to 'Show', preference_path(@user, @mood, @preference) %> |
+<%= link_to 'Back', preferences_path(@user, @mood) %>
