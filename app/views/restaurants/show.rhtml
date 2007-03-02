@@ -19,6 +19,13 @@
 </p>
 
 <p>
+  <b>URL:</b>
+  <% unless restaurant.url.nil? || restaurant.url.empty? %>
+  <%=link_to h(@restaurant.url), h(@restaurant.url) %>
+  <% end %>
+</p>
+
+<p>
   <b>Image:</b>
   <%=h @restaurant.image %>
 </p>

@@ -5,6 +5,7 @@ class CreateRestaurants < ActiveRecord::Migration
       t.column :address,	:string
       t.column :city,		:string
       t.column :distance,	:decimal
+      t.column :url,		:string
       t.column :image,		:string
     end
     add_index :restaurants, :name

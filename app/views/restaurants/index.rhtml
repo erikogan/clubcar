@@ -6,6 +6,7 @@
     <th>Address</th>
     <th>City</th>
     <th>Distance</th>
+    <th>URL</th>
     <th>Image</th>
   </tr>
   
@@ -16,6 +17,9 @@
     <td><%=h restaurant.city %></td>
     <td><%=h restaurant.distance %></td>
     <td><%=h restaurant.image %></td>
+    <td><% unless  restaurant.url.nil? || restaurant.url.empty? -%>
+  <%=link_to h(restaurant.url), h(restaurant.url) -%>
+  <% end -%></td>
     <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
     <td><%= link_to 'Destroy', restaurant_path(restaurant), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
