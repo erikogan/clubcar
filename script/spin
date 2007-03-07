@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/var/lib/rails/clubcar/current/scripts/process/spinner \
+    -c '/var/lib/rails/clubcar/current/scripts/process/spawner -p 7000 -i 5' \
+    -d
