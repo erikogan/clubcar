@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     # restaurant.resources :labels  do |label|
     #   label.resources :tags
     # end
+    restaurant.resources :visits
   end
 
   map.resources :tags

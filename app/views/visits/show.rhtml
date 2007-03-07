@@ -1,0 +1,13 @@
+<p>
+  <b>Date:</b>
+  <%=h @visit.date %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%=h @visit.duration %>
+</p>
+
+
+<%= link_to 'Edit', edit_visit_path(@restaurant, @visit) %> |
+<%= link_to 'Back', visits_path(@restaurant) %>

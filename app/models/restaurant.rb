@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   has_many :tags,   :through => :labels, :conditions => Tag.tag_conditions
   has_many :genres, :through => :labels, :conditions => Tag.genre_conditions,
     :source => :tag
+  has_many :visits
 
   def tags_string()
     tags.collect {|t| t.name}.join(", ")
