@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + '/../config/boot'
 require "#{RAILS_ROOT}/config/environment"
 require "console_app"
 #until it works
-require "console_sandbox" #if options[:sandbox]
+#require "console_sandbox" #if options[:sandbox]
 require "console_with_helpers"
 
 require 'rexml/document'
@@ -69,6 +69,23 @@ restaurants.elements.each("/WheelOYum/Destinations/Destination") do |dest|
   r = Restaurant.find_or_create_by_name(name)
   r.city = town
   r.url = url unless url.blank?
+  
+  lastVisit = dest.elements['LastVisited']
+  unless lastVisit.nil?
+    year = extractText(lastVisit, 'Year').to_i
+    month = extractText(lastVisit,'Month').to_i + 1
+    day = extractText(lastVisit, 'DayOfMonth').to_i
+
+    date = "#{year}-#{month}-#{day}"
+  
+    debug "  date: #{date}"
+
+    if r.visits.find_by_date(date).nil?
+      v = Visit.new(:date => date)
+      r.visits << v
+    end
+  end
+
   r.save
   byWheelID[wID] = r
   byName[name] = r
