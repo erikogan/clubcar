@@ -6,7 +6,7 @@ class CreatePreferences < ActiveRecord::Migration
       t.column :value,		:integer, :null => false, :default => Preference::NEUTRAL
     end
 
-    execute "ALTER TABLE preferences ADD CONSTRAINT fk_preference_moods FOREIGN KEY (mood_id) REFERENCES moods(id)"
+    execute "ALTER TABLE preferences ADD CONSTRAINT fk_preferences_moods FOREIGN KEY (mood_id) REFERENCES moods(id)"
 
     execute "ALTER TABLE preferences ADD CONSTRAINT fk_preferences_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)"
 
