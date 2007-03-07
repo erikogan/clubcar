@@ -56,7 +56,7 @@ public
 
   def self.missing_for(mood)
     i = 0
-    Restaurant.find(:all, :conditions => ["id NOT IN (?)", 
+    Restaurant.find(:all, :order => :name, :conditions => ["id NOT IN (?)", 
 		      mood.restaurants.collect do |r| 
 			r.id
 		      end

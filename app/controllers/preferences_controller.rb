@@ -84,7 +84,7 @@ class PreferencesController < ApplicationController
   # GET /preferences;change
   # GET /preferences.xml;change
   def change 
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant)
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant, :order => 'restaurants.name')
     @missing = Preference.missing_for(@mood)
 
     respond_to do |format|
@@ -129,12 +129,26 @@ private
   def find_user_mood 
     @user_id = params[:user_id]
     @mood_id = params[:mood_id]
-    if @user_id && @mood_id
-      @user = User.find(@user_id)
-      @mood = Mood.find(@mood_id)
-    else
+    # ActiveRecord .find methods throw an exception when they fail, this
+    # needs to be reworked
+    begin
+      unless @user_id.blank?
+	@user = User.find(@user_id)
+      end
+    rescue
       redirect_to users_url
     end
+
+    begin
+      unless @mood_id.blank?
+	@mood = Mood.find(@mood_id)
+	return
+      end
+    rescue
+      # The return handled the base case, everything else is redirected
+    end
+
+    redirect_to moods_url(@user)
   end
 
   def get_preference_values
