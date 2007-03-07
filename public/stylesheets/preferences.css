@@ -1,0 +1,7 @@
+.missing, .missing select, .missing a {
+  color: #f00;
+}
+
+.missing.rowB {
+  background-color: #fcc;
+}

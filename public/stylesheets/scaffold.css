@@ -72,3 +72,6 @@ div.progressBar div.background {
   width: 0%;
 }
 
+tr.rowB {
+  background-color: #ccc;
+}

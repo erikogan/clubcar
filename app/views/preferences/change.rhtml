@@ -7,9 +7,9 @@
       <th>Value</th>
     </tr>
     <% for @new in @missing %>
-      <tr class="<%= cycle('missingA', 'missingB') %>">
+      <tr class="missing <%= cycle('rowA', 'rowB') %>">
         <td>
-	  <%= @new.restaurant.name %>
+	  <%= link_to h(@new.restaurant.name), restaurant_path(@new.restaurant) %>
 	  <%= hidden_field "new[]", :restaurant_id %>
 	  <%= hidden_field "new[]", :mood_id %>
         </td>
@@ -19,7 +19,7 @@
 
     <% for @preference in @preferences %>
       <tr class="<%= cycle('rowA', 'rowB') %>">
-        <td><%= @preference.restaurant.name %></td>
+        <td><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></td>
         <td><%= select "preference[]", :value, @preference_values %></td>
       </tr>
     <% end %>
