@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+positive:
+  id: 1
+  name: Positive
+  value: 1
+neutral:
+  id: 2
+  name: Neutral
+  value: 0
+negative:
+  id: 3
+  name: Negative
+  value: -1
+veto:
+  id: 4
+  name: Veto
+  value: -1000

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :votes
+
   # special case for login
   map.connect '/users/login', :controller => "users", :action => "login"
   map.connect '/users/logout', :controller => "users", :action => "logout"

@@ -11,7 +11,7 @@
   <tr>
     <!-- td><%=h preference.mood_id %></td -->
     <td><%=h preference.restaurant.name %></td>
-    <td><%=h Preference.value(preference.value) %></td>
+    <td><%=h preference.vote.name %></td>
     <td><%= link_to 'Edit', edit_preference_path(@user, @mood, preference) %></td>
     <td><%= link_to 'Destroy', preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

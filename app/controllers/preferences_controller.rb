@@ -6,7 +6,7 @@ class PreferencesController < ApplicationController
   # GET /preferences
   # GET /preferences.xml
   def index
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant)
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote])
 
     respond_to do |format|
       format.html # index.rhtml
@@ -17,7 +17,7 @@ class PreferencesController < ApplicationController
   # GET /preferences/1
   # GET /preferences/1.xml
   def show
-    @preference = Preference.find(params[:id], :include => :restaurant)
+    @preference = Preference.find(params[:id], :include => [:restaurant, :vote])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -84,7 +84,7 @@ class PreferencesController < ApplicationController
   # GET /preferences;change
   # GET /preferences.xml;change
   def change 
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => :restaurant, :order => 'restaurants.name')
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote], :order => 'restaurants.name')
     @missing = Preference.missing_for(@mood)
 
     respond_to do |format|
@@ -105,7 +105,6 @@ class PreferencesController < ApplicationController
 	create.push(params[:new][k])
       end
       updated = true if Preference.create(create)
-	
     end
     
     if params.has_key?(:preference)
@@ -152,8 +151,8 @@ private
   end
 
   def get_preference_values
-    @preference_values =  Preference.value_order.collect do |v|
-      [v.to_s.humanize, v, Preference.value(v) ]
+    @preference_values = Vote.find(:all, :order => 'value DESC').collect do |v|
+      [v.name, v, v.id]
     end
   end
 end

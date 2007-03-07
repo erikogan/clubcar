@@ -1,0 +1,22 @@
+<h1>Editing vote</h1>
+
+<%= error_messages_for :vote %>
+
+<% form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Value</b><br />
+    <%= f.text_field :value %>
+  </p>
+
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', vote_path(@vote) %> |
+<%= link_to 'Back', votes_path %>

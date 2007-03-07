@@ -13,14 +13,14 @@
 	  <%= hidden_field "new[]", :restaurant_id %>
 	  <%= hidden_field "new[]", :mood_id %>
         </td>
-        <td><%= select "new[]", :value, @preference_values %></td>
+        <td><%= select "new[]", :vote_id, @preference_values %></td>
       </tr>
     <% end %>
 
     <% for @preference in @preferences %>
       <tr class="<%= cycle('rowA', 'rowB') %>">
         <td><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></td>
-        <td><%= select "preference[]", :value, @preference_values %></td>
+        <td><%= select "preference[]", :vote_id, @preference_values %></td>
       </tr>
     <% end %>
   </table>
