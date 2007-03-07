@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  has_many :labels
+  has_many :labels, :dependent => :destroy
   has_many :restaurants, :through => :labels
   belongs_to :tag_type, :foreign_key => :type_id
 

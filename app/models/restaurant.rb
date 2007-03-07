@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  has_many :labels
+  has_many :labels, :dependent => :destroy
   has_many :tags,   :through => :labels, :conditions => Tag.tag_conditions
   has_many :genres, :through => :labels, :conditions => Tag.genre_conditions,
     :source => :tag
