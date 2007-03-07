@@ -92,10 +92,17 @@ private
 
   def find_user
     @user_id = params[:user_id]
-    if @user_id
-      @user = User.find(@user_id)
-    else
-      redirect_to users_url
+    # ActiveRecord .find methods throw an exception when they fail, this
+    # needs to be reworked
+    begin
+      unless @user_id.blank?
+	@user = User.find(@user_id)
+	return
+      end
+    rescue
+      # The return handled the base case, everything else is redirected
     end
+
+    redirect_to users_url
   end
 end

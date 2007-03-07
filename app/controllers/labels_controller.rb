@@ -121,11 +121,18 @@ private
 
   def find_restaurant
     @restaurant_id = params[:restaurant_id]
-    if @restaurant_id
-      @restaurant = Restaurant.find(@restaurant_id)
-    else
-      redirect_to restaurants_url
+    # ActiveRecord .find methods throw an exception when they fail, this
+    # needs to be reworked
+    begin
+      unless @restaurant_id.blank?
+	@restaurant = Restaurant.find(@restaurant_id)
+	return
+      end
+    rescue
+      # The return handled the base case, everything else is redirected
     end
+
+    redirect_to restaurants_url
   end
 
 end
