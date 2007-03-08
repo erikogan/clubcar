@@ -86,7 +86,7 @@ restaurants.elements.each("/WheelOYum/Destinations/Destination") do |dest|
     end
   end
 
-  r.save
+  r.save!
   byWheelID[wID] = r
   byName[name] = r
 
@@ -116,8 +116,8 @@ users.elements.each("/WheelOYum/Users/User") do |user|
 
   user = User.find_or_create_by_login(login)
   user.name = name
-  user.plain_password = login if user.password.blank?
-  user.save
+  user.plain_password_confirmation = user.plain_password = login if user.password.blank?
+  user.save!
 
   mood = Mood.find_by_user_id_and_name(user.id, "Wheel o' Yum")
   unless mood.nil?
@@ -140,7 +140,7 @@ users.elements.each("/WheelOYum/Users/User") do |user|
     mood.preferences << p
     # h[:votes] << {:restaurant => d, :vote => v}
   end
-  mood.save
+  mood.save!
 end
 
 # require 'yaml';
