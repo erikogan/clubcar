@@ -4,6 +4,10 @@ class Preference < ActiveRecord::Base
   belongs_to :vote
   #has_one :user, :through => :mood
 
+  # kept for historical reasons (db migrations need it)
+  NEUTRAL = 0
+  DEFAULT = NEUTRAL
+
   def self.missing_for(mood)
     i = 0
     defVote = Vote.default
