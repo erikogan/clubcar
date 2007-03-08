@@ -42,6 +42,7 @@ test:
 
 production:
   adapter: postgresql
-  database: clubcar_production
+  # database: clubcar_production
+  database: clubcar
   username: clubcar
-  password:
+  password: racbulc
