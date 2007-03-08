@@ -17,6 +17,9 @@ set :repository, "https://www.slackers.net/svn/erik/trunk/#{application}"
 set :deploy_to, "/var/lib/rails/clubcar"
 set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 
+# Hmm, I wonder
+set :use_sudo, false
+
 # =============================================================================
 # ROLES
 # =============================================================================
