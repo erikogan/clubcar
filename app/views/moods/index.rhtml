@@ -7,7 +7,7 @@
   </tr>
   
 <% for mood in @moods %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=link_to h(mood.name), mood_path(@user,mood) %></td>
     <td><%=h mood.order %></td>
     <td><%= link_to 'Edit', edit_mood_path(@user, mood) %></td>

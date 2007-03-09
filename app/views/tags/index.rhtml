@@ -8,7 +8,7 @@
   </tr>
   
 <% for tag in @tags %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h tag.name %></td>
     <td><%=h tag.type.name %></td>
     <td><%= link_to 'Show', tag_path(tag) %></td>

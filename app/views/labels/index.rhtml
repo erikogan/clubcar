@@ -7,7 +7,7 @@
   </tr>
   
 <% for label in @labels %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h label.restaurant.name %></td>
     <td><%=h label.tag.name %></td>
     <td><%= link_to 'Show', label_path(label.restaurant, label) %></td>

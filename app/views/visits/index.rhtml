@@ -7,7 +7,7 @@
   </tr>
   
 <% for visit in @visits %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h visit.date %></td>
     <td><%=h visit.duration %></td>
     <td><%= link_to 'Edit', edit_visit_path(@restaurant, visit) %></td>

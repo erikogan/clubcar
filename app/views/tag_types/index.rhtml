@@ -6,7 +6,7 @@
   </tr>
   
 <% for tag_type in @tag_types %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h tag_type.name %></td>
     <td><%= link_to 'Show', tag_type_path(tag_type) %></td>
     <td><%= link_to 'Edit', edit_tag_type_path(tag_type) %></td>

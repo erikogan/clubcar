@@ -7,7 +7,7 @@
   </tr>
   
 <% for vote in @votes %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h vote.name %></td>
     <td><%=h vote.value %></td>
     <td><%= link_to 'Show', vote_path(vote) %></td>

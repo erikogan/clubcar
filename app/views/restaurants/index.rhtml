@@ -6,12 +6,12 @@
     <th>Address</th>
     <th>City</th>
     <th>Distance</th>
-    <th>URL</th>
     <th>Image</th>
+    <th>URL</th>
   </tr>
   
 <% for restaurant in @restaurants %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%= link_to h(restaurant.name), restaurant_path(restaurant) %></td>
     <td><%=h restaurant.address %></td>
     <td><%=h restaurant.city %></td>

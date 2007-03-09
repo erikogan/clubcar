@@ -7,7 +7,7 @@
   </tr>
   
 <% for user in @users %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%= link_to h(user.login), user_path(user) %></td>
     <td><%=h user.name %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
