@@ -1,0 +1,6 @@
+<% unless restaurant.visits.empty? %>
+  <h2>Visits</h2>
+
+  <%= render :partial => 'visits/list', :object => restaurant.visits %>
+
+<% end %>

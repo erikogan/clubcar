@@ -1,12 +1,12 @@
-<h1>Editing visit</h1>
+<h1>Editing visit to <%= @visit.restaurant.name %></h1>
 
 <%= error_messages_for :visit %>
 
 <% tagged_form_for(:visit, :url => visit_path(@restaurant, @visit), :html => { :method => :put }) do |f| %>
-    <%= f.text_field :restaurant_id %>
+    <%= # f.text_field :restaurant_id
+	%>
     <%= f.date_select :date %>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', visit_path(@restaurant, @visit) %> |

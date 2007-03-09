@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Duration</th>
+  </tr>
+  
+<% for visit in list %>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
+    <td><%=h visit.date %></td>
+    <td><%=h visit.duration %></td>
+    <td><%= link_to 'Edit', edit_visit_path(@restaurant, visit) %></td>
+    <td><%= link_to 'Destroy', visit_path(@restaurant, visit), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
