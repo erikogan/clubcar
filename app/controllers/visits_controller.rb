@@ -5,7 +5,7 @@ class VisitsController < ApplicationController
   # GET /visits.xml
   def index
     # @visits = Visit.find(:all)
-    @visits = @restaurant.visits
+    @visits = @restaurant.visits.sort {|a,b| b.date <=> a.date }
 
     respond_to do |format|
       format.html # index.rhtml

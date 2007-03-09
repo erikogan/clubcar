@@ -6,7 +6,31 @@ class MoodsController < ApplicationController
   # GET /moods.xml
   def index
     # @moods = Mood.find_by_user_id(session[:user_id])
-    @moods = @user.moods
+    @moods = @user.moods.sort do |a,b| 
+      ao = a.order
+      bo = b.order
+      byName = false
+
+      unless ao.nil? || bo.nil?
+	orders = ao <=> bo
+	if order != 0
+	  return orders
+	else
+	  byName = true
+	end
+      end
+
+      if ( byName || (ao.nil? && bo.nil?) )
+	return a.name <=> b.name
+      end
+
+      # Only one is nil, sort the the ranked items above the unranked
+      if ao.nil?
+	return -1
+      else
+	return 1
+      end
+    end
 
     respond_to do |format|
       format.html # index.rhtml

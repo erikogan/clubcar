@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.xml
   def index
-    @restaurants = Restaurant.find(:all)
+    @restaurants = Restaurant.find(:all, :order => :name)
 
     respond_to do |format|
       format.html # index.rhtml

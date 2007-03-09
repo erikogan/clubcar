@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.xml
   def index
-    @tags = Tag.find(:all)
+    @tags = Tag.find(:all, :order => :canonical)
 
     respond_to do |format|
       format.html # index.rhtml

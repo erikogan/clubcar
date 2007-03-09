@@ -6,7 +6,7 @@ class PreferencesController < ApplicationController
   # GET /preferences
   # GET /preferences.xml
   def index
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote])
+    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote], :order => 'restaurants.name')
 
     respond_to do |format|
       format.html # index.rhtml

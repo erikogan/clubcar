@@ -5,7 +5,7 @@ class LabelsController < ApplicationController
   # GET /labels
   # GET /labels.xml
   def index
-    @labels = Label.find(:all)
+    @labels = Label.find(:all, :include => :tags, :order => 'tags.canonical')
 
     respond_to do |format|
       format.html # index.rhtml

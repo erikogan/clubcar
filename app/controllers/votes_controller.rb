@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   # GET /votes
   # GET /votes.xml
   def index
-    @votes = Vote.find(:all)
+    @votes = Vote.find(:all, :order => 'value DESC')
 
     respond_to do |format|
       format.html # index.rhtml

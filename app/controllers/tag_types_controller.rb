@@ -2,7 +2,7 @@ class TagTypesController < ApplicationController
   # GET /tag_types
   # GET /tag_types.xml
   def index
-    @tag_types = TagType.find(:all)
+    @tag_types = TagType.find(:all, :order => :id)
 
     respond_to do |format|
       format.html # index.rhtml
