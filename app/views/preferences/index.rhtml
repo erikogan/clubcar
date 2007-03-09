@@ -1,22 +1,8 @@
 <h1>Listing preferences (for <%= @mood.name %>)</h1>
 
-<table>
-  <tr>
-    <!-- th>Mood</th -->
-    <th>Restaurant</th>
-    <th>Value</th>
-  </tr>
-  
-<% for preference in @preferences %>
-  <tr class="<%= cycle('rowA', 'rowB') %>">
-    <!-- td><%=h preference.mood_id %></td -->
-    <td><%= link_to h(preference.restaurant.name), restaurant_path(preference.restaurant) %></td>
-    <td><%= h preference.vote.name %></td>
-    <td><%= link_to 'Edit', edit_preference_path(@user, @mood, preference) %></td>
-    <td><%= link_to 'Destroy', preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= link_to '(change)', change_preferences_path %>
+
+<%= render :partial => 'list', :object => @preferences %>
 
 <br />
 

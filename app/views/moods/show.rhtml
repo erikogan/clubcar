@@ -8,7 +8,10 @@
   <%=h @mood.order %>
 </p>
 
-
 <%= link_to 'Edit', edit_mood_path(@user, @mood) %> |
-<%= link_to 'Back', moods_path %> |
-<%= link_to 'Preferences', preferences_path(@user, @mood) %>
+<%= link_to 'Back', moods_path %>
+
+<h2><%= link_to 'Preferences', preferences_path(@user, @mood) %></h2>
+
+<%= render :partial => '/preferences/list', :object => @mood.preferences %>
+
