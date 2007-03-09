@@ -33,7 +33,7 @@ class VisitsController < ApplicationController
   # GET /visits/1;edit
   def edit
     # @visit = Visit.find(params[:id])
-    @visit = @restaurant.visits.find(param[:id])
+    @visit = @restaurant.visits.find(params[:id])
   end
 
   # POST /visits
