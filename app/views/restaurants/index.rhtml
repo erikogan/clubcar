@@ -6,7 +6,7 @@
     <th>Address</th>
     <th>City</th>
     <th>Distance</th>
-    <th>Image</th>
+    <!-- th>Image</th -->
     <th>URL</th>
   </tr>
   
@@ -16,7 +16,7 @@
     <td><%=h restaurant.address %></td>
     <td><%=h restaurant.city %></td>
     <td><%=h restaurant.distance %></td>
-    <td><%=h restaurant.image %></td>
+    <!-- td><%=h restaurant.image %></td -->
     <td><% unless restaurant.url.nil? || restaurant.url.empty? -%>
   <%=link_to h(restaurant.url), h(restaurant.url) -%>
   <% end -%></td>

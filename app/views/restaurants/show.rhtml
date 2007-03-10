@@ -1,3 +1,11 @@
+
+<div class="floatImg">
+  <img src="<%=@restaurant.image %>"/>
+  <div class="caption">
+    <%=h @restaurant.image %>
+  </div>
+</div>
+
 <p>
   <b>Name:</b>
   <%=h @restaurant.name %>
@@ -23,11 +31,6 @@
   <% unless @restaurant.url.nil? || @restaurant.url.empty? %>
   <%=link_to h(@restaurant.url), h(@restaurant.url) %>
   <% end %>
-</p>
-
-<p>
-  <b>Image:</b>
-  <%=h @restaurant.image %>
 </p>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |

@@ -17,7 +17,7 @@ class VisitsController < ApplicationController
   # GET /visits/1.xml
   def show
     # @visit = Visit.find(params[:id])
-    @visit = @restaurant.visits.find(param[:id])
+    @visit = @restaurant.visits.find(params[:id])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -39,13 +39,15 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.xml
   def create
+    # Postgres intervals don't like empty strings
+    params[:visit].delete(:duration) if params[:visit][:duration].blank?
     @visit = Visit.new(params[:visit])
-
+    @restaurant.visits << @visit
     respond_to do |format|
-      if @visit.save
+      if @restaurant.save
         flash[:notice] = 'Visit was successfully created.'
-        format.html { redirect_to visit_url(@visit) }
-        format.xml  { head :created, :location => visit_url(@visit) }
+        format.html { redirect_to visit_url(@restaurant, @visit) }
+        format.xml  { head :created, :location => visit_url(@restaurant, @visit) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @visit.errors.to_xml }
@@ -57,7 +59,10 @@ class VisitsController < ApplicationController
   # PUT /visits/1.xml
   def update
     # @visit = Visit.find(params[:id])
-    @visit = @restaurant.visits.find(param[:id])
+    @visit = @restaurant.visits.find(params[:id])
+
+    # Postgres intervals don't like empty strings
+    params[:visit].delete(:duration) if params[:visit][:duration].blank?
 
     respond_to do |format|
       if @visit.update_attributes(params[:visit])
@@ -79,8 +84,6 @@ class VisitsController < ApplicationController
     visit = @restaurant.visits.find(params[:id].to_i)
     visit.destroy
     @restaurant.visits.delete(visit)
-
-    @visit.destroy
 
     respond_to do |format|
       format.html { redirect_to visits_url }
