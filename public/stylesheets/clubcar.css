@@ -1,0 +1,15 @@
+
+tr.rowB {
+  background-color: #ccc;
+}
+
+.floatImg {
+  float: right;
+  width: 40%;
+  padding: 5px;
+  text-align: right;
+}
+
+/* .floatImg img { */
+/*   max-width: 40%;  */
+/* } */
