@@ -1,3 +1,5 @@
+<h1>Mood</h1>
+
 <p>
   <b>Name:</b>
   <%=h @mood.name %>
@@ -13,5 +15,5 @@
 
 <h2><%= link_to 'Preferences', preferences_path(@user, @mood) %></h2>
 
-<%= render :partial => '/preferences/list', :object => @mood.preferences %>
+<%= render :partial => '/preferences/list', :object => @mood.preferences.sort {|a,b| a.restaurant.name.casecmp(b.restaurant.name) } %>
 

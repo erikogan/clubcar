@@ -1,6 +1,9 @@
 class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.xml
+
+  before_filter :clarify_title
+
   def index
     @restaurants = Restaurant.find(:all, :order => :name)
 
@@ -15,6 +18,7 @@ class RestaurantsController < ApplicationController
   def show
     # For some reason, when I :include => :genres, it's empty
     @restaurant = Restaurant.find(params[:id], :include => [ :tags ]) #, :genres
+    @clarifyTitle = ' ' + @restaurant.name
 
     respond_to do |format|
       format.html # show.rhtml
@@ -25,17 +29,20 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @clarifyTitle = ''
   end
 
   # GET /restaurants/1;edit
   def edit
     @restaurant = Restaurant.find(params[:id])
+    @clarifyTitle = ' ' + @restaurant.name
   end
 
   # POST /restaurants
   # POST /restaurants.xml
   def create
     @restaurant = Restaurant.new(params[:restaurant])
+    @clarifyTitle = ' ' + @restaurant.name
 
     respond_to do |format|
       if @restaurant.save
@@ -53,6 +60,7 @@ class RestaurantsController < ApplicationController
   # PUT /restaurants/1.xml
   def update
     @restaurant = Restaurant.find(params[:id])
+    @clarifyTitle = ' ' + @restaurant.name
 
     respond_to do |format|
       if @restaurant.update_attributes(params[:restaurant])
@@ -70,11 +78,18 @@ class RestaurantsController < ApplicationController
   # DELETE /restaurants/1.xml
   def destroy
     @restaurant = Restaurant.find(params[:id])
+    @clarifyTitle = ' ' + @restaurant.name
     @restaurant.destroy
 
     respond_to do |format|
       format.html { redirect_to restaurants_url }
       format.xml  { head :ok }
     end
+  end
+
+private
+
+  def clarify_title
+    @clarifyTitle = 's'
   end
 end

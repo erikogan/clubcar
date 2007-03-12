@@ -1,6 +1,7 @@
 class MoodsController < ApplicationController
 
   before_filter :find_user
+  before_filter :clarify_title
 
   # GET /moods
   # GET /moods.xml
@@ -9,26 +10,18 @@ class MoodsController < ApplicationController
     @moods = @user.moods.sort do |a,b| 
       ao = a.order
       bo = b.order
-      byName = false
 
-      unless ao.nil? || bo.nil?
-	orders = ao <=> bo
-	if order != 0
-	  return orders
-	else
-	  byName = true
-	end
-      end
-
-      if ( byName || (ao.nil? && bo.nil?) )
-	return a.name <=> b.name
-      end
-
-      # Only one is nil, sort the the ranked items above the unranked
-      if ao.nil?
-	return -1
+      # This is not clearer than with explicit returns, however it
+      # doesn't throw an excpetion, either. (I need to figure out
+      # "returning" from a block)
+      if !( ao.nil? || bo.nil?)
+	ao <=> bo || a.name.casecmp(b.name)
+      elsif ao.nil? && bo.nil?
+	a.name.casecmp(b.name)
+      elsif ao.nil?
+	-1
       else
-	return 1
+	1
       end
     end
 
@@ -43,7 +36,7 @@ class MoodsController < ApplicationController
   def show
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
-
+    @clarifyTitle = ' ' + @mood.name
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @mood.to_xml }
@@ -53,18 +46,21 @@ class MoodsController < ApplicationController
   # GET /moods/new
   def new
     @mood = Mood.new
+    @clarifyTitle = ' (new)'
   end
 
   # GET /moods/1;edit
   def edit
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
+    @clarifyTitle = ' ' + @mood.name
   end
 
   # POST /moods
   # POST /moods.xml
   def create
     @mood = Mood.new(params[:mood])
+    @clarifyTitle = ' ' + @mood.name
     
     respond_to do |format|
       # if @mood.save
@@ -84,6 +80,7 @@ class MoodsController < ApplicationController
   def update
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
+    @clarifyTitle = ' ' + @mood.name
 
     respond_to do |format|
       if @mood.update_attributes(params[:mood])
@@ -103,6 +100,7 @@ class MoodsController < ApplicationController
     # @mood = Mood.find(params[:id])
     # why does only this one need the .to_i ?
     mood = @user.moods.find(params[:id].to_i)
+    @clarifyTitle = ' ' + @mood.name
     mood.destroy
     @user.moods.delete(mood)
 
@@ -128,5 +126,9 @@ private
     end
 
     redirect_to users_url
+  end
+
+  def clarify_title
+    @clarifyTitle = 's'
   end
 end

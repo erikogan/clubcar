@@ -1,11 +1,12 @@
 class LabelsController < ApplicationController
 
   before_filter :find_restaurant
+  before_filter :clarify_title
 
   # GET /labels
   # GET /labels.xml
   def index
-    @labels = Label.find(:all, :include => :tags, :order => 'tags.canonical')
+    @labels = Label.find(:all, :include => :tag, :order => 'tags.canonical')
 
     respond_to do |format|
       format.html # index.rhtml
@@ -16,7 +17,9 @@ class LabelsController < ApplicationController
   # GET /labels/1
   # GET /labels/1.xml
   def show
-    @label = Label.find(params[:id])
+    @label = Label.find(params[:id] )
+
+    @clarifyTitle += '/' + @label.tag.name
 
     respond_to do |format|
       format.html # show.rhtml
@@ -32,6 +35,7 @@ class LabelsController < ApplicationController
   # GET /labels/1;edit
   def edit
     @label = Label.find(params[:id])
+    @clarifyTitle += '/' + @label.tag.name
   end
 
   # POST /labels
@@ -55,6 +59,7 @@ class LabelsController < ApplicationController
   # PUT /labels/1.xml
   def update
     @label = Label.find(params[:id])
+    @clarifyTitle += '/' + @label.tag.name
 
     respond_to do |format|
       if @label.update_attributes(params[:label])
@@ -133,6 +138,10 @@ private
     end
 
     redirect_to restaurants_url
+  end
+
+  def clarify_title
+    @clarifyTitle = ' for ' + @restaurant.name
   end
 
 end
