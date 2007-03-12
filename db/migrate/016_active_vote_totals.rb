@@ -1,0 +1,17 @@
+class ActiveVoteTotals < ActiveRecord::Migration
+  def self.up
+execute <<EndSQL
+CREATE OR REPLACE VIEW active_vote_totals AS
+SELECT 	ap.restaurant_id,
+	sum(v.value) AS total
+FROM	active_preferences AS ap,
+	votes AS v
+WHERE	ap.vote_id = v.id
+GROUP BY restaurant_id
+EndSQL
+  end
+
+  def self.down
+    execute "DROP VIEW active_vote_totals"
+  end
+end
