@@ -116,6 +116,40 @@ class Tag < ActiveRecord::Base
     end
     return tags
   end
+
+  def self.find_scored_genres(not_in=[-1])
+    # I need to figure out how to NOT include all the columns in the GROUP BY
+    tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
+    # unfortunately, I can't use parameters
+    # return Tag.find_by_sql(<<endSQL, @@genre_type.id, not_in)
+    not_in = not_in.join ', '
+    return Tag.find_by_sql(<<endSQL)
+SELECT	t.*,
+	MIN(date_distance) AS distance,
+	SUM(total) AS score,
+	SUM(total) / count(r.*) AS score_per_restaurant
+FROM 	restaurants AS r
+LEFT JOIN restaurants_date_distance AS rdd
+	ON rdd.restaurant_id = r.id
+LEFT JOIN active_vote_totals AS avt
+	ON avt.restaurant_id = r.id,
+	labels AS l,
+	tag_types AS tt,
+	tags AS t
+--WHERE	t.type_id = ?
+--	AND t.id NOT IN ?
+WHERE	t.type_id = #{@@genre_type.id}
+	AND t.id NOT IN (#{not_in})
+	AND l.tag_id = t.id
+	AND l.restaurant_id = r.id
+-- GROUP BY t.*
+GROUP BY t.canonical, #{tCols.join(', ')}
+HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+	AND SUM(total) >= 0
+ORDER BY t.name;
+endSQL
+  end
+
 end
 
 #class Genre < Tag

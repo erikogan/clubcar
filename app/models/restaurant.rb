@@ -39,6 +39,19 @@ class Restaurant < ActiveRecord::Base
     self
   end
 
+  def self.find_all_by_tag_with_active_scores(tag)
+    find_by_sql(<<EndSQL)
+SELECT 	r.*, avt.total
+FROM	labels AS l,
+	restaurants AS r
+LEFT JOIN active_vote_totals AS avt
+	ON avt.restaurant_id = r.id
+WHERE 	l.tag_id = #{tag.id}
+	AND l.restaurant_id = r.id
+	AND (avt.total >= 0 OR avt.total IS NULL);
+EndSQL
+  end
+
   protected
 
   # ARGH! self.{tags,labels}.delete(...) violates the NOT NULL

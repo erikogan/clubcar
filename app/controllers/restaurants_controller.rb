@@ -4,6 +4,11 @@ class RestaurantsController < ApplicationController
 
   before_filter :clarify_title
 
+  # This should be configurable (note, setting this value to < 0.5 could
+  # cause collisions in the algorithm below)
+  VOTE_TO_DISTANCE_RATIO = 4.0
+
+
   def index
     @restaurants = Restaurant.find(:all, :order => :name)
 
@@ -87,9 +92,106 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  # GET /restaurants;choose
+  def choose
+    # Make everything an instance variable so we can display debugging
+    # info in the view.
+    @genre_min = Struct.new(:total, 
+		      :distance,
+		      :score).new(0)
+
+    @scored_genres = Tag.find_scored_genres
+
+    @scored_genres.inject(@genre_min) do |memo,t| 
+      ms = memo.score
+      spr = t.score_per_restaurant
+
+      # The Float.< could cause trouble
+      if (ms.nil? || !spr.nil? && spr > 0 && spr < ms)
+	memo.score = spr
+      end
+
+      md = memo.distance
+      td = t.distance.to_i
+      if (md.nil? || !td.nil? && td > 0 && td < md)
+	memo.distance = td
+      end
+
+      # "return" the memo for the next round
+      memo
+    end
+
+    @weighted_genres = @scored_genres.inject(Hash.new) do |memo, t|
+      # Every genre gets one just for showing up (zero votes is really 1 vote)
+      value = VOTE_TO_DISTANCE_RATIO
+
+      if (@genre_min.score > 0) 
+	value += VOTE_TO_DISTANCE_RATIO * 
+	  t.score_per_restaurant / @genre_min.score
+      end
+
+      if (@genre_min.distance > 0) 
+	value += t.distance.to_f / @genre_min.distance.to_f
+      end
+
+      @genre_min.total += value.round
+      memo[@genre_min.total] = t
+
+      # "return" the memo for the next round
+      memo
+    end
+
+    @genre = choose_weighted(@weighted_genres, @genre_min.total)
+
+    @scored_restaurants = Restaurant.find_all_by_tag_with_active_scores(@genre)
+
+    @restaurant_min = Struct.new(:total, :score).new(0)
+
+    @scored_restaurants.inject(@restaurant_min) do |memo, r|
+      ms = memo.score
+      rt = r.total.to_i
+
+      # The Float.> could cause trouble
+      if (ms.nil? || !rt.nil? && rt > 0 && rt < ms)
+	memo.score = rt
+      end
+
+      # "return" the memo for the next round
+      memo
+    end
+
+    @weighted_restaurants = @scored_restaurants.inject(Hash.new) do |memo,r|
+      # One for showing up
+      value = 1
+      if (@restaurant_min.score > 0)
+	value += r.total.to_f / @restaurant_min.score
+      end
+      
+      @restaurant_min.total += value.round
+      memo[@restaurant_min.total] = r
+
+      memo
+    end
+
+    @restaurant = choose_weighted(@weighted_restaurants, @restaurant_min.total)
+
+  end
+
 private
 
   def clarify_title
     @clarifyTitle = 's'
   end
+
+  def choose_weighted(h, t)
+    r = rand(t+1)
+
+    scores = h.keys.sort
+    begin 
+      test = scores.shift;
+    end while test < r
+
+    h[test]
+  end
 end
+

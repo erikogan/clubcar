@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.resources :restaurants do |restaurant|
+  map.resources :restaurants, :collection => {:choose => :get} do |restaurant|
     restaurant.resources :labels, :collection => { :change => :get, :save => :post }
     # restaurant.resources :labels  do |label|
     #   label.resources :tags
