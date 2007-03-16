@@ -1,4 +1,4 @@
-class RestaurantsDaysSinceView < ActiveRecord::Migration
+class RestaurantsDateDistance < ActiveRecord::Migration
   def self.up
 execute <<EndSQL
 CREATE OR REPLACE VIEW restaurants_date_distance AS
