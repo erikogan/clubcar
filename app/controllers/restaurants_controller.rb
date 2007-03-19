@@ -7,7 +7,9 @@ class RestaurantsController < ApplicationController
   # This should be configurable (note, setting this value to < 0.5 could
   # cause collisions in the algorithm below)
   VOTE_TO_DISTANCE_RATIO = 4.0
-
+  
+  # This, too, should be configurable
+  DISTANCE_MAX = 14 # (after two weeks, does it really matter?)
 
   def index
     @restaurants = Restaurant.find(:all, :order => :name)
@@ -130,8 +132,15 @@ class RestaurantsController < ApplicationController
 	  t.score_per_restaurant / @genre_min.score
       end
 
+      if t.distance.nil?
+	d = DISTANCE_MAX
+      else
+	d = t.distance.to_f
+	d = d > DISTANCE_MAX ? DISTANCE_MAX : d
+      end
+
       if (@genre_min.distance > 0) 
-	value += t.distance.to_f / @genre_min.distance.to_f
+	value += d / @genre_min.distance.to_f
       end
 
       @genre_min.total += value.round
@@ -164,6 +173,7 @@ class RestaurantsController < ApplicationController
       # One for showing up
       value = 1
       if (@restaurant_min.score > 0)
+	puts "Rs = #{@restaurant_min.score}\n"
 	value += r.total.to_f / @restaurant_min.score
       end
       
