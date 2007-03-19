@@ -10,6 +10,9 @@ class Restaurant < ActiveRecord::Base
   end
 
   def tags_string=(*args) 
+    # has_many :through needs real records
+    self.save if @new_record
+
     (add, del) = self.tag_delta(Tag.tag_type, self.tags, *args)
 
     # grn, zeroing foreign keys breaks NOT NULL
@@ -27,6 +30,9 @@ class Restaurant < ActiveRecord::Base
   end
 
   def genres_string=(*args) 
+    # has_many :through needs real records
+    self.save if @new_record
+
     (add, del) = self.tag_delta(Tag.genre_type, self.genres, *args)
     
     # grn, zeroing foreign keys breaks NOT NULL
