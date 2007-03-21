@@ -109,13 +109,13 @@ class RestaurantsController < ApplicationController
       spr = t.score_per_restaurant
 
       # The Float.< could cause trouble
-      if (ms.nil? || !spr.nil? && spr > 0 && spr < ms)
+      if (!spr.nil? && spr > 0 && (ms.nil? || spr < ms))
 	memo.score = spr
       end
 
       md = memo.distance
       td = t.distance.to_i
-      if (md.nil? || !td.nil? && td > 0 && td < md)
+      if (!td.nil? && td > 0 && (md.nil? || td < md))
 	memo.distance = td
       end
 
@@ -150,7 +150,9 @@ class RestaurantsController < ApplicationController
       memo
     end
 
-    @genre = choose_weighted(@weighted_genres, @genre_min.total)
+    # DEBUGGING
+    # @genre = choose_weighted(@weighted_genres, @genre_min.total)
+    @genre = Tag.find(7)
 
     @scored_restaurants = Restaurant.find_all_by_tag_with_active_scores(@genre)
 
@@ -161,7 +163,7 @@ class RestaurantsController < ApplicationController
       rt = r.total.to_i
 
       # The Float.> could cause trouble
-      if (ms.nil? || !rt.nil? && rt > 0 && rt < ms)
+      if (!rt.nil? && rt > 0 && (ms.nil? || rt < ms)) 
 	memo.score = rt
       end
 
@@ -173,7 +175,6 @@ class RestaurantsController < ApplicationController
       # One for showing up
       value = 1
       if (@restaurant_min.score > 0)
-	puts "Rs = #{@restaurant_min.score}\n"
 	value += r.total.to_f / @restaurant_min.score
       end
       
