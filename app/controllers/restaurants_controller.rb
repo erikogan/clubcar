@@ -150,9 +150,7 @@ class RestaurantsController < ApplicationController
       memo
     end
 
-    # DEBUGGING
-    # @genre = choose_weighted(@weighted_genres, @genre_min.total)
-    @genre = Tag.find(7)
+    @genre = choose_weighted(@weighted_genres, @genre_min.total)
 
     @scored_restaurants = Restaurant.find_all_by_tag_with_active_scores(@genre)
 
