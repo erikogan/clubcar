@@ -12,6 +12,11 @@ require "console_with_helpers"
 require 'rexml/document'
 include REXML # (import the namespace)
 
+# really, we're decoding XML, but it seems to use HTML Entities
+require 'htmlentities'
+
+@htmlDecoder = HTMLEntities.new
+
 $debug = false
 
 require 'optparse'
@@ -50,7 +55,7 @@ voteMap = {}
 
 def extractText(parent, name)
   el = parent.elements[name]
-  el.nil? ? "" : el.children.to_s
+  el.nil? ? "" : @htmlDecoder.decode(el.children.to_s)
 end
 
 def debug(*args)
