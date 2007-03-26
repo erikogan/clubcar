@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 <% TAG = TagType.find_by_name('Tag').id
    GENRE = TagType.find_by_name('Genre').id %>
+
 yummy:
   id: 1
   name: Yummy!
   canonical: yummy
   type_id: <%= TAG %>
+
 italian:
   id: 2
   name: Italian
