@@ -1,11 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% POSITIVE = Vote.find_by_name('Positive')
+   NEGATIVE = Vote.find_by_name('Negative') %>
+
 one:
   id: 1
   mood_id: 1
   restaurant_id: 1
-  value: 1
+  vote_id: <%= POSITIVE.id %>
+
 two:
   id: 2
   mood_id: 1
-  restaurant_id: 1
-  value: 1
+  restaurant_id: 2
+  vote_id: <%= NEGATIVE.id %>
