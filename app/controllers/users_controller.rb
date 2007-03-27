@@ -87,14 +87,13 @@ class UsersController < ApplicationController
   end
 
   def login
-    session[:user_id] = nil
-    session[:real_id] = nil
+    # CGI::Session doesn't act remotely like a hash
+    # session.delete(:user)
+    session[:user] = nil
     if request.post?
-		  
       user = User.authenticate(params[:login], params[:plain_password])
       if user
-	session[:user_id] = user.id
-	session[:real_id] = user.id
+	session[:user] = user
 	uri = session[:original_uri]
 	session[:original_uri] = nil
 	redirect_to(uri || { :action => :index })

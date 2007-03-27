@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   private
 
   def authorize 
-    unless User.find_by_id(session[:user_id])
+    # Gah! This datatype is useless!
+    # unless !session.has_key?(:user) || ...
+    unless !session[:user].nil? && session[:user].valid?
       session[:original_uri] = request.request_uri
       flash[:notice] = "Please log in"
       redirect_to(:controller => "users", :action => "login")
