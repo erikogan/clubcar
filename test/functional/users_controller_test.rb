@@ -34,9 +34,7 @@ class UsersControllerTest < Test::Unit::TestCase
     }
     user['plain_password'] = user['plain_password_confirmation'] = 'foo'
 
-    post :create, {:user => user}, { :user => users(:admin), 
-      # there's a bug in the TestSession class
-      'user' => users(:admin) }
+    post :create, {:user => user}, @session
 
     assert_equal old_count+1, User.count
     
