@@ -154,35 +154,17 @@ class RestaurantsController < ApplicationController
 
     @scored_restaurants = Restaurant.find_all_by_tag_with_active_scores(@genre)
 
-    @restaurant_min = Struct.new(:total, :score).new(0)
+    @restaurant_total = 0
 
-    @scored_restaurants.inject(@restaurant_min) do |memo, r|
-      ms = memo.score
-      rt = r.total.to_i
-
-      # The Float.> could cause trouble
-      if (!rt.nil? && rt > 0 && (ms.nil? || rt < ms)) 
-	memo.score = rt
-      end
-
-      # "return" the memo for the next round
-      memo
-    end
-
-    @weighted_restaurants = @scored_restaurants.inject(Hash.new) do |memo,r|
-      # One for showing up
-      value = 1
-      if (@restaurant_min.score > 0)
-	value += r.total.to_f / @restaurant_min.score
-      end
-      
-      @restaurant_min.total += value.round
-      memo[@restaurant_min.total] = r
+    @weighted_restaurants = @scored_restaurants.inject(Hash.new) do |memo, r|
+      # One for showing
+      @restaurant_total += 1 + r.total.to_i
+      memo[@restaurant_total] = r
 
       memo
     end
 
-    @restaurant = choose_weighted(@weighted_restaurants, @restaurant_min.total)
+    @restaurant = choose_weighted(@weighted_restaurants, @restaurant_total)
 
   end
 
