@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   # GET /users.xml
 
   before_filter :clarify_title
+  before_filter :admin_access, :except => [:index]
 
   def index
     @users = User.find(:all, :order => :login)
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
+    
     @user = User.find(params[:id])
     @clarifyTitle = ' ' + @user.name
 
@@ -104,8 +106,9 @@ class UsersController < ApplicationController
   end
 
   def logout
-    session[:user_id] = nil
-    session[:real_id] = nil
+    # CGI::Session doesn't act remotely like a hash
+    # session.delete(:user)
+    session[:user] = nil
   end
 
 private

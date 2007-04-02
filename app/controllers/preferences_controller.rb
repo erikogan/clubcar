@@ -1,5 +1,6 @@
 class PreferencesController < ApplicationController
 
+  before_filter :admin_access
   before_filter :find_user_mood
   before_filter :get_preference_values, :only => [:edit, :change]
 

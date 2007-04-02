@@ -20,4 +20,20 @@ class ApplicationController < ActionController::Base
       redirect_to(:controller => "users", :action => "login")
     end
   end
+
+  def admin_access
+    if ( params.has_key?(:user_id) )
+      id  = params[:user_id]
+    else
+      id = params[:id]
+    end
+
+    return if id.blank? || session[:user].nil? || id.to_i == session[:user].id
+
+    unless (session[:user].is_admin?) 
+      flash[:notice] = "You are not an administrator!"
+      redirect_to(:controller => "users")
+    end
+    
+  end
 end

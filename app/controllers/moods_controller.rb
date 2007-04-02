@@ -1,12 +1,12 @@
 class MoodsController < ApplicationController
 
+  before_filter :admin_access
   before_filter :find_user
   before_filter :clarify_title
 
   # GET /moods
   # GET /moods.xml
   def index
-    # @moods = Mood.find_by_user_id(session[:user_id])
     @moods = @user.moods.sort do |a,b| 
       ao = a.order
       bo = b.order
@@ -66,8 +66,8 @@ class MoodsController < ApplicationController
       # if @mood.save
       if @user.moods << @mood 
         flash[:notice] = 'Mood was successfully created.'
-        format.html { redirect_to mood_url(@mood) }
-        format.xml  { head :created, :location => mood_url(@mood) }
+        format.html { redirect_to change_preferences_url(@user, @mood) }
+        format.xml  { head :created, :location => mood_url(@user, @mood) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @mood.errors.to_xml }
@@ -85,7 +85,7 @@ class MoodsController < ApplicationController
     respond_to do |format|
       if @mood.update_attributes(params[:mood])
         flash[:notice] = 'Mood was successfully updated.'
-        format.html { redirect_to mood_url(@mood) }
+        format.html { redirect_to mood_url(@user, @mood) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -100,7 +100,7 @@ class MoodsController < ApplicationController
     # @mood = Mood.find(params[:id])
     # why does only this one need the .to_i ?
     mood = @user.moods.find(params[:id].to_i)
-    @clarifyTitle = ' ' + @mood.name
+    @clarifyTitle = ' ' + mood.name
     mood.destroy
     @user.moods.delete(mood)
 
