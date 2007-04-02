@@ -11,16 +11,17 @@ class Preference < ActiveRecord::Base
   def self.missing_for(mood)
     i = 0
     defVote = Vote.default
-    Restaurant.find(:all, :order => :name, :conditions => ["id NOT IN (?)", 
-		      mood.restaurants.collect do |r| 
-			r.id
-		      end
-		    ]).collect do |r|
+    rIDs = mood.restaurants.collect { |r| r.id }
+    # I forgot about the empty case
+    rIDs = [-1] if rIDs.empty?
+
+    Restaurant.find(:all, :order => :name, 
+		    :conditions => ["id NOT IN (?)", rIDs]).collect do |r|
 
       # since we've already done the fetches, there's no point in redoing
       # them later.
       p = Preference.new(:mood_id => mood.id, # :restaurant_id => r.id, 
-		     :vote_id => defVote.id )
+			 :vote_id => defVote.id )
       p.mood = mood
       p.restaurant = r
 
