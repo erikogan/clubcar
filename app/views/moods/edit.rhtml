@@ -2,12 +2,12 @@
 
 <%= error_messages_for :mood %>
 
-<% tagged_form_for(:mood, :url => mood_path(@mood), :html => { :method => :put }) do |f| %>
+<% tagged_form_for(:mood, :url => mood_path(@user, @mood), :html => { :method => :put }) do |f| %>
   <%= f.text_field :name %>
   <%= f.text_field :order %>
   <%= submit_tag "Update" %>
 <% end %>
 
-<%= link_to 'Show', mood_path(@mood) %> |
-<%= link_to 'Back', moods_path %> |
+<%= link_to 'Show', mood_path(@user, @mood) %> |
+<%= link_to 'Back', moods_path(@user) %> |
 <%= link_to 'Preferences', change_preferences_path(@user, @mood) %>
