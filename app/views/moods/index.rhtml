@@ -1,21 +1,4 @@
 <h1>Listing moods</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Sort order</th>
-  </tr>
-  
-<% for mood in @moods %>
-  <tr class="<%= cycle('rowA', 'rowB') %>">
-    <td><%=link_to h(mood.name), mood_path(@user,mood) %></td>
-    <td><%=h mood.order %></td>
-    <td><%= link_to 'Edit', edit_mood_path(@user, mood) %></td>
-    <td><%= link_to 'Destroy', mood_path(@user, mood), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => 'list', :object => @moods -%>
 
-<br />
-
-<%= link_to 'New mood', new_mood_path %>
