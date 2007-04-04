@@ -1,6 +1,9 @@
   <tr>
     <td><%= link_to h(row.name), mood_path(@user,row) %></td>
     <td><%= h row.order %></td>
+    <td><%= h row.active %></td>
     <td><%= link_to 'Edit', edit_mood_path(@user, row) %></td>
     <td><%= link_to 'Destroy', mood_path(@user, row), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Copy', copy_mood_path(@user, row) %></td>
+    <td><%= link_to 'Activate', activate_mood_path(@user, row), :method => :post %></td>
   </tr>

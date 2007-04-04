@@ -4,8 +4,8 @@ class MoodsController < ApplicationController
   before_filter :find_user
   before_filter :clarify_title
 
-  # GET /moods
-  # GET /moods.xml
+  # GET /users/42/moods
+  # GET /users/42/moods.xml
   def index
     @moods = @user.moods.sort do |a,b| 
       ao = a.order
@@ -31,8 +31,8 @@ class MoodsController < ApplicationController
     end
   end
 
-  # GET /moods/1
-  # GET /moods/1.xml
+  # GET /users/42/moods/1
+  # GET /users/42/moods/1.xml
   def show
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
@@ -43,21 +43,21 @@ class MoodsController < ApplicationController
     end
   end
 
-  # GET /moods/new
+  # GET /users/42/moods/new
   def new
     @mood = Mood.new
     @clarifyTitle = ' (new)'
   end
 
-  # GET /moods/1;edit
+  # GET /users/42/moods/1;edit
   def edit
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
     @clarifyTitle = ' ' + @mood.name
   end
 
-  # POST /moods
-  # POST /moods.xml
+  # POST /users/42/moods
+  # POST /users/42/moods.xml
   def create
     @mood = Mood.new(params[:mood])
     @clarifyTitle = ' ' + @mood.name
@@ -75,8 +75,8 @@ class MoodsController < ApplicationController
     end
   end
 
-  # PUT /moods/1
-  # PUT /moods/1.xml
+  # PUT /users/42/moods/1
+  # PUT /users/42/moods/1.xml
   def update
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
@@ -94,8 +94,8 @@ class MoodsController < ApplicationController
     end
   end
 
-  # DELETE /moods/1
-  # DELETE /moods/1.xml
+  # DELETE /users/42/moods/1
+  # DELETE /users/42/moods/1.xml
   def destroy
     # @mood = Mood.find(params[:id])
     # why does only this one need the .to_i ?
@@ -105,11 +105,50 @@ class MoodsController < ApplicationController
     @user.moods.delete(mood)
 
     respond_to do |format|
-      format.html { redirect_to moods_url }
+      format.html { redirect_to moods_url(@user) }
       format.xml  { head :ok }
     end
   end
 
+  # POST /users/42/moods/1;activate
+  def activate
+    @mood = @user.moods.find(params[:id])
+
+    success = true
+    begin
+      Mood.transaction do 
+	Mood.connection.update("UPDATE moods set active = false where user_id = #{@user_id}")
+	@mood.active = true
+	@mood.save!
+      end
+    rescue
+      flash[:notice] = "Failed to activate #{@mood.name}: #{$!}"
+      success = false
+    end
+    respond_to do |format|
+      format.html { redirect_to mood_url(@user,@mood) }
+      format.xml  { render :xml => @mood.errors.to_xml }
+    end
+  end
+
+  # POST /users/42/moods/1;copy
+  def copy
+    mood = @user.moods.find(params[:id])
+    @mood = Mood.new(mood.attributes)
+
+    # I'm pretty sure this is covered by the attr_protect directive, but
+    # lets be sure (tested, it is)
+    # @mood.active = false;
+    @mood.name = "#{@mood.name} (copy)"
+
+    mood.preferences.collect { |p| @mood.preferences << Preference.new(p.attributes) }
+
+    unless (@mood.save) 
+      flash[:notice] = "Can't save mood! #{@mood.errors}"
+    end
+    
+    redirect_to edit_mood_url(@user,@mood)
+  end
 private
 
   def find_user

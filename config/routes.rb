@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/users/logout', :controller => "users", :action => "logout"
   
   map.resources :users do |user|
-    user.resources :moods do |pref|
+    user.resources :moods, :member => {:activate => :post, :copy => :get } do |pref|
       pref.resources :preferences, :collection => { :change => :get, :save => :post }
     end
   end
