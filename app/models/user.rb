@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_uniqueness_of :login
 
+  attr_protected :admin
   attr_accessor :plain_password_confirmation
   
   ## this also fails when the fields are both nil, which is
