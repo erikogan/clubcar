@@ -1,62 +1,116 @@
+/* -*- tab-width: 4; c-basic-offset: 4 -*- 
+ * This file is based on Javascript originally written by Ryan Fait:
+ * http://ryanfait.com/articles/2007/01/05/custom-checkboxes-and-radio-buttons/
+ * All of the clever bits are his. All of the bugs are mine.
+ */
 document.write('<link rel="stylesheet" type="text/css" href="inputs.css" media="screen" />');
+
+var customRclass = "customRadio";
+var customCclass = "customCheckbox";
+var customSelected = "selected";
+
+var bgOffset = -43;
+
+var customClassMatch = "(" + customRclass + "|" + customCclass + ")";
+
+function customClassSelected(classString) {
+	return classString.indexOf(customSelected) >= 0;
+}
+
+function customClassToggle(classString) {
+	index = classString.indexOf(customSelected);
+	if (index < 0) {
+		// not currently selected
+		return classString + " " + customSelected;
+	} else {
+		// currently selected
+		return classString.substr(0, index-1);
+	}
+}
+
+function customClassSet(classString, value) {
+	index = classString.indexOf(customSelected);
+	if (index < 0) {
+		// not currently selected
+		if (value) {
+			return classString + " " + customSelected;
+		} else {
+			return classString;
+		}
+	} else {
+		// currently selected
+		if (value) {
+			return classString;
+		} else {
+			return classString.substr(0, index-1);
+		}
+	}
+}
 
 var Input = {
 	initialize: function() {
 		if(document.getElementsByTagName("form")) {
 			var divs = document.getElementsByTagName("div");
 			for(var i = 0; i < divs.length; i++) {
-				if(divs[i].className.match("checkbox") || divs[i].className.match("radio")) {
+				if(divs[i].className.match(customClassMatch)) {
 					divs[i].onmousedown = Input.effect;
 					divs[i].onmouseup = Input.handle;
 					window.onmouseup = Input.clear;
+					selector = divs[i].getElementsByTagName("input")[0];
+					divs[i].className = customClassSet(divs[i].className,
+													   selector.checked)
 				}
 			}
 		}
 	},
 
 	effect: function() {
-		if(this.className == "checkbox" || this.className == "radio") {
-			this.style.backgroundPosition = "0 -26px";
+		if (customClassSelected(this.className)) {
+			this.style.backgroundPosition = "0 " + (bgOffset * 3) + "px";
 		} else {
-			this.style.backgroundPosition = "0 -79px";
+			this.style.backgroundPosition = "0 " + bgOffset + "px";
 		}
 	},
 
 	handle: function() {
 		selector = this.getElementsByTagName("input")[0];
-		if(this.className == "checkbox") {
+		if (this.className.match(customCclass)) {
+			if (customClassSelected(this.className)) {
+				selector.checked = false;
+			} else {
+				selector.checked = true;
+			}
+			this.className = customClassToggle(this.className);
+		} else if (this.className.match(customRclass)) {
 			selector.checked = true;
-			this.className = "checkbox selected";
-			this.style.backgroundPosition = "0 -52px";
-		} else if(this.className == "checkbox selected") {
-			selector.checked = false;
-			this.className = "checkbox";
-			this.style.backgroundPosition = "0 0";
-		} else {
-			selector.checked = true;
-			this.className = "radio selected";
-			this.style.backgroundPosition = "0 -52px";
+			this.className = customClassSet(this.className, true);
+			this.style.backgroundPosition = "0 " + (bgOffset * 2) + "px";
 			inputs = document.getElementsByTagName("input");
 			for(i = 0; i < inputs.length; i++) {
-				if(inputs[i].getAttribute("name") == selector.getAttribute("name")) {
-					if(inputs[i] != selector) {
-						inputs[i].parentNode.className = "radio";
-						inputs[i].parentNode.style.backgroundPosition = "0 0";
-					}
+				if(inputs[i].getAttribute("name")
+				   == selector.getAttribute("name")
+				   && inputs[i] != selector) {
+					p = inputs[i].parentNode;
+					p.className = customClassSet(p.className, false);
+					p.style.backgroundPosition = "0 0";
 				}
 			}
-		}
+		} // else { // this should never happen }
 	},
 
 	clear: function() {
 		divs = document.getElementsByTagName("div");
 		for(var i = 0; i < divs.length; i++) {
-			if(divs[i].className == "checkbox" || divs[i].className == "radio") {
-				divs[i].style.backgroundPosition = "0 0";
-			} else if(divs[i].className == "checkbox selected" || divs[i].className == "radio selected") {
-				divs[i].style.backgroundPosition = "0 -52px";
+			if (divs[i].className.match(customClassMatch)) {
+				if(customClassSelected(divs[i].className)) {
+					divs[i].style.backgroundPosition = "0 "
+						+ (bgOffset * 2) + "px";
+				} else {
+					divs[i].style.backgroundPosition = "0 0";
+				}
 			}
 		}
 	}
 }
+
 window.onload = Input.initialize;
