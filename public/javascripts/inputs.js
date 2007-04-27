@@ -56,11 +56,15 @@ var Input = {
 					divs[i].onmousedown = Input.effect;
 					divs[i].onmouseup = Input.handle;
 					window.onmouseup = Input.clear;
+					// set the initial values
 					selector = divs[i].getElementsByTagName("input")[0];
 					divs[i].className = customClassSet(divs[i].className,
 													   selector.checked)
 				}
 			}
+			// Now that we've reset the classes for initial values, fix
+			// the background offsets
+			Input.clear()
 		}
 	},
 
@@ -85,7 +89,14 @@ var Input = {
 			selector.checked = true;
 			this.className = customClassSet(this.className, true);
 			this.style.backgroundPosition = "0 " + (bgOffset * 2) + "px";
-			inputs = document.getElementsByTagName("input");
+
+			/* If we assume radio button groups all have the same
+			   parent, we don't need to loop over all the inputs on a
+			   page, which is really slowing down my pages with
+			   hundreds.
+			*/
+			//inputs = document.getElementsByTagName("input");
+			inputs = this.parentNode.getElementsByTagName("input");
 			for(i = 0; i < inputs.length; i++) {
 				if(inputs[i].getAttribute("name")
 				   == selector.getAttribute("name")
