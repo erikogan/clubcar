@@ -5,7 +5,7 @@
   values = vote_buttons[2]
 
     for v in values -%>
-  <div class="voteRadio vote<%= v[0] %>">
+  <div class="customRadio vote<%= v[0] %>">
     <%= radio_button("#{name}[]", :vote_id, v[2]) %><label for="<%= "#{name}[#{obj.id}][vote_id]" %>" class="radioLabel"><%= v[0] %></label>
   </div>
 <% end -%>
