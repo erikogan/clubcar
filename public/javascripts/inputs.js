@@ -3,7 +3,7 @@
  * http://ryanfait.com/articles/2007/01/05/custom-checkboxes-and-radio-buttons/
  * All of the clever bits are his. All of the bugs are mine.
  */
-document.write('<link rel="stylesheet" type="text/css" href="inputs.css" media="screen" />');
+document.write('<link rel="stylesheet" type="text/css" href="/stylesheets/inputs.css" media="screen" />');
 
 var customRclass = "customRadio";
 var customCclass = "customCheckbox";
