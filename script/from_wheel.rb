@@ -46,12 +46,7 @@ end
 
 byWheelID = {}
 byName = {}
-
-# # Rails & REXML don't get along (I think they both modify Array), so just to the XML first
-# r = []
-
 voteMap = {}
-  
 
 def extractText(parent, name)
   el = parent.elements[name]
@@ -94,13 +89,6 @@ restaurants.elements.each("/WheelOYum/Destinations/Destination") do |dest|
   r.save!
   byWheelID[wID] = r
   byName[name] = r
-
-#   r << {
-#     :wID => wID, 
-#     :name => name,
-#     :town => town,
-#     :url => url
-#   }
 end
 
 exit if users.nil?
@@ -116,10 +104,6 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   active = false;
 
   debug "User: #{login} - #{name}"
-
-#   h = {:login => login, :name => name}
-#   u << h
-#   h[:votes] = []
 
   user = User.find_or_create_by_login(login)
   user.name = name
@@ -146,7 +130,6 @@ users.elements.each("/WheelOYum/Users/User") do |user|
     debug "-- #{v.name} / #{byWheelID[d].name }"
     p = Preference.new(:restaurant => byWheelID[d], :vote => v)
     mood.preferences << p
-    # h[:votes] << {:restaurant => d, :vote => v}
   end
 
   test = Mood.find_by_user_id_and_active(user.id,true)
@@ -158,8 +141,4 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   mood.active = active
   mood.save!
 end
-
-# require 'yaml';
-# 
-# print YAML::dump({:restaurants => r, :users => u})
 
