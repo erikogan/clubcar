@@ -113,6 +113,8 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   name = extractText(inner,"Name")
   login = extractText(user,"LoginName")
 
+  active = false;
+
   debug "User: #{login} - #{name}"
 
 #   h = {:login => login, :name => name}
@@ -126,6 +128,7 @@ users.elements.each("/WheelOYum/Users/User") do |user|
 
   mood = Mood.find_by_user_id_and_name(user.id, "Wheel o' Yum")
   unless mood.nil?
+    active = mood.active
     mood.destroy
     debug "  Removing old mood"
   end
@@ -145,6 +148,14 @@ users.elements.each("/WheelOYum/Users/User") do |user|
     mood.preferences << p
     # h[:votes] << {:restaurant => d, :vote => v}
   end
+
+  test = Mood.find_by_user_id_and_active(user.id,true)
+
+  if (test.nil?) 
+    active = true
+  end
+
+  mood.active = active
   mood.save!
 end
 
