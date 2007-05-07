@@ -88,6 +88,22 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/1;activate
+  def activate
+    @user = User.find(params[:id])
+    @user.present = true;
+    @user.save
+    redirect_to(url_for(:action => :show, :id => @user.id))
+  end
+
+  # POST /users/1;deactivate
+  def deactivate
+    @user = User.find(params[:id])
+    @user.present = false;
+    @user.save
+    redirect_to(url_for(:action => :show, :id => @user.id))
+  end
+
   def login
     # CGI::Session doesn't act remotely like a hash
     # session.delete(:user)
