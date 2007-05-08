@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+default_domain = 'cloudshield.com'
+
 # So I have access to the models
 ENV['RAILS_ENV'] = 'development' # parameterize this once it works
 require File.dirname(__FILE__) + '/../config/boot'
@@ -108,6 +110,12 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   user = User.find_or_create_by_login(login)
   user.name = name
   user.plain_password_confirmation = user.plain_password = login if user.password.blank?
+
+  if user.email.nil?
+    # we should probably throw an exception rather than potentially
+    # allow two users with the same email
+    user.email = Email.find_or_initialize_by_email("#{login}@#{default_domain}")
+  end
   user.save!
 
   mood = Mood.find_by_user_id_and_name(user.id, "Wheel o' Yum")
@@ -141,4 +149,3 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   mood.active = active
   mood.save!
 end
-

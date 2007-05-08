@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   # I don't think this relationship is actually meaningful 
   # has_many :preferences, :through => :moods
 
+  # for now, 1-1, eventually 1-many
+  has_one :email
+
   validates_presence_of :login
   validates_uniqueness_of :login
 
