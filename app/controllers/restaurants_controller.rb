@@ -98,13 +98,42 @@ class RestaurantsController < ApplicationController
   def choose
     # Make everything an instance variable so we can display debugging
     # info in the view.
-    @genre_min = Struct.new(:total, 
-		      :distance,
-		      :score).new(0)
-
     @scored_genres = Tag.find_scored_genres
 
-    @scored_genres.inject(@genre_min) do |memo,t| 
+    @choices = Array.new;
+
+    0.upto(1) do |i|
+      @choices[i] = Hash.new;
+      @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
+      @choices[i]['scored_genres'] = Array.new(@scored_genres)
+      @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
+      @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
+    end
+  end
+
+  private
+
+  def clarify_title
+    @clarifyTitle = 's'
+  end
+
+  def choose_weighted(h, t)
+    r = rand(t+1)
+
+    scores = h.keys.sort
+    begin 
+      test = scores.shift;
+    end while test < r
+
+    h[test]
+  end
+
+  def choose_scored_genre(scored_genres, debugH) 
+    debugH['genre_min'] = Struct.new(:total, 
+				     :distance,
+				     :score).new(0)
+
+    scored_genres.inject(debugH['genre_min']) do |memo,t| 
       ms = memo.score
       spr = t.score_per_restaurant
 
@@ -123,13 +152,13 @@ class RestaurantsController < ApplicationController
       memo
     end
 
-    @weighted_genres = @scored_genres.inject(Hash.new) do |memo, t|
+    debugH['weighted_genres'] = scored_genres.inject(Hash.new) do |memo, t|
       # Every genre gets one just for showing up (zero votes is really 1 vote)
       value = VOTE_TO_DISTANCE_RATIO
 
-      if (@genre_min.score > 0) 
+      if (debugH['genre_min'].score > 0) 
 	value += VOTE_TO_DISTANCE_RATIO * 
-	  t.score_per_restaurant / @genre_min.score
+	  t.score_per_restaurant / debugH['genre_min'].score
       end
 
       if t.distance.nil?
@@ -139,50 +168,36 @@ class RestaurantsController < ApplicationController
 	d = d > DISTANCE_MAX ? DISTANCE_MAX : d
       end
 
-      if (@genre_min.distance > 0) 
-	value += d / @genre_min.distance.to_f
+      if (debugH['genre_min'].distance > 0) 
+	value += d / debugH['genre_min'].distance.to_f
       end
 
-      @genre_min.total += value.round
-      memo[@genre_min.total] = t
+      debugH['genre_min'].total += value.round
+      memo[debugH['genre_min'].total] = t
 
       # "return" the memo for the next round
       memo
     end
 
-    @genre = choose_weighted(@weighted_genres, @genre_min.total)
+    return choose_weighted(debugH['weighted_genres'], debugH['genre_min'].total)
+  end
 
-    @scored_restaurants = Restaurant.find_all_by_tag_with_active_scores(@genre)
+  def choose_restaurant(genre, debugH) 
+    debugH['scored_restaurants'] = Restaurant.find_all_by_tag_with_active_scores(genre)
 
-    @restaurant_total = 0
+    debugH['restaurant_total'] = 0
 
-    @weighted_restaurants = @scored_restaurants.inject(Hash.new) do |memo, r|
+    debugH['weighted_restaurants'] = debugH['scored_restaurants'].inject(Hash.new) do |memo, r|
       # One for showing
-      @restaurant_total += 1 + r.total.to_i
-      memo[@restaurant_total] = r
+      debugH['restaurant_total'] += 1 + r.total.to_i
+      memo[debugH['restaurant_total']] = r
 
       memo
     end
 
-    @restaurant = choose_weighted(@weighted_restaurants, @restaurant_total)
+    debugH['restaurant'] = choose_weighted(debugH['weighted_restaurants'], debugH['restaurant_total'])
 
   end
 
-private
-
-  def clarify_title
-    @clarifyTitle = 's'
-  end
-
-  def choose_weighted(h, t)
-    r = rand(t+1)
-
-    scores = h.keys.sort
-    begin 
-      test = scores.shift;
-    end while test < r
-
-    h[test]
-  end
 end
 

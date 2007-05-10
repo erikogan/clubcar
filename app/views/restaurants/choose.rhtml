@@ -1,9 +1,15 @@
-    <h1>Choosing a Restaurant</h1>
+<h1>Choosing Restaurants</h1>
 
-    <h2>Choosing a Genre</h2>
+<%
+    i = 0;
+    @choices.each do |choice|
+    i += 1
+    -%>
+    <h2>Choice #<%= i %></h2>
 
+    <h3>Choosing a Genre</h3>
 
-    <h3>Scored Genres</h3>
+    <h4>Scored Genres</h4>
 
     <table>
       <thead>
@@ -15,7 +21,7 @@
 	</tr>
       </thead>
       <tbody>
-	<% for genre in @scored_genres %>
+	<% for genre in choice['scored_genres'] %>
 	<tr class="<%= cycle('rowA', 'rowB') %>">
 	  <td><%= link_to h(genre.name), tag_path(genre) %></td>
 	  <td><%= h genre.distance %></td>
@@ -36,10 +42,10 @@
 	</tr>
       </thead>
       <tbody>
-	<% last = 0 ; for k in @weighted_genres.keys.sort %>
+	<% last = 0 ; for k in choice['weighted_genres'].keys.sort %>
 	<tr class="<%= cycle('rowA', 'rowB') %>">
 	  <td><%= k - last %></td>
-	  <td><%= link_to h(@weighted_genres[k].name), tag_path(@weighted_genres[k]) %></td>
+	  <td><%= link_to h(choice['weighted_genres'][k].name), tag_path(choice['weighted_genres'][k]) %></td>
 	</tr>
 	<% last = k %>
 	<% end %>
@@ -48,7 +54,7 @@
 
     <h3>Choice</h3>
 
-    <div class="choice"><%= link_to h(@genre.name), tag_path(genre) %></div>
+    <div class="choice"><%= link_to h(choice['genre'].name), tag_path(choice['genre']) %></div>
 
     <h2>Selecting A Restaurant</h2>
 
@@ -62,7 +68,7 @@
 	</tr>
       </thead>
       <tbody>
-	<% for r in @scored_restaurants %>
+	<% for r in choice['scored_restaurants'] %>
 	<tr class="<%= cycle('rowA', 'rowB') %>">
 	  <td><%= link_to h(r.name), restaurant_path(r) %></td>
 	  <td><%= h r.total %></td>
@@ -81,10 +87,10 @@
 	</tr>
       </thead>
       <tbody>
-	<% last = 0 ; for k in @weighted_restaurants.keys.sort %>
+	<% last = 0 ; for k in choice['weighted_restaurants'].keys.sort %>
 	<tr class="<%= cycle('rowA', 'rowB') %>">
 	  <td><%= k - last %></td>
-	  <td><%= link_to h(@weighted_restaurants[k].name), restaurant_path(@weighted_restaurants[k]) %></td>
+	  <td><%= link_to h(choice['weighted_restaurants'][k].name), restaurant_path(choice['weighted_restaurants'][k]) %></td>
 	</tr>
 	<% last = k %>
 	<% end %>
@@ -93,6 +99,6 @@
 
     <h3>Choice</h3>
 
-    <div class="choice"><%= link_to h(@restaurant.name), restaurant_path(@restaurant) %></div>
+    <div class="choice"><%= link_to h(choice['restaurant'].name), restaurant_path(choice['restaurant']) %></div>
 
-    
+<% end -%>
