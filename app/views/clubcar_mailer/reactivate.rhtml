@@ -1,0 +1,12 @@
+Dear <%= @user.name %>,
+
+Your voice is not currently included in the next decision about lunch.
+If you would like change that, you should visit:
+
+<% # Hardcode this for now -%>
+http://eogan.usr.cloudshield.com:3000/
+
+Your currently active mood is: "<%= @user.moods.find_by_active(true).name %>"
+(You can chaange that at the same time)
+
+The Clubcar Admins

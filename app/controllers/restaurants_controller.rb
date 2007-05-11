@@ -96,6 +96,25 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants;choose
   def choose
+    make_choices()
+  end
+
+  def mail_choices
+    make_choices()
+    
+    email = ClubcarMailer.create_decision(@choices) 
+    ClubcarMailer.deliver(email)
+    render(:text => "<pre>" + email.encoded + "</pre>") 
+  end
+
+  private
+
+  def clarify_title
+    @clarifyTitle = 's'
+  end
+
+
+  def make_choices
     # Make everything an instance variable so we can display debugging
     # info in the view.
     @scored_genres = Tag.find_scored_genres
@@ -109,12 +128,6 @@ class RestaurantsController < ApplicationController
       @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
       @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
     end
-  end
-
-  private
-
-  def clarify_title
-    @clarifyTitle = 's'
   end
 
   def choose_weighted(h, t)

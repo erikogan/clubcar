@@ -1,0 +1,17 @@
+Dear Lunchers:
+
+Today's recommendations for lunch are:
+
+<%
+  @choices.each do |c|
+    r = c['restaurant']
+    g = c['genre']
+  -%>
+<%= # sprintf('%-10$s | %-15$s | %-30$s | %s', g.name, r.name, r.address, r.city)
+  sprintf ('%-15.15s | %-25.25s | %-30.30s | %s', g.name, r.name, r.address, r.city)
+  %>
+<% end -%>
+
+Thank you.
+
+The Clubcar management
