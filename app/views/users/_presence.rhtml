@@ -1,6 +1,6 @@
 <%
-  current = presence.present ? "present" : "not present"
-  action = presence.present ? "deactivate" : "activate"
+  current = (presence.present?) ? "present" : "not present"
+  action = (presence.present?) ? "deactivate" : "activate"
 -%>
 
 <p>User <%= presence.name %> is currently: <strong><%= current %></strong>: <%= link_to action, {:controller => :users, :action => action, :id => presence.id}, :method => :post %></p>
