@@ -63,4 +63,7 @@ class UsersControllerTest < Test::Unit::TestCase
     
     assert_redirected_to users_path
   end
+
+  def test_should_logout
+  end
 end

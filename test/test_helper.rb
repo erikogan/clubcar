@@ -25,4 +25,13 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
+
+  def self.logged_in_session
+  fixtures :users
+    # there's a bug in the TestSession class, :user isn't found
+    return { :user => users(:admin), 'user' => users(:admin) }
+
+    # (and that should be a singleton, rather than returning a new Hash
+    # object every time)
+  end
 end
