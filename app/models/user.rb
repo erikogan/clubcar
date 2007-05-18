@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # has_many :preferences, :through => :moods
 
   # for now, 1-1, eventually 1-many
-  has_one :email
+  has_many :emails
 
   validates_presence_of :login
   validates_uniqueness_of :login

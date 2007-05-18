@@ -1,15 +1,6 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env script/runner
 
 default_domain = 'cloudshield.com'
-
-# So I have access to the models
-ENV['RAILS_ENV'] = 'development' # parameterize this once it works
-require File.dirname(__FILE__) + '/../config/boot'
-require "#{RAILS_ROOT}/config/environment"
-require "console_app"
-#until it works
-#require "console_sandbox" #if options[:sandbox]
-require "console_with_helpers"
 
 require 'rexml/document'
 include REXML # (import the namespace)
@@ -111,10 +102,10 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   user.name = name
   user.plain_password_confirmation = user.plain_password = login if user.password.blank?
 
-  if user.email.nil?
+  if user.emails.length == 0
     # we should probably throw an exception rather than potentially
     # allow two users with the same email
-    user.email = Email.find_or_initialize_by_email("#{login}@#{default_domain}")
+    user.emails << Email.find_or_initialize_by_email("#{login}@#{default_domain}")
   end
   user.save!
 
