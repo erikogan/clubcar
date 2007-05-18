@@ -1,7 +1,7 @@
   <h1>Preferences for <%= @mood.name %></h1>
 
+  <%= error_messages_for :preference %>
   <%= error_messages_for :mood %>
-
 
   <% form_tag :action => :save do %>
   <table>
