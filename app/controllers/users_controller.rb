@@ -110,6 +110,7 @@ class UsersController < ApplicationController
     session[:user] = nil
     if request.post?
       user = User.authenticate(params[:login], params[:plain_password])
+
       if user
 	session[:user] = user
 	uri = session[:original_uri]

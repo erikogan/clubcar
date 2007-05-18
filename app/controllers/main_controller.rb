@@ -9,15 +9,15 @@ class MainController < ApplicationController
 
 
   def mail_warnings
-    users = User.find_all_by_present(false)
+    users = User.find_all_by_present(false, :include => :email)
     text = "<pre>\n"
     users.each do |u|
       email = ClubcarMailer.create_reactivate(u)
       ClubcarMailer.deliver(email)
-      text += email.encoded + "\n--------------------------------------------------------------\n"
+      puts "QUEUE: #{u.email.email}"
     end
     
-    render(:text => text + "\n</pre>")
+    #render(:text => text + "\n</pre>")
   end
 
   def inform_user
