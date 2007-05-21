@@ -1,4 +1,4 @@
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%= link_to h(row.name), mood_path(@user,row) %></td>
     <td><%= h row.order %></td>
     <td><%= h row.active %></td>

@@ -6,7 +6,7 @@
   </tr>
   
 <% for email in @emails %>
-  <tr>
+  <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h email.address %></td>
     <td><%= link_to 'Show', email_path(@user, email) %></td>
     <td><%= link_to 'Edit', edit_email_path(@user, email) %></td>
