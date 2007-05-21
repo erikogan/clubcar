@@ -5,7 +5,7 @@ class EmailsController < ApplicationController
   # GET /emails
   # GET /emails.xml
   def index
-    @emails = @user.emails.sort { |a,b| a.email <=> b.email }
+    @emails = @user.emails.sort { |a,b| a.address <=> b.address }
 
     respond_to do |format|
       format.html # index.rhtml

@@ -5,7 +5,7 @@ FROM_ADDRESS = 'clubcar@eogan.usr.cloudshield.com'
   def reactivate(user)
     @subject    = '[clubcar] Lunch today?'
     @body       = {:user => user}
-    @recipients = user.emails.email
+    @recipients = user.emails[0].address
     @from       = FROM_ADDRESS
     @sent_on    = Time.now
     @headers    = {}
@@ -18,7 +18,7 @@ FROM_ADDRESS = 'clubcar@eogan.usr.cloudshield.com'
 
     @subject    = '[clubcar] Today\'s Suggestions'
     @body       = {:choices => choices }
-    @recipients = users.map { |u| u.emails.email }
+    @recipients = users.map { |u| u.emails[0].address }
     @from       = FROM_ADDRESS
     @sent_on    = Time.now
     @headers    = {}

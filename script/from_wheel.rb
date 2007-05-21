@@ -105,7 +105,7 @@ users.elements.each("/WheelOYum/Users/User") do |user|
   if user.emails.length == 0
     # we should probably throw an exception rather than potentially
     # allow two users with the same email
-    user.emails << Email.find_or_initialize_by_email("#{login}@#{default_domain}")
+    user.emails << Email.find_or_initialize_by_address("#{login}@#{default_domain}")
   end
   user.save!
 

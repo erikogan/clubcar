@@ -3,7 +3,7 @@
 <%= error_messages_for :email %>
 
 <% tagged_form_for(:email, :url => emails_path) do |f| %>
-    <%= f.text_field :email %>
+    <%= f.text_field :address %>
     <%= submit_tag "Create" %>
 <% end %>
 
