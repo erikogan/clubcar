@@ -97,30 +97,68 @@ class PreferencesController < ApplicationController
   # POST /preferences;save
   def save
     updated = false;
-
-    if params.has_key?(:new) 
-      # Turn params[new] into an array of hashes (from a hash of hashes)
-      # (I suspect there's an easier way to do this)
-      create = Array.new
-      params[:new].keys.sort_by {|a| a.to_i}.collect do |k|
-	create.push(params[:new][k])
-      end
-      updated = true if Preference.create(create)
-    end
     
-    if params.has_key?(:preference)
-      updated = true if
-	Preference.update(params[:preference].keys,params[:preference].values)
+    # I think the easiest thing to do is to make this empty
+    @missing = Array.new
+
+    # [xxx erik] While the Preference.{create,update} taking two arrays
+    # is handy, it doesn't keep @mood up to date, and since we may be
+    # rendering again with error messages, that's a UX nightmare
+    fromParams = Array.new
+
+    if (params.has_key?(:new))
+      params[:new].each { |k, v| fromParams.push(Preference.new(v)) }
+      updated = true
     end
 
-      if updated
-        flash[:notice] = 'Preferences successfully updated.'
+    begin
+      Preference.transaction do
+	if (params.has_key?(:preference))
+	  # this is a bit trickier, I think this is the most efficient
+	  # route (assuming most of the preferences are in the params)
+	  # also moving this insde the transaction, in case things get
+	  # saved (which they shouldn't)
+	  @mood.preferences.each do |p|
+	    # WTF? No "has_key"
+	    #if (params[:preference].has_key(p.id.to_s))
+	    unless(params[:preference][p.id.to_s].nil?)
+	      p.vote_id = params[:preference][p.id.to_s][:vote_id]
+	      # fromParams.push(p)
+	    end
+	    updated = true
+	  end
+	end
+	
+	# This definitely causes database inserts
+	@mood.preferences << fromParams
+
+	@mood.save!
+	#raise @mood.valid? + @mood.errors.full_messages.join("<br/>")
+
+	# I think this needs to be explicit, since we didn't change
+	# these via the normal interfaces
+	@mood.preferences.each {|p| p.save! }
+
+	if updated
+	  flash[:notice] = 'Preferences successfully updated.'
+	end
       end
-
-    respond_to do |format|
-        format.html { redirect_to change_preferences_url(@user_id,@mood_id) }
-        format.xml  { head :ok }
+    rescue Exception => e
+      @preferences = @mood.preferences.sort_by { |p| p.restaurant.name }
+      # Only do this if you need to
+      get_preference_values
+      respond_to do |format|
+	# flash[:notice] = e.message
+	format.html { render :action => "change" }
+	format.xml { render :xml => @mood.errors.to_xml }
+      end
+    else
+      respond_to do |format|
+	format.html { redirect_to change_preferences_url(@user_id,@mood_id) }
+	format.xml  { head :ok }
+      end
     end
+
   end
 
 private
