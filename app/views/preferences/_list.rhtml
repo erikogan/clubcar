@@ -9,7 +9,11 @@
   <tr class="<%= cycle('rowA', 'rowB') %>">
     <!-- td><%=h preference.mood_id %></td -->
     <td><%= link_to h(preference.restaurant.name), restaurant_path(preference.restaurant) %></td>
-    <td><%= h preference.vote.name %></td>
+      <td>
+	<div class="customRadio display vote<%=preference.vote.name %>">
+	  <span><%= h preference.vote.name %></span>
+	</div>
+      </td>
     <td><%= link_to 'Edit', edit_preference_path(@user, @mood, preference) %></td>
     <td><%= link_to 'Destroy', preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

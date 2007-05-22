@@ -22,6 +22,14 @@
   background-image: url(../images/vote_veto.png)
 }
 
-div.customRadio label {
+div.customRadio label, div.customRadio span { 
   display: none;
+}
+
+div.customRadio.display {
+  background-position: 0 -86px;
+}
+
+td.bigger {
+  height: 27px;
 }
