@@ -1,4 +1,8 @@
+<div id="moodList">
 <% unless list.empty? -%>
+<% form_remote_tag :url => { :controller => :moods, :action => :list_activate } do %>
+<% # This is being ignored in the XHR URL, I'm guessing it doesn't merge GET & POST options -%>
+<%= hidden_field_tag(:user_id, @user.id) %>
   <table class="moods">
     <thead>
       <th>Name</th>
@@ -7,12 +11,13 @@
       <th>Edit</th>
       <th>Destroy</th>
       <th>Copy</th>
-      <th>Activate</th>
     </thead>
     <tbody>
       <%= render :partial => '/moods/row', :collection => list -%>
     </tbody>
   </table>
 <% end -%>
+<% end -%>
 
 <%= link_to 'New mood', new_mood_path(@user) %>
+</div>

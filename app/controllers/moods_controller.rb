@@ -125,6 +125,23 @@ class MoodsController < ApplicationController
     end
   end
 
+  # POST /users/42/moods;list_activate
+  def list_activate
+    begin
+      # if more than one mood is activated, only one is actually
+      # activated, non-deterministically
+      mood_id = params[:activate].keys[0].to_i
+      @mood = @user.moods.find(mood_id)
+      @mood.activate
+      # graceful degredation
+      redirect_to :action => :index unless request.xhr?
+    rescue ActiveRecord::RecordNotFound => rnf
+      logger.fatal("Attempt to access invalid mood [#{mood_id}] " +
+		   "for user [#{@user.id}]")
+      redirect_to moods_url(@user)
+    end
+  end
+
   # POST /users/42/moods/1;copy
   def copy
     mood = @user.moods.find(params[:id])

@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users, :member => {:activate => :post, :deactivate => :post} do |user|
     user.resources :emails
-    user.resources :moods, :member => {:activate => :post, :copy => :get } do |pref|
+    user.resources :moods, :member => {:activate => :post, :copy => :get }, :collection => { :list_activate => :any}  do |pref|
       pref.resources :preferences, :collection => { :change => :get, :save => :post }
     end
   end
