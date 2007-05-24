@@ -114,16 +114,10 @@ class MoodsController < ApplicationController
   def activate
     @mood = @user.moods.find(params[:id])
 
-    success = true
     begin
-      Mood.transaction do 
-	Mood.connection.update("UPDATE moods set active = false where user_id = #{@user_id}")
-	@mood.active = true
-	@mood.save!
-      end
-    rescue
-      flash[:notice] = "Failed to activate #{@mood.name}: #{$!}"
-      success = false
+      @mood.activate
+    rescue Exception => e
+      flash[:notice] = "Failed to activate #{@mood.name}: #{$!} (#{e.message})"
     end
     respond_to do |format|
       format.html { redirect_to mood_url(@user,@mood) }

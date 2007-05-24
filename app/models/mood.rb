@@ -18,4 +18,12 @@ class Mood < ActiveRecord::Base
     end
   end
 
+  def activate
+    Mood.transaction do 
+      Mood.connection.update("UPDATE moods set active = false where user_id = #{self.user_id}")
+      self.active = true
+      self.save!
+    end
+  end
+
 end
