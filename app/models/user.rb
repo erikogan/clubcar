@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class User < ActiveRecord::Base
-  has_many :moods
+  has_many :moods, :order => 'moods.order, moods.name'
   # I don't think this relationship is actually meaningful 
   # has_many :preferences, :through => :moods
 
