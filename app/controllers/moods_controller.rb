@@ -130,7 +130,13 @@ class MoodsController < ApplicationController
     begin
       # if more than one mood is activated, only one is actually
       # activated, non-deterministically
-      mood_id = params[:activate].keys[0].to_i
+      if (request.xhr?) 
+	# The Prototype Form.serialize doesn't DtRT with image inputs.
+	# Faking it with a hidden field update on click
+	mood_id = params[:activate_input].to_i
+      else
+	mood_id = params[:activate].keys[0].to_i
+      end
       @mood = @user.moods.find(mood_id)
       @mood.activate
       # graceful degredation

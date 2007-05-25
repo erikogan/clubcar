@@ -4,7 +4,7 @@
     <td><% if row.active -%>
       <img src="<%= image_path('checked') %>"/>
 	<% else -%>
-      <%= image_submit_tag 'unchecked', {:alt => 'Current Mood', :name => 'activate[' + row.id.to_s + ']'} %>
+      <%= image_submit_tag 'unchecked', {:alt => 'Set Current Mood to ' + row.name, :name => 'activate[' + row.id.to_s + ']', :onclick => "this.form.activate_input.value = #{row.id};"} %>
 	<% end -%>
     </td>
     

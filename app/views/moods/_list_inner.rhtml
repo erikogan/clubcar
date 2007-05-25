@@ -1,0 +1,23 @@
+<% unless list_inner.empty? -%>
+  <% form_remote_tag :url => { :controller => :moods, :action => :list_activate } do %>
+
+    <% # This is being ignored in the XHR URL, I'm guessing it doesn't
+       # merge GET & POST options -%>
+    <%= hidden_field_tag(:user_id, @user.id) %>
+    <!-- The Prototype Form.serialize doesn't DtRT for image inputs. Fake it with this -->
+    <%= hidden_field_tag(:activate_input, -1) %>
+  <table class="moods">
+    <thead>
+      <th>Name</th>
+      <th>Sort Order</th>
+      <th>Active</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+      <th>Copy</th>
+    </thead>
+    <tbody>
+      <%= render :partial => '/moods/row', :collection => list_inner -%>
+    </tbody>
+  </table>
+  <% end -%>
+<% end -%>
