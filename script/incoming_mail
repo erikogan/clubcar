@@ -1,0 +1,11 @@
+#!/bin/sh
+
+scriptdir=`dirname $0`
+basedir=`dirname $scriptdir`
+
+#echo "S: $scriptdir"
+#echo "B: $basedir"
+
+cd $basedir
+
+exec ruby $scriptdir/runner 'ClubcarMailer.receive(STDIN.read)'

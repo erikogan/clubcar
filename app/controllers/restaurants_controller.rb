@@ -145,7 +145,7 @@ class RestaurantsController < ApplicationController
   def choose_scored_genre(scored_genres, debugH) 
     debugH['genre_min'] = Struct.new(:total, 
 				     :distance,
-				     :score).new(0)
+				     :score).new(0, nil, 0)
 
     scored_genres.inject(debugH['genre_min']) do |memo,t| 
       ms = memo.score

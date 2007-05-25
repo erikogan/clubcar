@@ -1,0 +1,10 @@
+Dear <%= @user.name %>,
+
+Your email activation failed for the following reasons:
+<% @errors.each do |e| -%>
+    * <%= e %>
+<% end -%>
+
+Our appologies.
+
+Clubcar
