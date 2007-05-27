@@ -68,7 +68,7 @@ private
     # 32 characters, at most 31 days, that's handy
     magic = Digest::MD5.hexdigest(user.salt + user.password)
     base64= ["#{user.login}!!#{Time.now.to_i}!!#{magic[now.day,1]}"].pack("m*").chomp
-    return "\t        \t\t\t[[#{base64}]]"
+    return ' ' * 40 + "[[#{base64}]]"
   end
 
   def confirm_magic(email)
@@ -80,7 +80,7 @@ private
       base64 = $2
 
       if base64.nil?
-	raise "Corrupted subject-line"
+	raise "Token missing from subject-line"
       end
 
       (login,time,mini) = base64.unpack("m*")[0].split(/!!/)

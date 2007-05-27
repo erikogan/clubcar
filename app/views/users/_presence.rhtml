@@ -1,6 +1,11 @@
 <%
-  current = (presence.present?) ? "present" : "not present"
+  if session[:user].id == presence.id
+    prefix = 'You are'
+  else
+    prefix = "User #{presence.name} is"
+  end
+  current = (presence.present?) ? "coming to lunch" : "<em>not</em> coming to lunch"
   action = (presence.present?) ? "deactivate" : "activate"
 -%>
 
-<p>User <%= presence.name %> is currently: <strong><%= current %></strong>: <%= link_to action, {:controller => :users, :action => action, :id => presence.id}, :method => :post %></p>
+<p><%= prefix %> currently: <strong><%= current %></strong>: <%= link_to 'toggle', {:controller => :users, :action => action, :id => presence.id}, :method => :post %></p>

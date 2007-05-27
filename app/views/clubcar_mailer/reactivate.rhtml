@@ -1,14 +1,14 @@
 Dear <%= @user.name %>,
 
-Your voice is not currently included in the next decision about lunch.
-If you would like change that, you should visit:
+You are currently listed as NOT coming to lunch today. If you would like your preferences to be included in the decision making process, simply reply to this message (make sure that the token in the subject line remains in tact).
+
+Alternatively, you can visit:
 
 <% # Hardcode this for now -%>
 http://eogan.usr.cloudshield.com:3000/
 
 (You may need to login with your username: <%= @user.login %>)
 
-Your currently active mood is: "<%= @user.moods.find_by_active(true).name %>"
-(You can change that at the same time)
+While you're there, you can make changes to your current mood ("<%= @user.moods.find_by_active(true).name %>")
 
 The Clubcar Admins

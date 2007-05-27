@@ -1,9 +1,13 @@
 Dear <%= @user.name %>,
 
-Your email activation failed for the following reasons:
+Your email update failed for the following reasons:
 <% @errors.each do |e| -%>
     * <%= e %>
 <% end -%>
+
+You'll have to make the changes by visiting
+<% # Hardcode this for now -%>
+http://eogan.usr.cloudshield.com:3000/
 
 Our appologies.
 
