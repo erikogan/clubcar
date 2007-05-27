@@ -6,7 +6,7 @@
   <div class="tagged_display">
     <p><strong>Mood:</strong><br/><%= link_to h(@mood.name), mood_path(@user, @mood) %></p>
     <p><strong>Restaurant:</strong><br/><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></p>
-    <%= f.select :value, @preference_values %>
+    <%= f.select :vote_id, @preference_values %>
     <%= submit_tag "Update" %>
 <% end %>
 
