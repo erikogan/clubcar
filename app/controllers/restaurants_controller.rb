@@ -126,6 +126,7 @@ class RestaurantsController < ApplicationController
     0.upto(1) do |i|
       @choices[i] = Hash.new;
       @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
+      # make a copy, so we can delete from it
       @choices[i]['scored_genres'] = Array.new(@scored_genres)
       @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
       @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
