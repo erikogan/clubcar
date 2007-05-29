@@ -119,6 +119,7 @@ class RestaurantsController < ApplicationController
     # Make everything an instance variable so we can display debugging
     # info in the view.
     @scored_genres = Tag.find_scored_genres
+    raise "Empty scored genres! (is anyone present?)" if @scored_genres.empty?
 
     @choices = Array.new;
 
