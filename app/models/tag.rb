@@ -123,11 +123,12 @@ class Tag < ActiveRecord::Base
     # unfortunately, I can't use parameters
     # return Tag.find_by_sql(<<endSQL, @@genre_type.id, not_in)
     not_in = not_in.join ', '
+
     return Tag.find_by_sql(<<endSQL)
 SELECT	t.*,
 	MIN(date_distance) AS distance,
-	SUM(total) AS score,
-	SUM(total) / count(r.*) AS score_per_restaurant
+	SUM(genre_total) AS score,
+	SUM(genre_total) / count(r.*) AS score_per_restaurant
 FROM 	restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
 	ON rdd.restaurant_id = r.id
@@ -145,7 +146,7 @@ WHERE	t.type_id = #{@@genre_type.id}
 -- GROUP BY t.*
 GROUP BY t.canonical, #{tCols.join(', ')}
 HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
-	AND SUM(total) >= 0
+	AND SUM(genre_total) >= 0
 ORDER BY t.name;
 endSQL
   end
