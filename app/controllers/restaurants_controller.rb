@@ -147,7 +147,7 @@ class RestaurantsController < ApplicationController
   def choose_scored_genre(scored_genres, debugH) 
     debugH['genre_min'] = Struct.new(:total, 
 				     :distance,
-				     :score).new(0, nil, 0)
+				     :score).new(0)
 
     scored_genres.inject(debugH['genre_min']) do |memo,t| 
       ms = memo.score
@@ -195,11 +195,13 @@ class RestaurantsController < ApplicationController
       memo
     end
 
-    return choose_weighted(debugH['weighted_genres'], debugH['genre_min'].total)
+    return choose_weighted(debugH['weighted_genres'], 
+			   debugH['genre_min'].total)
   end
 
   def choose_restaurant(genre, debugH) 
-    debugH['scored_restaurants'] = Restaurant.find_all_by_tag_with_active_scores(genre)
+    debugH['scored_restaurants'] = 
+      Restaurant.find_all_by_tag_with_active_scores(genre)
 
     debugH['restaurant_total'] = 0
 
