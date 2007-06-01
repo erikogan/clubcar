@@ -15,7 +15,7 @@ class AddGenreScoreToVotes < ActiveRecord::Migration
     execute 'DROP VIEW active_vote_totals'
 
     # I could make this a modification of ACTIVE_VOTE_TOTALS_SQL, but
-    # that seems silly
+    # that seems silly...though still tempting
     execute <<EndSQL
 CREATE OR REPLACE VIEW active_vote_totals AS
 SELECT 	ap.restaurant_id,
