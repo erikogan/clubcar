@@ -1,0 +1,14 @@
+<%
+  if session[:user].id == presence_link.id
+    prefix = 'You are'
+  else
+    prefix = "User #{presence.name} is"
+  end
+
+  present = presence_link.present?
+  current = ( present ? "" : "<em>not</em> ") + "coming to lunch"
+  action =  ( present ? "de" : "") + "activate"
+
+  -%>
+
+<%= prefix %> currently: <strong><%= current %></strong>: <%= link_to_remote 'toggle', :url => {:controller => :users, :action => action, :id => presence_link.id}, :update => 'presenceLink' %>

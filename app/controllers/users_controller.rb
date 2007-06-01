@@ -5,6 +5,11 @@ class UsersController < ApplicationController
   before_filter :clarify_title
   before_filter :admin_access, :except => [:index]
 
+  # This is a Bad Idea(tm). We should go back to just storing the ID, but
+  # that's more invasive
+  after_filter :update_session, :only => [:create, :update, :delete, 
+    :activate, :deactivate ]
+
   def index
     @users = User.find(:all, :order => :login)
 
@@ -90,18 +95,12 @@ class UsersController < ApplicationController
 
   # POST /users/1;activate
   def activate
-    @user = User.find(params[:id])
-    @user.present = true;
-    @user.save
-    redirect_to(url_for(:action => :show, :id => @user.id))
+    do_activation(true)
   end
 
   # POST /users/1;deactivate
   def deactivate
-    @user = User.find(params[:id])
-    @user.present = false;
-    @user.save
-    redirect_to(url_for(:action => :show, :id => @user.id))
+    do_activation(false)
   end
 
   def login
@@ -133,4 +132,24 @@ private
   def clarify_title
     @clarifyTitle = 's'
   end
+
+  def do_activation(value)
+    @user = User.find(params[:id])
+    @user.present = value;
+    @user.save!
+
+    if (request.xhr?) 
+      render :partial => '/users/presence_link', :object => @user
+    else 
+      redirect_to(url_for(:action => :show, :id => @user.id)) 
+    end
+  end
+
+  # Still a Bad IDEA(tm)
+  def update_session
+    unless @user.nil? || @user.id != session[:user].id
+      session[:user] = @user
+    end
+  end
+
 end
