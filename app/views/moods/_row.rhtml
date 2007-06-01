@@ -2,9 +2,9 @@
     <td><%= link_to h(row.name), mood_path(@user,row) %></td>
     <td><%= h row.order %></td>
     <td><% if row.active -%>
-      <img src="<%= image_path('checked') %>"/>
+      <img src="<%= image_path('checked.png') %>"/>
 	<% else -%>
-      <%= image_submit_tag 'unchecked', {:alt => 'Set Current Mood to ' + row.name, :name => 'activate[' + row.id.to_s + ']', :onclick => "this.form.activate_input.value = #{row.id};"} %>
+      <%= image_submit_tag 'unchecked.png', {:alt => 'Set Current Mood to ' + row.name, :name => 'activate[' + row.id.to_s + ']', :onclick => "this.form.activate_input.value = #{row.id};"} %>
 	<% end -%>
     </td>
     
