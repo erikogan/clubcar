@@ -5,7 +5,10 @@ FROM_ADDRESS = 'clubcar@eogan.usr.cloudshield.com'
   def reactivate(user)
     magic = make_magic(user)
     @subject    = "[clubcar] Lunch today?#{magic}"
-    @body       = {:user => user}
+    @body       = {
+      :user => user
+      :mood => user.moods.find_by_active(true)
+    }
     @recipients = user.emails[0].address
     @from       = FROM_ADDRESS
     @sent_on    = Time.now
@@ -68,14 +71,14 @@ private
     # 32 characters, at most 31 days, that's handy
     magic = Digest::MD5.hexdigest(user.salt + user.password)
     base64= ["#{user.login}!!#{Time.now.to_i}!!#{magic[now.day,1]}"].pack("m*").chomp
-    return ' ' * 40 + "[[#{base64}]]"
+    return ' ' * 60 + "[[#{base64}]]"
   end
 
   def confirm_magic(email)
     errors = []
 
     begin 
-      email.subject =~ /(\s+\[\[(\w+==)\]\])/
+      email.subject =~ /(\s+\[\[(\w+={0,2})\]\])/
       magic = $1
       base64 = $2
 

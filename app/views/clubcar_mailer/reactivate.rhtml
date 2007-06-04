@@ -1,6 +1,6 @@
 Dear <%= @user.name %>,
 
-You are currently listed as NOT coming to lunch today. If you would like your preferences to be included in the decision making process, simply reply to this message (make sure that the token in the subject line remains in tact).
+You are currently listed as NOT coming to lunch today. If you would like your preferences to be included in the decision making process, simply reply to this message (make sure that the token in the subject line remains intact).
 
 Alternatively, you can visit:
 
@@ -9,6 +9,10 @@ http://eogan.usr.cloudshield.com:3000/
 
 (You may need to login with your username: <%= @user.login %>)
 
-While you're there, you can make changes to your current mood ("<%= @user.moods.find_by_active(true).name %>")
+<% if @mood.nil? -%>
+**** NOTE: You do not currently have an active mood, you should log in and set one so that your preferences will be included!
+<% else -%>
+While you're there, you can make changes to your current mood ("<%= @mood.name %>")
+<% end -%>
 
 The Clubcar Admins
