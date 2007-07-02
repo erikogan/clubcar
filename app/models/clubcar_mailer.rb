@@ -6,7 +6,7 @@ FROM_ADDRESS = 'clubcar@eogan.usr.cloudshield.com'
     magic = make_magic(user)
     @subject    = "[clubcar] Lunch today?#{magic}"
     @body       = {
-      :user => user
+      :user => user,
       :mood => user.moods.find_by_active(true)
     }
     @recipients = user.emails[0].address
