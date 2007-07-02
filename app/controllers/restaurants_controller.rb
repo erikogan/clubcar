@@ -11,6 +11,9 @@ class RestaurantsController < ApplicationController
   # This, too, should be configurable
   DISTANCE_MAX = 14 # (after two weeks, does it really matter?)
 
+  # This, too, should be configurable
+  TOTAL_CHOICES=2
+
   def index
     @restaurants = Restaurant.find(:all, :order => :name)
 
@@ -123,13 +126,22 @@ class RestaurantsController < ApplicationController
 
     @choices = Array.new;
 
-    0.upto(1) do |i|
+    0.upto(TOTAL_CHOICES - 1) do |i|
       @choices[i] = Hash.new;
-      @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
       # make a copy, so we can delete from it
       @choices[i]['scored_genres'] = Array.new(@scored_genres)
-      @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
-      @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
+      found = false
+      until found
+	begin
+	  @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
+	  @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
+	  @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
+	  found = true
+	rescue Exception => e
+	  @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
+	end
+	raise "No Genres left!" if (!found && @scored_genres.empty?)
+      end
     end
   end
 
@@ -149,7 +161,7 @@ class RestaurantsController < ApplicationController
 				     :distance,
 				     :score).new(0)
 
-    scored_genres.inject(debugH['genre_min']) do |memo,t| 
+    scored_genres.inject(debugH['genre_min']) do |memo,t|
       ms = memo.score
       spr = t.score_per_restaurant
 
@@ -167,6 +179,8 @@ class RestaurantsController < ApplicationController
       # "return" the memo for the next round
       memo
     end
+
+    debugH['genre_min'].score = 0 if debugH['genre_min'].score.nil?
 
     debugH['weighted_genres'] = scored_genres.inject(Hash.new) do |memo, t|
       # Every genre gets one just for showing up (zero votes is really 1 vote)
