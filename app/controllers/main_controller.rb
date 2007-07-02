@@ -14,7 +14,7 @@ class MainController < ApplicationController
     users.each do |u|
       email = ClubcarMailer.create_reactivate(u)
       ClubcarMailer.deliver(email)
-      puts "QUEUE: #{u.emails[0].address}"
+      logger.info "QUEUE: #{u.emails[0].address}"
     end
     
     #render(:text => text + "\n</pre>")
