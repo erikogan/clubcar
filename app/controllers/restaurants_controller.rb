@@ -111,7 +111,7 @@ class RestaurantsController < ApplicationController
     puts "QUEUE: ", email.to;
   end
 
-  private
+  #private
 
   def clarify_title
     @clarifyTitle = 's'
@@ -135,10 +135,17 @@ class RestaurantsController < ApplicationController
 	begin
 	  @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
 	  @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
-	  @choices[i]['restaurant'] = choose_restaurant(@choices[i]['genre'], @choices[i])
+	  @choices[i]['restaurant'] = 
+	    choose_restaurant(@choices[i]['genre'], @choices[i])
 	  found = true
 	rescue Exception => e
-	  @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
+	  unless (@choices[i]['genre'].nil?)
+	    logger.info "Exception: Deleting genre: #{@choices[i]['genre']}"
+	    @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
+	  else
+	    logger.fatal "Exception, no genre to delete!"
+	    raise e
+	  end
 	end
 	raise "No Genres left!" if (!found && @scored_genres.empty?)
       end
@@ -157,60 +164,37 @@ class RestaurantsController < ApplicationController
   end
 
   def choose_scored_genre(scored_genres, debugH) 
-    debugH['genre_min'] = Struct.new(:total, 
-				     :distance,
-				     :score).new(0)
-
-    scored_genres.inject(debugH['genre_min']) do |memo,t|
-      ms = memo.score
-      spr = t.score_per_restaurant
-
-      # The Float.< could cause trouble
-      if (!spr.nil? && spr > 0 && (ms.nil? || spr < ms))
-	memo.score = spr
-      end
-
-      md = memo.distance
-      td = t.distance.to_i
-      if (!td.nil? && td > 0 && (md.nil? || td < md))
-	memo.distance = td
-      end
-
-      # "return" the memo for the next round
-      memo
-    end
-
-    debugH['genre_min'].score = 0 if debugH['genre_min'].score.nil?
+    debugH['total'] = 0
+    logger.fatal("ENTER CHOOSE SCORED GENRES: #{scored_genres.length}")
 
     debugH['weighted_genres'] = scored_genres.inject(Hash.new) do |memo, t|
-      # Every genre gets one just for showing up (zero votes is really 1 vote)
-      value = VOTE_TO_DISTANCE_RATIO
-
-      if (debugH['genre_min'].score > 0) 
-	value += VOTE_TO_DISTANCE_RATIO * 
-	  t.score_per_restaurant / debugH['genre_min'].score
-      end
-
+      # The linear weighting is getting out of hand, make it logarithmic
+      # (I'd prefer lg(x) to ln(x) but it's close enough)
+      value = VOTE_TO_DISTANCE_RATIO * 
+	# Every genre gets one just for showing up (zero votes is really
+	# 1 vote), that's why Math::E + score
+	Math.log(Math::E + t.score_per_restaurant)
+      
       if t.distance.nil?
 	d = DISTANCE_MAX
       else
 	d = t.distance.to_f
 	d = d > DISTANCE_MAX ? DISTANCE_MAX : d
       end
+      
+      value += Math.log(Math::E + d)
 
-      if (debugH['genre_min'].distance > 0) 
-	value += d / debugH['genre_min'].distance.to_f
-      end
+      debugH['total'] += value.round
+      memo[debugH['total']] = t
 
-      debugH['genre_min'].total += value.round
-      memo[debugH['genre_min'].total] = t
+      logger.debug "GENRE: #{value.round} : #{debugH['total']} | #{t.name}"
 
       # "return" the memo for the next round
       memo
     end
 
     return choose_weighted(debugH['weighted_genres'], 
-			   debugH['genre_min'].total)
+			   debugH['total'])
   end
 
   def choose_restaurant(genre, debugH) 
