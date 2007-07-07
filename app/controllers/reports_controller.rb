@@ -1,3 +1,6 @@
+# I can't figure this out
+require 'vendor/plugins/gruff/lib/gruff.rb' 
+
 class ReportsController < ApplicationController
 
   # To make caching easier, add a line like this to config/routes.rb:
