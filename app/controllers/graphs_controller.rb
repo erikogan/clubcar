@@ -1,7 +1,7 @@
 # I can't figure this out
 require 'vendor/plugins/gruff/lib/gruff.rb' 
 
-class ReportsController < ApplicationController
+class GraphsController < ApplicationController
 
   # To make caching easier, add a line like this to config/routes.rb:
   # map.graph "graph/:action/:id/image.png", :controller => "graph"
