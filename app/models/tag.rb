@@ -162,7 +162,7 @@ WHERE	t.type_id = #{@@genre_type.id}
 			 FROM	labels AS subL, 
 				tags subT 
 			 WHERE	canonical = 'broughtin' 
-				AND sub.tag_id = subT.id)
+				AND subL.tag_id = subT.id)
 -- GROUP BY t.*
 GROUP BY t.canonical, #{tCols.join(', ')}
 HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
