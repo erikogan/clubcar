@@ -155,6 +155,14 @@ WHERE	t.type_id = #{@@genre_type.id}
 	AND t.id NOT IN (#{not_in})
 	AND l.tag_id = t.id
 	AND l.restaurant_id = r.id
+-- I hate to add this as a special case, but I need to rework the
+-- selection algorithm, and the brought in restaurants nobody wants to
+-- go to are killing the genres
+	AND r.id NOT IN (SELECT	subL.restaurant_id 
+			 FROM	labels AS subL, 
+				tags subT 
+			 WHERE	canonical = 'broughtin' 
+				AND sub.tag_id = subT.id)
 -- GROUP BY t.*
 GROUP BY t.canonical, #{tCols.join(', ')}
 HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
