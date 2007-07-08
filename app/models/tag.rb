@@ -122,10 +122,10 @@ class Tag < ActiveRecord::Base
     tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
 
     return Tag.find_by_sql(<<endSQL)
-SELECT	t.*, 1 AS weight
+SELECT	t.*, numeric '1' AS weight
 FROM 	restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
-	ON rdd.restaurant_id = r.id
+	ON rdd.restaurant_id = r.id,
 	labels AS l,
 	tag_types AS tt,
 	tags AS t
