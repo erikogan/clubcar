@@ -3,7 +3,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: 4px;
-  padding-right: 0;
+  padding: 0 0 4px 4px;
   width: 200px;
 }
