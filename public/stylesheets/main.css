@@ -1,0 +1,9 @@
+#graphs {
+  /*background: #f00;*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px;
+  padding-right: 0;
+  width: 200px;
+}

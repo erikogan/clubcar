@@ -32,4 +32,28 @@ class GraphsController < ApplicationController
     send_data(g.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "gruff.png")
   end
 
+  def genres
+    g = Gruff::Mini::Pie.new(200)
+
+    g.theme = {
+      :colors => [ 
+	'#fdd84e', '#6886b4', '#72ae6e', '#d1695e', '#8a6eaf',
+	'#efaa43', '#28569c', '#24921d', '#b01100', '#532098',
+	'#d18410'],
+      :background_colors => ['#ffffff', '#999999'],
+      :marker_color => 'white'
+    }
+
+    g.title = "\nActive Genres"
+
+    scored = Tag.find_scored_genres
+
+    scored.each do |t|
+      g.data(t.name, t.weight)
+    end
+
+    send_data(g.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "genres.png")
+
+  end
 end
+
