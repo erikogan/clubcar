@@ -128,7 +128,19 @@ class Tag < ActiveRecord::Base
 SELECT	t.*,
 	MIN(date_distance) AS distance,
 	SUM(genre_total) AS score,
-	SUM(genre_total) / count(r.*) AS score_per_restaurant
+	SUM(genre_total) / count(r.*) AS score_per_restaurant,
+-- The linear weighting was too much, make it logarithmic (and move it
+-- into the SQL). Everybody gets one point for showing up, thus the 2+score.
+	ROUND(#{Restaurant::VOTE_TO_DATE_DISTANCE_RATIO} 
+	      * LOG(2, 2+(SUM(genre_total) / COUNT(r.*))) 
+	      + LOG(2, 
+		    CASE WHEN MIN(date_distance) IS NULL 
+		    THEN #{Restaurant::DATE_DISTANCE_MAX} 
+		    WHEN MIN(date_distance) > #{Restaurant::DATE_DISTANCE_MAX} 
+		    THEN #{Restaurant::DATE_DISTANCE_MAX} 
+		    ELSE MIN(date_distance)
+		    END
+		    )) AS weight
 FROM 	restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
 	ON rdd.restaurant_id = r.id

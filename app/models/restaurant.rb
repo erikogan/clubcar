@@ -5,6 +5,13 @@ class Restaurant < ActiveRecord::Base
     :source => :tag
   has_many :visits
 
+  # This should be configurable (note, setting this value to < 0.5 could
+  # cause collisions in the algorithm below)
+  VOTE_TO_DATE_DISTANCE_RATIO = 4.0
+  
+  # This, too, should be configurable
+  DATE_DISTANCE_MAX = 14 # (after two weeks, does it really matter?)
+
   def tags_string()
     tags.collect {|t| t.name}.join(", ")
   end

@@ -7,6 +7,9 @@
     <p><strong>Mood:</strong><br/><%= link_to h(@mood.name), mood_path(@user, @mood) %></p>
     <p><strong>Restaurant:</strong><br/><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></p>
     <%= f.select :vote_id, @preference_values %>
+    <div>
+      <%= render :partial => 'vote_buttons', :object => [ @preference, 'preference', @preference_values ] %>
+    </div>
     <%= submit_tag "Update" %>
 <% end %>
 

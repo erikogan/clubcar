@@ -4,13 +4,6 @@ class RestaurantsController < ApplicationController
 
   before_filter :clarify_title
 
-  # This should be configurable (note, setting this value to < 0.5 could
-  # cause collisions in the algorithm below)
-  VOTE_TO_DISTANCE_RATIO = 4.0
-  
-  # This, too, should be configurable
-  DISTANCE_MAX = 14 # (after two weeks, does it really matter?)
-
   # This, too, should be configurable
   TOTAL_CHOICES=2
 
@@ -168,28 +161,10 @@ class RestaurantsController < ApplicationController
     logger.fatal("ENTER CHOOSE SCORED GENRES: #{scored_genres.length}")
 
     debugH['weighted_genres'] = scored_genres.inject(Hash.new) do |memo, t|
-      # The linear weighting is getting out of hand, make it logarithmic
-      # (I'd prefer lg(x) to ln(x), so we'll play some mathematical games)
-      value = VOTE_TO_DISTANCE_RATIO * 
-	# Every genre gets one just for showing up (zero votes is really
-	# 1 vote), that's why 2 + score
-	(Math.log(2 + t.score_per_restaurant) / Math.log(2))
-      # (log<b>(x) = log<k>(x) / log<>k>(b) for any values of b, x, & k. 
-      # Pretty cool, huh? :)
-
-      if t.distance.nil?
-	d = DISTANCE_MAX
-      else
-	d = t.distance.to_f
-	d = d > DISTANCE_MAX ? DISTANCE_MAX : d
-      end
-      
-      value += Math.log(2 + d) / Math.log(2)
-
-      debugH['total'] += value.round
+      debugH['total'] += t.weight
       memo[debugH['total']] = t
 
-      logger.debug "GENRE: #{value.round} : #{debugH['total']} | #{t.name}"
+      logger.debug "GENRE: #{t.weight} : #{debugH['total']} | #{t.name}"
 
       # "return" the memo for the next round
       memo

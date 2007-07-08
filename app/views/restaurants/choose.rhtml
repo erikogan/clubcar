@@ -18,6 +18,7 @@
 	  <th>Date Distance</th>
 	  <th>Score</th>
 	  <th>Score Per Restaurant</th>
+	  <th>Weight</th>
 	</tr>
       </thead>
       <tbody>
@@ -27,27 +28,8 @@
 	  <td><%= h genre.distance %></td>
 	  <td><%= h genre.score %></td>
 	  <td><%= h genre.score_per_restaurant.round(2).to_s('F') %></td>
+	  <td><%= h genre.weight %></td>
 	</tr>
-	<% end %>
-      </tbody>
-    </table>
-
-    <h3>Weighted Genres</h3>
-
-    <table>
-      <thead>
-	<tr>
-	  <th>Weight</th>
-	  <th>Name</th>
-	</tr>
-      </thead>
-      <tbody>
-	<% last = 0 ; for k in choice['weighted_genres'].keys.sort %>
-	<tr class="<%= cycle('rowA', 'rowB') %>">
-	  <td><%= k - last %></td>
-	  <td><%= link_to h(choice['weighted_genres'][k].name), tag_path(choice['weighted_genres'][k]) %></td>
-	</tr>
-	<% last = k %>
 	<% end %>
       </tbody>
     </table>
