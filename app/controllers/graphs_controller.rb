@@ -39,7 +39,8 @@ class GraphsController < ApplicationController
       :colors => [ 
 	'#fdd84e', '#6886b4', '#72ae6e', '#d1695e', '#8a6eaf',
 	'#efaa43', '#28569c', '#24921d', '#b01100', '#532098',
-	'#d18410'],
+	'#d18410', '#ff0000', '#00ff00', '#0000ff', '#330000', 
+	'#003300', '#000033'],
       :background_colors => ['#999999', '#ffffff'],
       :marker_color => 'white'
     }
