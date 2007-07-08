@@ -48,6 +48,10 @@ class GraphsController < ApplicationController
 
     scored = Tag.find_scored_genres
 
+    if scored.nil?
+      scored = Tag.find_unscored_geners
+    end
+
     scored.each do |t|
       g.data(t.name, t.weight)
     end

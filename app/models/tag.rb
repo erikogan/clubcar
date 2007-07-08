@@ -117,6 +117,36 @@ class Tag < ActiveRecord::Base
     return tags
   end
 
+  def self.find_unscored_genres
+    # I need to figure out how to NOT include all the columns in the GROUP BY
+    tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
+
+    return Tag.find_by_sql(<<endSQL)
+SELECT	t.*, 1 AS weight
+FROM 	restaurants AS r
+LEFT JOIN restaurants_date_distance AS rdd
+	ON rdd.restaurant_id = r.id
+	labels AS l,
+	tag_types AS tt,
+	tags AS t
+WHERE	t.type_id = #{@@genre_type.id}
+	AND l.tag_id = t.id
+	AND l.restaurant_id = r.id
+-- I hate to add this as a special case, but I need to rework the
+-- selection algorithm, and the brought in restaurants nobody wants to
+-- go to are killing the genres
+	AND r.id NOT IN (SELECT	subL.restaurant_id 
+			 FROM	labels AS subL, 
+				tags subT 
+			 WHERE	canonical = 'broughtin' 
+				AND subL.tag_id = subT.id)
+GROUP BY t.canonical, #{tCols.join(', ')}
+HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+ORDER BY t.name
+endSQL
+
+  end
+
   def self.find_scored_genres(not_in=[-1])
     # I need to figure out how to NOT include all the columns in the GROUP BY
     tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
@@ -149,8 +179,6 @@ LEFT JOIN active_vote_totals AS avt
 	labels AS l,
 	tag_types AS tt,
 	tags AS t
---WHERE	t.type_id = ?
---	AND t.id NOT IN ?
 WHERE	t.type_id = #{@@genre_type.id}
 	AND t.id NOT IN (#{not_in})
 	AND l.tag_id = t.id
@@ -167,7 +195,7 @@ WHERE	t.type_id = #{@@genre_type.id}
 GROUP BY t.canonical, #{tCols.join(', ')}
 HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
 	AND SUM(genre_total) >= 0
-ORDER BY t.name;
+ORDER BY t.name
 endSQL
   end
 
