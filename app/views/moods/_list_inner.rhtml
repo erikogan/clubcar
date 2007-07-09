@@ -1,5 +1,5 @@
 <% unless list_inner.empty? -%>
-  <% form_remote_tag :url => { :controller => :moods, :action => :list_activate } do %>
+  <% form_remote_tag :url => { :controller => :moods, :action => :list_activate }, :html => { :onsubmit => genre_graph_update } do %>
 
     <% # This is being ignored in the XHR URL, I'm guessing it doesn't
        # merge GET & POST options -%>

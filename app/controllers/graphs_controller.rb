@@ -33,33 +33,39 @@ class GraphsController < ApplicationController
   end
 
   def genres
-    g = Gruff::Mini::Pie.new(200)
 
-    g.theme = {
-      :colors => [ 
-	'#fdd84e', '#6886b4', '#72ae6e', '#d1695e', '#8a6eaf',
-	'#efaa43', '#28569c', '#24921d', '#b01100', '#532098',
-	'#d18410', '#ff0000', '#00ff00', '#0000ff', '#330000', 
-	'#003300', '#000033'],
-      :background_colors => ['#999999', '#ffffff'],
-      :marker_color => 'white'
-    }
+    if (request.xhr?) 
+      render :partial => '/graphs/genres', :object => params
+    else
+      g = Gruff::Mini::Pie.new(200)
 
-    g.title = "\nActive Genres"
+      g.theme = {
+	:colors => [ 
+	  '#fdd84e', '#6886b4', '#72ae6e', '#d1695e', '#8a6eaf',
+	  '#efaa43', '#28569c', '#24921d', '#b01100', '#532098',
+	  '#d18410', '#ff0000', '#00ff00', '#0000ff', '#330000',
+	  '#003300', '#000033'
+	],
+	:background_colors => ['#999999', '#ffffff'],
+	# why is this ignored? 
+	:marker_color => 'white'
+      }
+      
+      g.title = "Active Genres"
+      
+      scored = Tag.find_scored_genres
+      
+      if scored.nil? || scored.empty?
+	scored = Tag.find_unscored_genres
+      end
+      
+      scored.each do |t|
+	logger.debug("WTF: T[#{t.name}] : #{t.weight}")
+	g.data(t.name, t.weight)
+      end
 
-    scored = Tag.find_scored_genres
-
-    if scored.nil? || scored.empty?
-      scored = Tag.find_unscored_genres
+      send_data(g.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "genres.png")
     end
-
-    scored.each do |t|
-      logger.debug("WTF: T[#{t.name}] : #{t.weight}")
-      g.data(t.name, t.weight)
-    end
-
-    send_data(g.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "genres.png")
-
   end
 end
 

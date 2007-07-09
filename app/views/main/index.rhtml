@@ -8,6 +8,5 @@
 
 <%= render :partial => '/moods/list', :object => @user.moods %>
 
-<div id="graphs">
-  <%= image_tag graph_url(:action => 'genres', :id => 0) %>
-</div>
+<%= render :partial => '/graphs/genres', :object => params %>
+

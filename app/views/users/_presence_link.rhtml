@@ -10,5 +10,4 @@
   action =  ( present ? "de" : "") + "activate"
 
   -%>
-
-<%= prefix %> currently: <strong><%= current %></strong>: <%= link_to_remote 'toggle', :url => {:controller => :users, :action => action, :id => presence_link.id}, :update => 'presenceLink' %>
+<%= prefix %> currently: <strong><%= current %></strong>: <%= link_to_remote 'toggle', {:url => {:controller => :users, :action => action, :id => presence_link.id}, :update => 'presenceLink'}, { :onclick => genre_graph_update } %>
