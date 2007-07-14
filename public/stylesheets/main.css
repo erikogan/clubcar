@@ -1,8 +1,18 @@
-#graphs {
+#graphsLoggedIn {
   /*background: #f00;*/
   position: absolute;
   top: 0;
   right: 0;
   padding: 0 0 4px 4px;
   width: 200px;
+}
+
+#loggedIn p {
+  background-color: #abc;
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+#loggedIn ul {
+  margin-top: 0;
 }

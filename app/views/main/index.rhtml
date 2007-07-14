@@ -8,5 +8,7 @@
 
 <%= render :partial => '/moods/list', :object => @user.moods %>
 
+<div id="graphsLoggedIn">
 <%= render :partial => '/graphs/genres', :object => params %>
-
+<%= render :partial => '/main/logged_in', :object => @logged_in %>
+</div>
