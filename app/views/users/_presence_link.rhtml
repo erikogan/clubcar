@@ -2,7 +2,7 @@
   if session[:user].id == presence_link.id
     prefix = 'You are'
   else
-    prefix = "User #{presence.name} is"
+    prefix = "User #{presence_link.name} is"
   end
 
   present = presence_link.present?
