@@ -106,15 +106,11 @@ class RestaurantsController < ApplicationController
 
   #private
 
-  def clarify_title
-    @clarifyTitle = 's'
-  end
-
-
   def make_choices
     # Make everything an instance variable so we can display debugging
     # info in the view.
-    @scored_genres = Tag.find_scored_genres
+    @scored_genres = Tag.find_all_by_bounded_date_distance
+
     raise "Empty scored genres! (is anyone present?)" if @scored_genres.empty?
 
     @choices = Array.new;
@@ -123,25 +119,10 @@ class RestaurantsController < ApplicationController
       @choices[i] = Hash.new;
       # make a copy, so we can delete from it
       @choices[i]['scored_genres'] = Array.new(@scored_genres)
-      found = false
-      until found
-	begin
-	  @choices[i]['genre'] = choose_scored_genre(@scored_genres, @choices[i])
-	  @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
-	  @choices[i]['restaurant'] = 
-	    choose_restaurant(@choices[i]['genre'], @choices[i])
-	  found = true
-	rescue Exception => e
-	  unless (@choices[i]['genre'].nil?)
-	    logger.info "Exception: Deleting genre: #{@choices[i]['genre']}"
-	    @scored_genres.delete_if { |g| g == @choices[i]['genre'] }
-	  else
-	    logger.fatal "Exception, no genre to delete!"
-	    raise e
-	  end
-	end
-	raise "No Genres left!" if (!found && @scored_genres.empty?)
-      end
+
+      r = choose_restaurant(@choices[i])
+
+      @scored_genres.delete_if { |g| !r.genres.select { |t| t == g }.empty? }
     end
   end
 
@@ -158,7 +139,7 @@ class RestaurantsController < ApplicationController
 
   def choose_scored_genre(scored_genres, debugH) 
     debugH['total'] = 0
-    logger.fatal("ENTER CHOOSE SCORED GENRES: #{scored_genres.length}")
+    logger.debug("ENTER CHOOSE SCORED GENRES: #{scored_genres.length}")
 
     debugH['weighted_genres'] = scored_genres.inject(Hash.new) do |memo, t|
       debugH['total'] += t.weight
@@ -174,22 +155,23 @@ class RestaurantsController < ApplicationController
 			   debugH['total'])
   end
 
-  def choose_restaurant(genre, debugH) 
-    debugH['scored_restaurants'] = 
-      Restaurant.find_all_by_tag_with_active_scores(genre)
+  def choose_restaurant(debugH) 
+    debugH['scored_restaurants'] = Restaurant.find_all_by_tags_with_active_scores(@scored_genres)
 
     debugH['restaurant_total'] = 0
 
     debugH['weighted_restaurants'] = debugH['scored_restaurants'].inject(Hash.new) do |memo, r|
-      # One for showing
-      debugH['restaurant_total'] += 1 + r.total.to_i
+      debugH['restaurant_total'] += r.weight.to_i
       memo[debugH['restaurant_total']] = r
-
       memo
     end
 
     debugH['restaurant'] = choose_weighted(debugH['weighted_restaurants'], debugH['restaurant_total'])
+    return debugH['restaurant']
+  end
 
+  def clarify_title
+    @clarifyTitle = 's'
   end
 
 end

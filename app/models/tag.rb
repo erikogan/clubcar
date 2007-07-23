@@ -117,6 +117,32 @@ class Tag < ActiveRecord::Base
     return tags
   end
 
+  def self.find_all_by_bounded_date_distance(not_in = [-1])
+    # I need to figure out how to NOT include all the columns in the GROUP BY
+    tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
+
+    return Tag.find_by_sql(<<endSQL)
+SELECT	t.*,
+	MIN(date_distance) AS distance
+FROM 	restaurants AS r
+LEFT JOIN restaurants_date_distance AS rdd
+	ON rdd.restaurant_id = r.id,
+	labels AS l,
+	tag_types AS tt,
+	tags AS t
+WHERE	t.type_id = #{@@genre_type.id}
+	AND t.id NOT IN (#{not_in})
+	AND l.tag_id = t.id
+	AND l.restaurant_id = r.id
+GROUP BY t.canonical, #{tCols.join(', ')}
+-- The 'bounded' part
+HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+-- Put the NULLs at the front
+ORDER BY MIN(date_distance) IS NOT NULL, MIN(date_distance), canonical;
+endSQL
+  end
+
+
   def self.find_unscored_genres
     # I need to figure out how to NOT include all the columns in the GROUP BY
     tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}

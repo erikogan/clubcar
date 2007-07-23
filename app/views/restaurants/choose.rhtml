@@ -16,9 +16,6 @@
 	<tr>
 	  <th>Name</th>
 	  <th>Date Distance</th>
-	  <th>Score</th>
-	  <th>Score Per Restaurant</th>
-	  <th>Weight</th>
 	</tr>
       </thead>
       <tbody>
@@ -26,17 +23,14 @@
 	<tr class="<%= cycle('rowA', 'rowB') %>">
 	  <td><%= link_to h(genre.name), tag_path(genre) %></td>
 	  <td><%= h genre.distance %></td>
-	  <td><%= h genre.score %></td>
-	  <td><%= h genre.score_per_restaurant.round(2).to_s('F') %></td>
-	  <td><%= h genre.weight %></td>
 	</tr>
 	<% end %>
       </tbody>
     </table>
 
-    <h3>Choice</h3>
+    <h3>Count</h3>
 
-    <div class="choice"><%= link_to h(choice['genre'].name), tag_path(choice['genre']) %></div>
+    <div class="count"><%= choice['scored_genres'].length %></div>
 
     <h2>Selecting A Restaurant</h2>
 
