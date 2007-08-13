@@ -1,9 +1,10 @@
 class Restaurant < ActiveRecord::Base
   has_many :labels, :dependent => :destroy
+  has_many :preferences, :dependent => :destroy
   has_many :tags,   :through => :labels, :conditions => Tag.tag_conditions
   has_many :genres, :through => :labels, :conditions => Tag.genre_conditions,
     :source => :tag
-  has_many :visits
+  has_many :visits, :dependent => :destroy
 
   # This should be configurable (note, setting this value to < 0.5 could
   # cause collisions in the algorithm below)
