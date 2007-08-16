@@ -1,12 +1,12 @@
 require 'digest/md5'
 
 class User < ActiveRecord::Base
-  has_many :moods, :order => 'moods.order, moods.name'
+  has_many :moods, :dependent => :destroy, :order => 'moods.order, moods.name'
   # I don't think this relationship is actually meaningful 
   # has_many :preferences, :through => :moods
 
   # for now, 1-1, eventually 1-many
-  has_many :emails
+  has_many :emails, :dependent => :destroy
 
   validates_presence_of :login
   validates_uniqueness_of :login
