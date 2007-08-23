@@ -32,7 +32,7 @@
      inkscape:cx="524.5503"
      inkscape:cy="474.94339"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer8"
      inkscape:window-width="1280"
      inkscape:window-height="775"
      inkscape:window-x="0"
@@ -1140,22 +1140,6 @@
   </metadata>
   <g
      inkscape:groupmode="layer"
-     id="layer4"
-     inkscape:label="image"
-     style="opacity:1;display:none"
-     sodipodi:insensitive="true">
-    <image
-       id="image4957"
-       x="249"
-       y="266.86218"
-       sodipodi:absref="/Users/erik/tmp/train illustration2.jpg"
-       height="440"
-       xlink:href="/Users/erik/tmp/train illustration2.jpg"
-       width="399"
-       style="opacity:1;display:inline" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="ties"
      style="display:inline"
@@ -1626,20 +1610,5 @@
        d="M 249.16893,343.02381 L 356.29561,435.30124 L 352.05297,385.80377 L 248.81538,298.23344 L 249.16893,343.02381 z "
        id="path3541"
        sodipodi:nodetypes="ccccc" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     sodipodi:insensitive="true"
-     style="opacity:0.5;display:none"
-     inkscape:label="translucent">
-    <image
-       id="image2233"
-       x="249"
-       y="266.86218"
-       sodipodi:absref="/Users/erik/tmp/train illustration2.jpg"
-       height="440"
-       xlink:href="/Users/erik/tmp/train illustration2.jpg"
-       width="399" />
   </g>
 </svg>
