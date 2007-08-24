@@ -66,38 +66,44 @@
     <linearGradient
        id="linearGradient3609"
        inkscape:collect="always">
+<!-- 697e46 7e4646 -->
+<!-- b5c782 c78282 -->
       <stop
          id="stop3611"
          offset="0"
-         style="stop-color:#697e46;stop-opacity:1" />
+         style="stop-color:#7e4646;stop-opacity:1" />
       <stop
          id="stop3613"
          offset="1"
-         style="stop-color:#b5c782;stop-opacity:1" />
+         style="stop-color:#c78282;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient3549"
        inkscape:collect="always">
+<!-- 4c5e2a 5e2a2a -->
+<!-- 6c853b 853b3b -->
       <stop
          id="stop3551"
          offset="0"
-         style="stop-color:#4c5e2a;stop-opacity:1;" />
+         style="stop-color:#5e2a2a;stop-opacity:1;" />
       <stop
          id="stop3553"
          offset="1"
-         style="stop-color:#6c853b;stop-opacity:1" />
+         style="stop-color:#853b3b;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient3552"
        inkscape:collect="always">
+<!-- 697e46 7e4646 -->
+<!-- 89a048 a04848 -->
       <stop
          id="stop3555"
          offset="0"
-         style="stop-color:#697e46;stop-opacity:1" />
+         style="stop-color:#7e4646;stop-opacity:1" />
       <stop
          id="stop3557"
          offset="1"
-         style="stop-color:#89a048;stop-opacity:1" />
+         style="stop-color:#a04848;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient3511">
@@ -112,38 +118,46 @@
     </linearGradient>
     <linearGradient
        id="linearGradient3422">
+<!--
+470808 bd4747
+4c4d08 bdbd48
+-->
       <stop
          id="stop3424"
          offset="0"
-         style="stop-color:#470808;stop-opacity:1;" />
+         style="stop-color:#4c4d08;stop-opacity:1;" />
       <stop
          id="stop3426"
          offset="1"
-         style="stop-color:#bd4747;stop-opacity:1;" />
+         style="stop-color:#bdbd48;stop-opacity:1;" />
     </linearGradient>
+<!-- #cd8938 #ddb15a -->
+<!-- #1f3e6e #004ec2 -->
     <linearGradient
        id="linearGradient3262"
        inkscape:collect="always">
       <stop
          id="stop3264"
          offset="0"
-         style="stop-color:#cd8938;stop-opacity:1" />
+         style="stop-color:#1f3e6e;stop-opacity:1" />
       <stop
          id="stop3266"
          offset="1"
-         style="stop-color:#ddb15a;stop-opacity:1" />
+         style="stop-color:#004ec2;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient3214"
        inkscape:collect="always">
+<!-- a46a21 e9ae46 -->
+<!-- 1d4c91 0454cc -->
       <stop
          id="stop3216"
          offset="0"
-         style="stop-color:#a46a21;stop-opacity:1" />
+         style="stop-color:#1d4c91;stop-opacity:1" />
       <stop
          id="stop3218"
          offset="1"
-         style="stop-color:#e9ae46;stop-opacity:1" />
+         style="stop-color:#0454cc;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient3343">
@@ -158,18 +172,20 @@
     </linearGradient>
     <linearGradient
        id="linearGradient3297">
+<!-- #d5a03a #e2dfae -->
+<!-- #214478 #aaccff 3771c8 -->
       <stop
-         id="stop3299"
+         id="stop3299" 
          offset="0"
-         style="stop-color:#d5a03a;stop-opacity:1;" />
+         style="stop-color:#214478;stop-opacity:1;" />
       <stop
          id="stop3308"
          offset="0.5"
-         style="stop-color:#d5a03a;stop-opacity:1;" />
+         style="stop-color:#214478;stop-opacity:1;" />
       <stop
          id="stop3305"
          offset="1"
-         style="stop-color:#e2dfae;stop-opacity:1;" />
+         style="stop-color:#3771c8;stop-opacity:1;" />
     </linearGradient>
     <radialGradient
        cx="467.39188"
@@ -1457,10 +1473,11 @@
        d="M 423,374.875 C 409.33333,381.54167 395.31312,388.56188 381.64645,395.22855 C 443.31312,444.72855 504.97978,494.22855 566.64645,543.72855 C 572.62077,543.2264 578.75038,542.06317 584.6165,541.17537 C 589.45267,538.59608 594.72633,535.32929 599.5625,532.75 C 600.39583,527.25 601.54167,523.875 602.375,518.375 C 542.70833,470.70833 482.66667,422.54167 423,374.875 z "
        style="fill:url(#radialGradient3180);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        sodipodi:nodetypes="ccccccc" />
+    <!-- d9d886 86abd9 638dbf -->
     <path
        id="path3182"
        d="M 381.71339,395.86218 L 375.46339,402.36218 L 426.65273,445.36846 L 433.02773,437.11846 L 381.71339,395.86218 z "
-       style="fill:#d9d886;fill-opacity:1;fill-rule:evenodd;stroke:#d9d886;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:bevel;stroke-opacity:1"
+       style="fill:#638dbf;fill-opacity:1;fill-rule:evenodd;stroke:#638dbf;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:bevel;stroke-opacity:1"
        sodipodi:nodetypes="ccccc" />
     <path
        id="path4926"
@@ -1540,7 +1557,7 @@
      inkscape:label="windows"
      sodipodi:insensitive="true">
     <path
-       style="fill:#95a656;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#a65656;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 231.57747,268.88787 L 360.27091,376.72165 L 401.2831,355.50845 L 267.99347,249.08888 L 231.57747,268.88787 z "
        id="path3544"
        sodipodi:nodetypes="ccccc" />
@@ -1593,7 +1610,7 @@
        d="M 605.125,631.98718 L 605.125,624.48718 L 614.5,617.23718 L 614.875,624.61218 L 605.125,631.98718 z "
        style="fill:url(#radialGradient3634-888-543-918);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient3642-914-232-514);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:bevel;stroke-opacity:1" />
     <path
-       style="fill:#8a9d4b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#9d4b4b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 249.16893,343.02381 L 356.29561,435.30124 L 352.05297,385.80377 L 248.81538,298.23344 L 249.16893,343.02381 z "
        id="path3541"
        sodipodi:nodetypes="ccccc" />
