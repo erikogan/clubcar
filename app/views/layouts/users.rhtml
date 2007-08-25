@@ -6,8 +6,9 @@
   <title>User<%= @clarifyTitle %>: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'clubcar' %>
+  <%= stylesheet_link_tag 'users' %>
 </head>
-<body>
+<body id="<%= controller.action_name %>">
 
 <p style="color: green"><%= flash[:notice] %></p>
 

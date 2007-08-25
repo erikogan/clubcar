@@ -1,18 +1,36 @@
 <h1>Login</h1>
 
-<div class="loginForm">
-    <fieldset>
-      <legend>Please Log In</legend>
-      <% form_tag do %>
-      <p>
-	<label for="login">Login:</label>
-	<%= text_field_tag :login, params[:login] %>
-      </p>
-      <p>
-	<label for="plain_password">Password:</label>
-	<%= password_field_tag :plain_password, params[:plain_password] %>
-      </p>
-      <%= submit_tag "Login" %>
-      <% end %>
-    </fieldset>
-</div>
+  <div class="formBackground">
+    <div class="loginForm">
+      <fieldset>
+	<legend>Please Log In</legend>
+	<% form_tag do %>
+	<table>
+	  <tbody>
+	    <tr>
+	      <td>
+		<label for="login">Login:</label>
+	      </td>
+	      <td>
+		<%= text_field_tag :login, params[:login] %>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<label for="plain_password">Password:</label>
+	      </td>
+	      <td>
+		<%= password_field_tag :plain_password, params[:plain_password] %>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td colspan="2">
+		<%= submit_tag "Login" %>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+	<% end %>
+      </fieldset>
+    </div>
+  </div>
