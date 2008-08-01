@@ -13,3 +13,7 @@ tr.rowB {
 /* .floatImg img { */
 /*   max-width: 40%;  */
 /* } */
+
+table#preferences td {
+  line-height: 35px;
+}

@@ -1,18 +1,24 @@
-#graphsLoggedIn {
-  /*background: #f00;*/
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 0 4px 4px;
-  width: 200px;
-}
-
-#loggedIn p {
+h2 { 
   background-color: #abc;
   margin-bottom: 0;
   padding: 2px;
+  font-size: 1.25em;
 }
 
 #loggedIn ul {
   margin-top: 0;
 }
+
+#leftSide { width: 44%; }
+
+#rightSide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* padding: 0 0 4px 4px; */
+  padding: 4px;
+  width: 54%;
+  /*background-color: #ff0;*/
+}
+
+#preferences table { width: 100%; }
