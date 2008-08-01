@@ -7,7 +7,7 @@ class CreateMoods < ActiveRecord::Migration
       t.column :order,	:integer
     end
 
-    execute "ALTER TABLE moods ADD CONSTRAINT fk_mood_users FOREIGN KEY (user_id) REFERENCES users(id)"
+    execute "ALTER TABLE moods ADD CONSTRAINT fk_mood_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
 
     add_index :moods, :user_id
   end

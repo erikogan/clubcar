@@ -6,7 +6,7 @@ class CreateVisits < ActiveRecord::Migration
       t.column :duration,	:interval
     end
 
-    execute "ALTER TABLE visits ADD CONSTRAINT fk_visits_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)"
+    execute "ALTER TABLE visits ADD CONSTRAINT fk_visits_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE"
 
     # doing this above with :default => 'now()' does NOT DtRT
     execute "ALTER TABLE visits ALTER COLUMN date SET DEFAULT now()"

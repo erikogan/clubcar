@@ -1,7 +1,7 @@
 class MovePreferencesToVotes < ActiveRecord::Migration
   def self.up
     add_column :preferences, :vote_id, :integer
-    execute "ALTER TABLE preferences ADD CONSTRAINT fk_preferences_votes FOREIGN KEY (vote_id) REFERENCES votes(id)"
+    execute "ALTER TABLE preferences ADD CONSTRAINT fk_preferences_votes FOREIGN KEY (vote_id) REFERENCES votes(id) ON DELETE CASCADE"
     
     # This is a one-shot, it can afford to be inefficient
     execute "UPDATE preferences SET vote_id = (SELECT id FROM votes AS v WHERE v.value = preferences.value)"

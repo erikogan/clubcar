@@ -5,9 +5,9 @@ class CreateLabels < ActiveRecord::Migration
       t.column :tag_id,		:integer, :null => false
     end
 
-    execute "ALTER TABLE labels ADD CONSTRAINT fk_label_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)"
+    execute "ALTER TABLE labels ADD CONSTRAINT fk_label_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE"
 
-    execute "ALTER TABLE labels ADD CONSTRAINT fk_label_tags FOREIGN KEY (tag_id) REFERENCES tags(id)"
+    execute "ALTER TABLE labels ADD CONSTRAINT fk_label_tags FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE"
     
     execute "ALTER TABLE labels ADD CONSTRAINT uniq_label_restaurant_tag UNIQUE (tag_id,restaurant_id)"
 

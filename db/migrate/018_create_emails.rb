@@ -7,7 +7,7 @@ class CreateEmails < ActiveRecord::Migration
     end
     add_index :emails, :email
 
-    execute "ALTER TABLE emails ADD CONSTRAINT fk_email_user FOREIGN KEY (user_id) REFERENCES users(id)"
+    execute "ALTER TABLE emails ADD CONSTRAINT fk_email_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
     execute "ALTER TABLE emails ADD CONSTRAINT uniq_email_email UNIQUE (email)"
   end
 
