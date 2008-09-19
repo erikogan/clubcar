@@ -58,3 +58,7 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+config.action_controller.session = { 
+  :session_key => "_myapp_session", 
+  :secret => "This is clubcar. It sucks, just ask Dwight." 
+}
