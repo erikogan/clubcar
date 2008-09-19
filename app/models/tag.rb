@@ -161,6 +161,7 @@ WHERE	t.type_id = #{@@genre_type.id}
 -- I hate to add this as a special case, but I need to rework the
 -- selection algorithm, and the brought in restaurants nobody wants to
 -- go to are killing the genres
+-- oops, but THAT is leading to duplication, out it goes
 	AND r.id NOT IN (SELECT	subL.restaurant_id 
 			 FROM	labels AS subL, 
 				tags subT 
@@ -212,12 +213,12 @@ WHERE	t.type_id = #{@@genre_type.id}
 -- I hate to add this as a special case, but I need to rework the
 -- selection algorithm, and the brought in restaurants nobody wants to
 -- go to are killing the genres
+-- oops, but THAT is leading to duplication, out it goes
 	AND r.id NOT IN (SELECT	subL.restaurant_id 
 			 FROM	labels AS subL, 
 				tags subT 
 			 WHERE	canonical = 'broughtin' 
 				AND subL.tag_id = subT.id)
--- GROUP BY t.*
 GROUP BY t.canonical, #{tCols.join(', ')}
 HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
 	AND SUM(genre_total) >= 0
