@@ -26,6 +26,12 @@ Rails::Initializer.run do |config|
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
 
+  # needed for 2.1
+  config.action_controller.session = { 
+    :session_key => "_myapp_session", 
+    :secret => "This is clubcar. It sucks, just ask Dwight." 
+  }
+
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :active_record_store
@@ -58,7 +64,3 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
-config.action_controller.session = { 
-  :session_key => "_myapp_session", 
-  :secret => "This is clubcar. It sucks, just ask Dwight." 
-}
