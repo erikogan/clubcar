@@ -48,6 +48,24 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  config.gem "mongrel"
+  # config.gem "mongrel_cluster"
+  
+  config.gem "capistrano"
+  # config.gem "capistrano-ext", :lib => 'capistrano/ext/:lib' #TODO: If we need a cap extension, replace :lib with it
+  
+  config.gem "libxml-ruby", :lib => "xml/libxml"
+  
+  config.gem "rmagick", :lib => "RMagick"
+  
+  #config.gem "mechanize"
+  
+  #config.gem "aws-s3", :lib => "aws/s3"
+  
+  #config.gem "compass" # depends on the haml plugin
+  
+  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
+  
 end
 
 # Add new inflection rules using the following format 
