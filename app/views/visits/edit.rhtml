@@ -2,12 +2,12 @@
 
 <%= error_messages_for :visit %>
 
-<% tagged_form_for(:visit, :url => visit_path(@restaurant, @visit), :html => { :method => :put }) do |f| %>
+<% tagged_form_for(:visit, :url => restaurant_visit_path(@restaurant, @visit), :html => { :method => :put }) do |f| %>
     <%= # f.text_field :restaurant_id
 	%>
     <%= f.date_select :date %>
     <%= submit_tag "Update" %>
 <% end %>
 
-<%= link_to 'Show', visit_path(@restaurant, @visit) %> |
-<%= link_to 'Back', visits_path(@restaurant) %>
+<%= link_to 'Show', restaurant_visit_path(@restaurant, @visit) %> |
+<%= link_to 'Back', restaurant_visits_path(@restaurant) %>

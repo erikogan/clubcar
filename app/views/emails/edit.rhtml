@@ -2,10 +2,10 @@
 
 <%= error_messages_for :email %>
 
-<% tagged_form_for(:email, :url => email_path(@user, @email), :html => { :method => :put }) do |f| %>
+<% tagged_form_for(:email, :url => user_email_path(@user, @email), :html => { :method => :put }) do |f| %>
   <%= f.text_field :address %>
   <%= submit_tag "Update" %>
 <% end %>
 
-<%= link_to 'Show', email_path(@user, @email) %> |
-<%= link_to 'Back', emails_path %>
+<%= link_to 'Show', user_email_path(@user, @email) %> |
+<%= link_to 'Back', user_emails_path %>

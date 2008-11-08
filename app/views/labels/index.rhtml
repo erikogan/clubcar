@@ -10,13 +10,13 @@
   <tr class="<%= cycle('rowA', 'rowB') %>">
     <td><%=h label.restaurant.name %></td>
     <td><%=h label.tag.name %></td>
-    <td><%= link_to 'Show', label_path(label.restaurant, label) %></td>
-    <td><%= link_to 'Edit', edit_label_path(label.restaurant, label) %></td>
-    <td><%= link_to 'Destroy', label_path(label.restaurant, label), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', restaurant_label_path(label.restaurant, label) %></td>
+    <td><%= link_to 'Edit', edit_restaurant_label_path(label.restaurant, label) %></td>
+    <td><%= link_to 'Destroy', restaurant_label_path(label.restaurant, label), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New label', new_label_path %>
+<%= link_to 'New label', new_restaurant_label_path %>

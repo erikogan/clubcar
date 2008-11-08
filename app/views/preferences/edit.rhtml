@@ -2,9 +2,9 @@
 
 <%= error_messages_for :preference %>
 
-<% tagged_form_for(:preference, :url => preference_path(@user, @mood, @preference), :html => { :method => :put }) do |f| %>
+<% tagged_form_for(:preference, :url => user_mood_preference_path(@user, @mood, @preference), :html => { :method => :put }) do |f| %>
   <div class="tagged_display">
-    <p><strong>Mood:</strong><br/><%= link_to h(@mood.name), mood_path(@user, @mood) %></p>
+    <p><strong>Mood:</strong><br/><%= link_to h(@mood.name), user_mood_path(@user, @mood) %></p>
     <p><strong>Restaurant:</strong><br/><%= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant) %></p>
     <%= f.select :vote_id, @preference_values %>
     <div>
@@ -13,5 +13,5 @@
     <%= submit_tag "Update" %>
 <% end %>
 
-<%= link_to 'Show', preference_path(@user, @mood, @preference) %> |
-<%= link_to 'Back', preferences_path(@user, @mood) %>
+<%= link_to 'Show', user_mood_preference_path(@user, @mood, @preference) %> |
+<%= link_to 'Back', user_mood_preferences_path(@user, @mood) %>

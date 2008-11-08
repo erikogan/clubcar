@@ -2,11 +2,11 @@
 
 <%= error_messages_for :visit %>
 
-<% tagged_form_for(:visit, :url => visits_path(@restaurant)) do |f| %>
+<% tagged_form_for(:visit, :url => restaurant_visits_path(@restaurant)) do |f| %>
     <%= f.date_select :date %>
     <%= f.text_field :duration %>
     <%= submit_tag "Create" %>
   </p>
 <% end %>
 
-<%= link_to 'Back', visits_path(@restaurant) %>
+<%= link_to 'Back', restaurant_visits_path(@restaurant) %>

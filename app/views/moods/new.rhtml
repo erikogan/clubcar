@@ -2,10 +2,10 @@
 
 <%= error_messages_for :mood %>
 
-<% tagged_form_for(:mood, :url => moods_path) do |f| %> 
+<% tagged_form_for(:mood, :url => user_moods_path) do |f| %> 
     <%= f.text_field :name %>
     <%= f.text_field :order %>
     <%= submit_tag "Create" %>
 <% end %>
 
-<%= link_to 'Back', moods_path %>
+<%= link_to 'Back', user_moods_path %>
