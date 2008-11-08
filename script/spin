@@ -1,6 +1,13 @@
 #!/bin/sh
 
-/var/www/clubcar/current/script/process/spawner \
+
+. /afs/slackers.net/projects/infrastructure/etc/functions
+getToken webmaster webmaster 36h
+
+#klist
+#tokens
+
+exec /afs/slackers.net/projects/clubcar/release/current/script/process/spawner \
   mongrel \
   --environment=production \
   --instances=1 \
