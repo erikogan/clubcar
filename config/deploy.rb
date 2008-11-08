@@ -8,7 +8,7 @@ set :scm_password, "cp0sRockz"
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/var/www/#{application}"
+set :deploy_to, "/afs/slackers.net/projects/#{application}/release"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -18,8 +18,9 @@ set :deploy_to, "/var/www/#{application}"
 #role :web, "your web-server here"
 #role :db,  "your db-server here", :primary => true
 
-server "clubcar.app.cloudshield.com", :app, :web, :db, :primary => true
+#server "clubcar.app.cloudshield.com", :app, :web, :db, :primary => true
+server "10.23.41.5", :app, :web, :db, :primary => true
 
 # For now, we'll fix it later
-set :user, "root"
+set :user, "erik"
 set :use_sudo, false
