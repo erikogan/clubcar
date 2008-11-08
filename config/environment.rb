@@ -28,8 +28,8 @@ Rails::Initializer.run do |config|
 
   # needed for 2.x
   config.action_controller.session = { 
-    :session_key => "_myapp_session", 
-    :secret => "This is clubcar. It sucks, just ask Dwight." 
+    :session_key  => "_myapp_session", 
+    :secret       => "This is clubcar. It sucks, just ask Dwight." 
   }
 
   # Use the database for sessions instead of the file system
@@ -64,7 +64,7 @@ Rails::Initializer.run do |config|
   
   #config.gem "compass" # depends on the haml plugin
   
-  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
+  #config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
 end
 
