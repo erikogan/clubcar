@@ -46,3 +46,4 @@ production:
   #database: clubcar
   username: clubcar
   password: racbulc
+  host: galatia.slackers.net
