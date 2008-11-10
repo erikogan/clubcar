@@ -7,7 +7,7 @@ div.formBackground {
   width: 400px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 15%;
+  margin-top: 12%;
 }
 
 div.loginForm { 
@@ -22,4 +22,14 @@ div.loginForm fieldset {
 
 #login label {
   font-weight: bold;
+}
+
+#clubcar {
+  display: block;
+  float: left;
+}
+
+#tagline {
+  display: block;
+  text-align: right;
 }
