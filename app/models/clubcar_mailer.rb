@@ -1,6 +1,6 @@
 class ClubcarMailer < ActionMailer::Base
 
-FROM_ADDRESS = 'reply@clubcar.app.cloudshield.com'
+FROM_ADDRESS = 'clubcar@slackers.net'
 
   def reactivate(user)
     magic = make_magic(user)
