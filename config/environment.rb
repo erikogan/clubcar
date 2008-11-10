@@ -64,6 +64,8 @@ Rails::Initializer.run do |config|
   
   #config.gem "compass" # depends on the haml plugin
   
+  config.gem "gruff"
+
   #config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
 end
