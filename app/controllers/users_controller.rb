@@ -65,6 +65,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        if session[:user].id == @user.id
+          session[:user].reload
+        end
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to user_url(@user) }
         format.xml  { head :ok }

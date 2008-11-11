@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "/users/index.html.erb" do
+describe "/users/index" do
   include UsersHelper
   
   before(:each) do
@@ -25,13 +25,11 @@ describe "/users/index.html.erb" do
   end
 
   it "should render list of users" do
-    render "/users/index.html.erb"
+    render "/users/index"
     response.should have_tag("tr>td", "value for login", 2)
     response.should have_tag("tr>td", "value for name", 2)
-    response.should have_tag("tr>td", "value for password", 2)
-    response.should have_tag("tr>td", "value for salt", 2)
-    response.should have_tag("tr>td", false, 2)
-    response.should have_tag("tr>td", false, 2)
+    #response.should have_tag("tr>td", false, 2)
+    #response.should have_tag("tr>td", false, 2)
   end
 end
 

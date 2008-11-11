@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "/users/show.html.erb" do
+describe "/users/show" do
   include UsersHelper
   
   before(:each) do
@@ -15,13 +15,14 @@ describe "/users/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
-    render "/users/show.html.erb"
+    # TODO remove this once we have vote fixtures
+    Vote.should_receive(:find_by_name).with('Veto').and_return(stub_model(Vote, :name => 'Veto'))
+    @request.session[:user] = @user
+    render "/users/show"
     response.should have_text(/value\ for\ login/)
     response.should have_text(/value\ for\ name/)
-    response.should have_text(/value\ for\ password/)
-    response.should have_text(/value\ for\ salt/)
-    response.should have_text(/als/)
-    response.should have_text(/als/)
+    # TODO: figure this out
+    # response.should render_template('moods/_list')
   end
 end
 

@@ -1,17 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  login: MyString
-  name: MyString
-  password: MyString
-  salt: MyString
+admin:
+  login: admin
+  name: The Administrator
+  password:  e8723bff2adc323751e445425945f175
+  salt: e1ee688aeaad8bdb3cb4bdbf8468b79f
   present: false
-  admin: false
+  admin: true
 
-two:
-  login: MyString
-  name: MyString
-  password: MyString
-  salt: MyString
+erik:
+  login: erik
+  name: Erik Ogan
+  password: 10f4d58bb943966ab9277f10fafd952f
+  salt: c032ef88deba00094c049716286becae
   present: false
   admin: false
