@@ -1,5 +1,6 @@
 <h1>Welcome to Clubcar!</h1>
 
+<div id="leftSide">
 <h2 id="presence">Your Presence</h2>
 
 <%= render :partial => '/users/presence', :object => @user %>
@@ -7,8 +8,11 @@
 <h2 id="moods">Your Moods</h2>
 
 <%= render :partial => '/moods/list', :object => @user.moods %>
+</div>
 
+<div id="rightSide">
 <div id="graphsLoggedIn">
 <%= render :partial => '/graphs/genres', :object => params %>
 <%= render :partial => '/main/logged_in', :object => @logged_in %>
+</div>
 </div>
