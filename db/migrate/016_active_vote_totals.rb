@@ -1,11 +1,11 @@
 # Move this to a constant, so I can included it from 020...
 ACTIVE_VOTE_TOTALS_SQL = <<EndSQL
 CREATE OR REPLACE VIEW active_vote_totals AS
-SELECT 	ap.restaurant_id,
-	SUM(v.value) AS total
-FROM	active_preferences AS ap,
-	votes AS v
-WHERE	ap.vote_id = v.id
+SELECT  ap.restaurant_id,
+        SUM(v.value) AS total
+FROM    active_preferences AS ap,
+        votes AS v
+WHERE   ap.vote_id = v.id
 GROUP BY restaurant_id
 EndSQL
 

@@ -11,15 +11,15 @@ class UserTest < Test::Unit::TestCase
 
     uniq.each do |u|
       assert_equal ActiveRecord::Errors.default_error_messages[:blank], 
-	user.errors.on(u)
+        user.errors.on(u)
     end
   end
 
   def test_unique_login
     user = User.new(:login => users(:average_joe).login,
-		    :name => 'Another Joe',
-		    :plain_password => 'joe2'
-		    )
+                    :name => 'Another Joe',
+                    :plain_password => 'joe2'
+                    )
     assert !user.save
     assert_equal ActiveRecord::Errors.default_error_messages[:taken],
       user.errors.on(:login)
@@ -27,9 +27,9 @@ class UserTest < Test::Unit::TestCase
 
   def test_password_on_create
     jane = User.new(:login => 'jane',
-		    :name => 'Average Jane',
-		    :plain_password => 'jane of the jungle'
-		    )
+                    :name => 'Average Jane',
+                    :plain_password => 'jane of the jungle'
+                    )
     assert !jane.save
     assert_equal "should match confirmation", jane.errors.on(:plain_password)
 

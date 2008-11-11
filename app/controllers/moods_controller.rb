@@ -15,13 +15,13 @@ class MoodsController < ApplicationController
       # doesn't throw an excpetion, either. (I need to figure out
       # "returning" from a block)
       if !( ao.nil? || bo.nil?)
-	ao <=> bo || a.name.casecmp(b.name)
+        ao <=> bo || a.name.casecmp(b.name)
       elsif ao.nil? && bo.nil?
-	a.name.casecmp(b.name)
+        a.name.casecmp(b.name)
       elsif ao.nil?
-	-1
+        -1
       else
-	1
+        1
       end
     end
 
@@ -131,11 +131,11 @@ class MoodsController < ApplicationController
       # if more than one mood is activated, only one is actually
       # activated, non-deterministically
       if (request.xhr?) 
-	# The Prototype Form.serialize doesn't DtRT with image inputs.
-	# Faking it with a hidden field update on click
-	mood_id = params[:activate_input].to_i
+        # The Prototype Form.serialize doesn't DtRT with image inputs.
+        # Faking it with a hidden field update on click
+        mood_id = params[:activate_input].to_i
       else
-	mood_id = params[:activate].keys[0].to_i
+        mood_id = params[:activate].keys[0].to_i
       end
       @mood = @user.moods.find(mood_id)
       @mood.activate
@@ -143,7 +143,7 @@ class MoodsController < ApplicationController
       redirect_to :action => :index unless request.xhr?
     rescue ActiveRecord::RecordNotFound => rnf
       logger.fatal("Attempt to access invalid mood [#{mood_id}] " +
-		   "for user [#{@user.id}]")
+                   "for user [#{@user.id}]")
       redirect_to moods_url(@user)
     end
   end
@@ -174,8 +174,8 @@ private
     # needs to be reworked
     begin
       unless @user_id.blank?
-	@user = User.find(@user_id)
-	return
+        @user = User.find(@user_id)
+        return
       end
     rescue
       # The return handled the base case, everything else is redirected

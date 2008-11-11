@@ -34,10 +34,10 @@ FROM_ADDRESS = 'clubcar@slackers.net'
     unless (user.nil? || errors.length > 0) 
       user.present = true;
       begin
-	user.save!
-	reply = self.class.create_reply_success(user, email, magic)
+        user.save!
+        reply = self.class.create_reply_success(user, email, magic)
       rescue Exception => e
-	reply = self.class.create_reply_error(user, email, magic, errors)
+        reply = self.class.create_reply_error(user, email, magic, errors)
       end
     else
       user = User.new()
@@ -48,21 +48,21 @@ FROM_ADDRESS = 'clubcar@slackers.net'
   end
 
   def reply_error(user, email, magic, errors)
-    @subject	= "[clubcar] Error on activation#{magic}"
-    @body	= {:errors => errors, :user => user}
-    @recipients	= email.from
-    @from	= FROM_ADDRESS
-    @sent_on	=  Time.now
-    @headers	= {}
+    @subject    = "[clubcar] Error on activation#{magic}"
+    @body       = {:errors => errors, :user => user}
+    @recipients = email.from
+    @from       = FROM_ADDRESS
+    @sent_on    =  Time.now
+    @headers    = {}
   end
 
   def reply_success(user, email, magic)
-    @subject	= "[clubcar] Activation complete#{magic}"
-    @body	= {:user => user}
-    @recipients	= email.from
-    @from	= FROM_ADDRESS
-    @sent_on	=  Time.now
-    @headers	= {}
+    @subject    = "[clubcar] Activation complete#{magic}"
+    @body       = {:user => user}
+    @recipients = email.from
+    @from       = FROM_ADDRESS
+    @sent_on    =  Time.now
+    @headers    = {}
   end
 
 private
@@ -83,18 +83,18 @@ private
       base64 = $2
 
       if base64.nil?
-	raise "Token missing from subject-line"
+        raise "Token missing from subject-line"
       end
 
       (login,time,mini) = base64.unpack("m*")[0].split(/!!/)
       time = time.to_i
 
       if (time.nil? || mini.nil?) 
-	raise "Corrupted subject-line"
+        raise "Corrupted subject-line"
       end
 
       if (Time.now.to_i - time > 60 * 60 * 12)
-	errors.push "Reply to an old warning"
+        errors.push "Reply to an old warning"
       end
 
       user = User.find_by_login(login)
@@ -102,7 +102,7 @@ private
 
       # 32 characters, at most 31 days, that's handy
       unless (magic[Time.at(time).day,1] == mini) 
-	errors.push "Bogus magic number"
+        errors.push "Bogus magic number"
       end
     rescue Exception => e
       errors.push e.message

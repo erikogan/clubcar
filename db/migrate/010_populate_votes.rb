@@ -3,7 +3,7 @@ require 'active_record/fixtures'
 class PopulateVotes < ActiveRecord::Migration
   def self.up
     Fixtures.create_fixtures('test/fixtures', 
-			     File.basename("votes.yml", '.*'))
+                             File.basename("votes.yml", '.*'))
 
   end
 

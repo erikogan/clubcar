@@ -20,24 +20,24 @@ my %found;
     local $/ = ">";
 
     while (<$fh>) {
-	#next if /<(linear|radial)Gradient/;
-	while (/#((linear|radial)Gradient[-\w]+)/g) {
-	    $found{$1}++;
-	}
+        #next if /<(linear|radial)Gradient/;
+        while (/#((linear|radial)Gradient[-\w]+)/g) {
+            $found{$1}++;
+        }
   }
 }
 
 close $fh;
 
 my $t= new XML::Twig (
-		      empty_tags => 'html',
-		      twig_roots => {
-				     'radialGradient' => \&doGradient,
-				     'linearGradient' => \&doGradient,
-				    },
-		      twig_print_outside_roots => 1, # print the rest
-#		      output_encoding => "US-ASCII",
-		     );
+                      empty_tags => 'html',
+                      twig_roots => {
+                                     'radialGradient' => \&doGradient,
+                                     'linearGradient' => \&doGradient,
+                                    },
+                      twig_print_outside_roots => 1, # print the rest
+#                     output_encoding => "US-ASCII",
+                     );
 
 $t->parsefile($file);
 
@@ -47,8 +47,8 @@ sub doGradient {
 
     my $id = $el->{att}->{id};
     if (exists $found{$id}) {
-	$el->print;
+        $el->print;
     } else {
-	$el->delete;
+        $el->delete;
     }
 }

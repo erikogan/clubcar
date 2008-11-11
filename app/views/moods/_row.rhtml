@@ -3,9 +3,9 @@
     <td><%= h row.order %></td>
     <td><% if row.active -%>
       <img src="<%= image_path('checked.png') %>"/>
-	<% else -%>
+        <% else -%>
       <%= image_submit_tag 'unchecked.png', {:alt => 'Set Current Mood to ' + row.name, :name => 'activate[' + row.id.to_s + ']', :onclick => "this.form.activate_input.value = #{row.id};"} %>
-	<% end -%>
+        <% end -%>
     </td>
     
     <td><%= link_to 'Edit', edit_user_mood_path(@user, row) %></td>

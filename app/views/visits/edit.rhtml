@@ -4,7 +4,7 @@
 
 <% tagged_form_for(:visit, :url => restaurant_visit_path(@restaurant, @visit), :html => { :method => :put }) do |f| %>
     <%= # f.text_field :restaurant_id
-	%>
+        %>
     <%= f.date_select :date %>
     <%= submit_tag "Update" %>
 <% end %>

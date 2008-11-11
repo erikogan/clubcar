@@ -18,12 +18,12 @@ class AddGenreScoreToVotes < ActiveRecord::Migration
     # that seems silly...though still tempting
     execute <<EndSQL
 CREATE OR REPLACE VIEW active_vote_totals AS
-SELECT 	ap.restaurant_id,
-	SUM(v.value) AS total,
+SELECT  ap.restaurant_id,
+        SUM(v.value) AS total,
         SUM(v.genre_value) AS genre_total
-FROM	active_preferences AS ap,
-	votes AS v
-WHERE	ap.vote_id = v.id
+FROM    active_preferences AS ap,
+        votes AS v
+WHERE   ap.vote_id = v.id
 GROUP BY restaurant_id
 EndSQL
   end

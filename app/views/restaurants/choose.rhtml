@@ -13,18 +13,18 @@
 
     <table>
       <thead>
-	<tr>
-	  <th>Name</th>
-	  <th>Date Distance</th>
-	</tr>
+        <tr>
+          <th>Name</th>
+          <th>Date Distance</th>
+        </tr>
       </thead>
       <tbody>
-	<% for genre in choice['scored_genres'] %>
-	<tr class="<%= cycle('rowA', 'rowB') %>">
-	  <td><%= link_to h(genre.name), tag_path(genre) %></td>
-	  <td><%= h genre.distance %></td>
-	</tr>
-	<% end %>
+        <% for genre in choice['scored_genres'] %>
+        <tr class="<%= cycle('rowA', 'rowB') %>">
+          <td><%= link_to h(genre.name), tag_path(genre) %></td>
+          <td><%= h genre.distance %></td>
+        </tr>
+        <% end %>
       </tbody>
     </table>
 
@@ -38,18 +38,18 @@
 
     <table>
       <thead>
-	<tr>
-	  <th>Name</th>
-	  <th>Score</th>
-	</tr>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
       </thead>
       <tbody>
-	<% for r in choice['scored_restaurants'] %>
-	<tr class="<%= cycle('rowA', 'rowB') %>">
-	  <td><%= link_to h(r.name), restaurant_path(r) %></td>
-	  <td><%= h r.total %></td>
-	</tr>
-	<% end %>
+        <% for r in choice['scored_restaurants'] %>
+        <tr class="<%= cycle('rowA', 'rowB') %>">
+          <td><%= link_to h(r.name), restaurant_path(r) %></td>
+          <td><%= h r.total %></td>
+        </tr>
+        <% end %>
       </tbody>
     </table>
 
@@ -57,19 +57,19 @@
 
     <table>
       <thead>
-	<tr>
-	  <th>Weight</th>
-	  <th>Name</th>
-	</tr>
+        <tr>
+          <th>Weight</th>
+          <th>Name</th>
+        </tr>
       </thead>
       <tbody>
-	<% last = 0 ; for k in choice['weighted_restaurants'].keys.sort %>
-	<tr class="<%= cycle('rowA', 'rowB') %>">
-	  <td><%= k - last %></td>
-	  <td><%= link_to h(choice['weighted_restaurants'][k].name), restaurant_path(choice['weighted_restaurants'][k]) %></td>
-	</tr>
-	<% last = k %>
-	<% end %>
+        <% last = 0 ; for k in choice['weighted_restaurants'].keys.sort %>
+        <tr class="<%= cycle('rowA', 'rowB') %>">
+          <td><%= k - last %></td>
+          <td><%= link_to h(choice['weighted_restaurants'][k].name), restaurant_path(choice['weighted_restaurants'][k]) %></td>
+        </tr>
+        <% last = k %>
+        <% end %>
       </tbody>
     </table>
 

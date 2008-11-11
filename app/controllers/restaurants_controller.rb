@@ -152,7 +152,7 @@ class RestaurantsController < ApplicationController
     end
 
     return choose_weighted(debugH['weighted_genres'], 
-			   debugH['total'])
+                           debugH['total'])
   end
 
   def choose_restaurant(debugH) 

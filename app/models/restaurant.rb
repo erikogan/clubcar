@@ -55,15 +55,15 @@ class Restaurant < ActiveRecord::Base
 
   def self.find_all_by_tag_with_active_scores(tag)
     find_by_sql(<<EndSQL)
-SELECT 	r.*, 
-	avt.total,
-FROM	labels AS l,
-	restaurants AS r
+SELECT  r.*, 
+        avt.total,
+FROM    labels AS l,
+        restaurants AS r
 LEFT JOIN active_vote_totals AS avt
-	ON avt.restaurant_id = r.id
-WHERE 	l.tag_id = #{tag.id}
-	AND l.restaurant_id = r.id
-	AND (avt.total >= 0 OR avt.total IS NULL);
+        ON avt.restaurant_id = r.id
+WHERE   l.tag_id = #{tag.id}
+        AND l.restaurant_id = r.id
+        AND (avt.total >= 0 OR avt.total IS NULL);
 EndSQL
   end
 
@@ -71,30 +71,30 @@ EndSQL
     noID = Restaurant.columns.reject { |c| c.name == 'id' }.map {|c| "r.#{c.name}"}
 
     find_by_sql(<<EndSQL)
-SELECT 	DISTINCT(r.id), #{noID.join ', '}, 
-	avt.total,
+SELECT  DISTINCT(r.id), #{noID.join ', '}, 
+        avt.total,
 -- The linear weighting was too much, make it logarithmic (and move it
 -- into the SQL). Everybody gets one point for showing up, thus the 2+score.
-	ROUND(#{VOTE_TO_DATE_DISTANCE_RATIO} 
-	      * LOG(2, 2 + CASE WHEN total IS NULL THEN 0
-				ELSE total
-			   END)
-	      + LOG(2, CASE WHEN date_distance IS NULL 
-				THEN #{DATE_DISTANCE_MAX}
-			    WHEN date_distance > #{DATE_DISTANCE_MAX} 
-				THEN #{DATE_DISTANCE_MAX} 
-			    ELSE date_distance
-		        END)
-	      ) AS weight
-FROM	labels AS l,
-	restaurants AS r
+        ROUND(#{VOTE_TO_DATE_DISTANCE_RATIO} 
+              * LOG(2, 2 + CASE WHEN total IS NULL THEN 0
+                                ELSE total
+                           END)
+              + LOG(2, CASE WHEN date_distance IS NULL 
+                                THEN #{DATE_DISTANCE_MAX}
+                            WHEN date_distance > #{DATE_DISTANCE_MAX} 
+                                THEN #{DATE_DISTANCE_MAX} 
+                            ELSE date_distance
+                        END)
+              ) AS weight
+FROM    labels AS l,
+        restaurants AS r
 LEFT JOIN active_vote_totals AS avt
-	ON avt.restaurant_id = r.id
+        ON avt.restaurant_id = r.id
 LEFT JOIN restaurants_date_distance rdd
-	ON rdd.restaurant_id = r.id
-WHERE 	l.tag_id IN (#{tags.map {|t| t.id}.join ', '})
-	AND l.restaurant_id = r.id
-	AND (avt.total >= 0 OR avt.total IS NULL)
+        ON rdd.restaurant_id = r.id
+WHERE   l.tag_id IN (#{tags.map {|t| t.id}.join ', '})
+        AND l.restaurant_id = r.id
+        AND (avt.total >= 0 OR avt.total IS NULL)
 ORDER BY r.name
 EndSQL
   end
@@ -109,7 +109,7 @@ EndSQL
     
     del = self.labels.inject(Array.new) do |a,l|
       if (ids.include?(l.tag_id))
-	a << l
+        a << l
       end
       a
     end

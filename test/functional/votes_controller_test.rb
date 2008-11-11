@@ -14,8 +14,8 @@ class VotesControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     # there's a bug in the TestSession class, :user isn't found
-    # @session	= { :user => users(:admin), 'user' => users(:admin) }
-    @session	= Test::Unit::TestCase.logged_in_session
+    # @session  = { :user => users(:admin), 'user' => users(:admin) }
+    @session    = Test::Unit::TestCase.logged_in_session
   end
 
   def test_should_get_index

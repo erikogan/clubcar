@@ -4,8 +4,8 @@
     <% unless @tags.empty? %>
       <h2 id="tagsHeader">Tags</h2>
       <ul id="tags">
-	<% for label in @tags %>
-	  <li><%= link_to '[-]', restaurant_label_path(label), :confirm => 'delete?', :method => :delete %><%= label.tag.name %></li>
+        <% for label in @tags %>
+          <li><%= link_to '[-]', restaurant_label_path(label), :confirm => 'delete?', :method => :delete %><%= label.tag.name %></li>
         <% end %>
       </ul>
     <% end %>
@@ -13,8 +13,8 @@
     <% unless @genres.empty? %>
       <h2 id="genresHeader">Genres</h2>
       <ul id="genres">
-	<% for label in @genres %>
-	  <li><%= link_to '[-]', restaurant_label_path(label), :confirm => 'delete?', :method => :delete %><%= label.tag.name %></li>
+        <% for label in @genres %>
+          <li><%= link_to '[-]', restaurant_label_path(label), :confirm => 'delete?', :method => :delete %><%= label.tag.name %></li>
         <% end %>
       </ul>
     <% end %>

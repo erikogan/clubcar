@@ -16,12 +16,12 @@ class Preference < ActiveRecord::Base
     rIDs = [-1] if rIDs.empty?
 
     Restaurant.find(:all, :order => :name, 
-		    :conditions => ["id NOT IN (?)", rIDs]).collect do |r|
+                    :conditions => ["id NOT IN (?)", rIDs]).collect do |r|
 
       # since we've already done the fetches, there's no point in redoing
       # them later.
       p = Preference.new(:mood_id => mood.id, # :restaurant_id => r.id, 
-			 :vote_id => defVote.id )
+                         :vote_id => defVote.id )
       p.mood = mood
       p.restaurant = r
 
@@ -30,7 +30,7 @@ class Preference < ActiveRecord::Base
       # I'm not really sure this bit of cleverness is a good idea, either.
       # (Rails uses this method in the field names (foo[id]))
       class << p
-	attr_accessor :id_before_type_cast
+        attr_accessor :id_before_type_cast
       end
       p.id_before_type_cast = i
       i+=1

@@ -111,12 +111,12 @@ class UsersController < ApplicationController
       user = User.authenticate(params[:login], params[:plain_password])
 
       if user
-	session[:user] = user
-	uri = session[:original_uri]
-	session[:original_uri] = nil
-	redirect_to(uri || { :action => :index })
+        session[:user] = user
+        uri = session[:original_uri]
+        session[:original_uri] = nil
+        redirect_to(uri || { :action => :index })
       else
-	flash[:notice] = "Invalid username/password"
+        flash[:notice] = "Invalid username/password"
       end
     end
   end

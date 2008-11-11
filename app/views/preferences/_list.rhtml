@@ -10,9 +10,9 @@
     <!-- td><%=h preference.mood_id %></td -->
     <td><%= link_to h(preference.restaurant.name), restaurant_path(preference.restaurant) %></td>
       <td>
-	<div class="customRadio display vote<%=preference.vote.name %>">
-	  <span><%= h preference.vote.name %></span>
-	</div>
+        <div class="customRadio display vote<%=preference.vote.name %>">
+          <span><%= h preference.vote.name %></span>
+        </div>
       </td>
     <td><%= link_to 'Edit', edit_user_mood_preference_path(@user, @mood, preference) %></td>
     <td><%= link_to 'Destroy', user_mood_preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete %></td>

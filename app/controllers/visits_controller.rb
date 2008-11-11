@@ -99,8 +99,8 @@ private
     # needs to be reworked
     begin
       unless @restaurant_id.blank?
-	@restaurant = Restaurant.find(@restaurant_id)
-	return
+        @restaurant = Restaurant.find(@restaurant_id)
+        return
       end
     rescue
       # The return handled the base case, everything else is redirected

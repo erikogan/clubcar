@@ -57,7 +57,7 @@ class Tag < ActiveRecord::Base
       self.canonical = canon
     else
       if (self.canonical != canon)
-	raise "Name (#{name}) must reduce to canonical name: #{self.canonical} (not \"#{canon})"
+        raise "Name (#{name}) must reduce to canonical name: #{self.canonical} (not \"#{canon})"
       end
       super(name)
     end
@@ -99,19 +99,19 @@ class Tag < ActiveRecord::Base
     tags = Array.new
     for arg in args.flatten
       if arg.instance_of?(Tag)
-	tags.push(arg)
+        tags.push(arg)
       else
-	for tag in arg.to_s.split(/,\s*/)
-	  canon = canonicalize(tag)
-	  # find_or_create_by_name doesn't call find_by_name... (l@m3)
-	  t = find_by_canonical_and_type_id(canon, type.id)
-	  if (t.nil?)
-	    # Remember, setting :name also sets :canonical
-	    t = new(:name => tag, :tag_type => type)
-	    t.save
-	  end
-	  tags.push(t)
-	end
+        for tag in arg.to_s.split(/,\s*/)
+          canon = canonicalize(tag)
+          # find_or_create_by_name doesn't call find_by_name... (l@m3)
+          t = find_by_canonical_and_type_id(canon, type.id)
+          if (t.nil?)
+            # Remember, setting :name also sets :canonical
+            t = new(:name => tag, :tag_type => type)
+            t.save
+          end
+          tags.push(t)
+        end
       end
     end
     return tags
@@ -122,21 +122,21 @@ class Tag < ActiveRecord::Base
     tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
 
     return Tag.find_by_sql(<<endSQL)
-SELECT	t.*,
-	MIN(date_distance) AS distance
-FROM 	restaurants AS r
+SELECT  t.*,
+        MIN(date_distance) AS distance
+FROM    restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
-	ON rdd.restaurant_id = r.id,
-	labels AS l,
-	tag_types AS tt,
-	tags AS t
-WHERE	t.type_id = #{@@genre_type.id}
-	AND t.id NOT IN (#{not_in})
-	AND l.tag_id = t.id
-	AND l.restaurant_id = r.id
+        ON rdd.restaurant_id = r.id,
+        labels AS l,
+        tag_types AS tt,
+        tags AS t
+WHERE   t.type_id = #{@@genre_type.id}
+        AND t.id NOT IN (#{not_in})
+        AND l.tag_id = t.id
+        AND l.restaurant_id = r.id
 GROUP BY t.canonical, #{tCols.join(', ')}
 -- The 'bounded' part
-HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+HAVING  (MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
 -- Put the NULLs at the front
 ORDER BY MIN(date_distance) IS NOT NULL, MIN(date_distance), canonical;
 endSQL
@@ -148,27 +148,27 @@ endSQL
     tCols = Tag.columns.reject { |c| c.name == 'canonical' }.map {|c| "t.#{c.name}"}
 
     return Tag.find_by_sql(<<endSQL)
-SELECT	t.*, numeric '1' AS weight
-FROM 	restaurants AS r
+SELECT  t.*, numeric '1' AS weight
+FROM    restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
-	ON rdd.restaurant_id = r.id,
-	labels AS l,
-	tag_types AS tt,
-	tags AS t
-WHERE	t.type_id = #{@@genre_type.id}
-	AND l.tag_id = t.id
-	AND l.restaurant_id = r.id
+        ON rdd.restaurant_id = r.id,
+        labels AS l,
+        tag_types AS tt,
+        tags AS t
+WHERE   t.type_id = #{@@genre_type.id}
+        AND l.tag_id = t.id
+        AND l.restaurant_id = r.id
 -- I hate to add this as a special case, but I need to rework the
 -- selection algorithm, and the brought in restaurants nobody wants to
 -- go to are killing the genres
 -- oops, but THAT is leading to duplication, out it goes
-	AND r.id NOT IN (SELECT	subL.restaurant_id 
-			 FROM	labels AS subL, 
-				tags subT 
-			 WHERE	canonical = 'broughtin' 
-				AND subL.tag_id = subT.id)
+        AND r.id NOT IN (SELECT subL.restaurant_id 
+                         FROM   labels AS subL, 
+                                tags subT 
+                         WHERE  canonical = 'broughtin' 
+                                AND subL.tag_id = subT.id)
 GROUP BY t.canonical, #{tCols.join(', ')}
-HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+HAVING  (MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
 ORDER BY t.name
 endSQL
 
@@ -182,46 +182,46 @@ endSQL
     not_in = not_in.join ', '
 
     return Tag.find_by_sql(<<endSQL)
-SELECT	t.*,
-	MIN(date_distance) AS distance,
-	SUM(genre_total) AS score,
-	SUM(genre_total) / count(r.*) AS score_per_restaurant,
+SELECT  t.*,
+        MIN(date_distance) AS distance,
+        SUM(genre_total) AS score,
+        SUM(genre_total) / count(r.*) AS score_per_restaurant,
 -- The linear weighting was too much, make it logarithmic (and move it
 -- into the SQL). Everybody gets one point for showing up, thus the 2+score.
-	ROUND(#{Restaurant::VOTE_TO_DATE_DISTANCE_RATIO} 
-	      * LOG(2, 2+(SUM(genre_total) / COUNT(r.*))) 
-	      + LOG(2, 
-		    CASE WHEN MIN(date_distance) IS NULL 
-		    THEN #{Restaurant::DATE_DISTANCE_MAX} 
-		    WHEN MIN(date_distance) > #{Restaurant::DATE_DISTANCE_MAX} 
-		    THEN #{Restaurant::DATE_DISTANCE_MAX} 
-		    ELSE MIN(date_distance)
-		    END
-		    )) AS weight
-FROM 	restaurants AS r
+        ROUND(#{Restaurant::VOTE_TO_DATE_DISTANCE_RATIO} 
+              * LOG(2, 2+(SUM(genre_total) / COUNT(r.*))) 
+              + LOG(2, 
+                    CASE WHEN MIN(date_distance) IS NULL 
+                    THEN #{Restaurant::DATE_DISTANCE_MAX} 
+                    WHEN MIN(date_distance) > #{Restaurant::DATE_DISTANCE_MAX} 
+                    THEN #{Restaurant::DATE_DISTANCE_MAX} 
+                    ELSE MIN(date_distance)
+                    END
+                    )) AS weight
+FROM    restaurants AS r
 LEFT JOIN restaurants_date_distance AS rdd
-	ON rdd.restaurant_id = r.id
+        ON rdd.restaurant_id = r.id
 LEFT JOIN active_vote_totals AS avt
-	ON avt.restaurant_id = r.id,
-	labels AS l,
-	tag_types AS tt,
-	tags AS t
-WHERE	t.type_id = #{@@genre_type.id}
-	AND t.id NOT IN (#{not_in})
-	AND l.tag_id = t.id
-	AND l.restaurant_id = r.id
+        ON avt.restaurant_id = r.id,
+        labels AS l,
+        tag_types AS tt,
+        tags AS t
+WHERE   t.type_id = #{@@genre_type.id}
+        AND t.id NOT IN (#{not_in})
+        AND l.tag_id = t.id
+        AND l.restaurant_id = r.id
 -- I hate to add this as a special case, but I need to rework the
 -- selection algorithm, and the brought in restaurants nobody wants to
 -- go to are killing the genres
 -- oops, but THAT is leading to duplication, out it goes
-	AND r.id NOT IN (SELECT	subL.restaurant_id 
-			 FROM	labels AS subL, 
-				tags subT 
-			 WHERE	canonical = 'broughtin' 
-				AND subL.tag_id = subT.id)
+        AND r.id NOT IN (SELECT subL.restaurant_id 
+                         FROM   labels AS subL, 
+                                tags subT 
+                         WHERE  canonical = 'broughtin' 
+                                AND subL.tag_id = subT.id)
 GROUP BY t.canonical, #{tCols.join(', ')}
-HAVING 	(MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
-	AND SUM(genre_total) >= 0
+HAVING  (MIN(date_distance) > 3 OR MIN(date_distance) IS NULL)
+        AND SUM(genre_total) >= 0
 ORDER BY t.name
 endSQL
   end

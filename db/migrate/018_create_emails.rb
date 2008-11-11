@@ -1,8 +1,8 @@
 class CreateEmails < ActiveRecord::Migration
   def self.up
     create_table :emails do |t|
-      t.column :user_id,	:integer,	:null => false
-      t.column :email,		:string,	:null => false
+      t.column :user_id,        :integer,       :null => false
+      t.column :email,          :string,        :null => false
       # Eventually add booleans like primary, verified, etc.
     end
     add_index :emails, :email

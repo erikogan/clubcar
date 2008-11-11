@@ -1,9 +1,9 @@
 class CreateVisits < ActiveRecord::Migration
   def self.up
     create_table :visits do |t|
-      t.column :restaurant_id,	:integer,	:null => false
-      t.column :date,		:date,		:null => false
-      t.column :duration,	:interval
+      t.column :restaurant_id,  :integer,       :null => false
+      t.column :date,           :date,          :null => false
+      t.column :duration,       :interval
     end
 
     execute "ALTER TABLE visits ADD CONSTRAINT fk_visits_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE"

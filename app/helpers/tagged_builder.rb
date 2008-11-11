@@ -13,13 +13,13 @@ class TaggedBuilder < ActionView::Helpers::FormBuilder
     define_method(method_name) do |label, *args|
       field_id = "#{@object_name}_#{label}"
       @template.content_tag("div",
-			    @template.content_tag("label" , 
-						  label.to_s.humanize, 
-						  :for => field_id) +
-			    "<br/>" +
-			    super,
-			    :id => "#{field_id}_field", :class => :tagged_field
-			    )
+                            @template.content_tag("label" , 
+                                                  label.to_s.humanize, 
+                                                  :for => field_id) +
+                            "<br/>" +
+                            super,
+                            :id => "#{field_id}_field", :class => :tagged_field
+                            )
 
     end
   end

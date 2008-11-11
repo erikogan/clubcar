@@ -12,9 +12,9 @@
     <% for @new in @missing %>
       <tr class="missing <%= cycle('rowA', 'rowB') %>">
         <td>
-	  <%= link_to h(@new.restaurant.name), restaurant_path(@new.restaurant) %>
-	  <%= hidden_field "new[]", :restaurant_id %>
-	  <%= hidden_field "new[]", :mood_id %>
+          <%= link_to h(@new.restaurant.name), restaurant_path(@new.restaurant) %>
+          <%= hidden_field "new[]", :restaurant_id %>
+          <%= hidden_field "new[]", :mood_id %>
         </td>
       <td><%=  render :partial => 'vote_buttons',  :object => [ @new, 'new', @preference_values ] %></td>
       </tr>

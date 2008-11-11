@@ -89,8 +89,8 @@ private
     # needs to be reworked
     begin
       unless @user_id.blank?
-	@user = User.find(@user_id)
-	return
+        @user = User.find(@user_id)
+        return
       end
     rescue
       # The return handled the base case, everything else is redirected

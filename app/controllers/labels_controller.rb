@@ -90,16 +90,16 @@ class LabelsController < ApplicationController
 
   def change
     labels = Label.find_all_by_restaurant_id(@restaurant_id, 
-					     :include => [:tag, :tag_type])
+                                             :include => [:tag, :tag_type])
     @tags = Array.new
     @genres = Array.new
     
     for label in labels
       case label.tag.tag_type.name
       when 'Tag'
-	@tags << label
+        @tags << label
       when 'Genre'
-	@genres << label
+        @genres << label
       end
     end
     
@@ -130,8 +130,8 @@ private
     # needs to be reworked
     begin
       unless @restaurant_id.blank?
-	@restaurant = Restaurant.find(@restaurant_id)
-	return
+        @restaurant = Restaurant.find(@restaurant_id)
+        return
       end
     rescue
       # The return handled the base case, everything else is redirected

@@ -8,7 +8,7 @@ class TagTest < Test::Unit::TestCase
   def test_unique_canonical
     # also tests name=
     tag = Tag.new(:name => tags(:yummy).name + "!!@",
-		  :type_id => tags(:yummy).type_id)
+                  :type_id => tags(:yummy).type_id)
     assert !tag.save
     assert_equal "has already been taken", tag.errors.on(:canonical)
   end
