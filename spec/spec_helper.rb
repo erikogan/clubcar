@@ -16,6 +16,7 @@ unless Object.const_defined?(:SPECS_INITIALIZED)
       log_in(users(:erik))
     end
   end
+
   SPECS_INITIALIZED = true
 end
 

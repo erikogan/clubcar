@@ -65,12 +65,12 @@ class User < ActiveRecord::Base
     return self.valid? && self.admin
   end
 
-  ####################################################################
-  private
-
   def self.encrypted_password(password,salt)
     Digest::MD5.hexdigest(salt + password)
   end
+  
+  ####################################################################
+  private
 
   def create_new_salt 
     # Might as well use the same digest algorithm

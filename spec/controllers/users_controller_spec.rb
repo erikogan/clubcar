@@ -29,6 +29,7 @@ describe UsersController do
         User.should_receive(:find).with(:all, :order => :login).and_return(users = mock("Array of Users"))
         users.should_receive(:to_xml).and_return("generated XML")
         get :index
+        response.should be_success
         response.body.should == "generated XML"
       end
     
@@ -55,6 +56,7 @@ describe UsersController do
         mock_user.should_receive(:name).and_return('mock_user.name')
         mock_user.should_receive(:to_xml).and_return("generated XML")
         get :show, :id => "37"
+        response.should be_success
         response.body.should == "generated XML"
       end
 
@@ -67,6 +69,7 @@ describe UsersController do
     it "should expose a new user as @user" do
       User.should_receive(:new).and_return(mock_user)
       get :new
+      response.should be_success
       assigns[:user].should equal(mock_user)
     end
 
@@ -80,6 +83,7 @@ describe UsersController do
       get :edit, :id => "37"
       response.should be_success
       response.should render_template("edit")
+      response.should be_success
       assigns[:user].should equal(mock_user)
     end
 

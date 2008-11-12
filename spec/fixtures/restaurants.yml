@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+mango:
+  name: Mango Cafe
+  address: 435 Hamilton Ave
+  city: Palo Alto
+  distance: 1.5
+  url: MyString
+  image: http://www.waiter.com/SCMMOS/Logos/mango.logo.gif
+
+hobees:
+  name: Hobee’s
+  address: 800 Ahwanee Ave
+  city: Sunnyvale
+  distance: 1.5
+  url: http://hobees.com/
+  image: MyString
