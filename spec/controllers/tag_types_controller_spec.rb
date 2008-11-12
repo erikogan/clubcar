@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TagTypesController do
+  it_should_behave_like 'login'
 
   def mock_tag_type(stubs={})
     @mock_tag_type ||= mock_model(TagType, stubs)
@@ -9,8 +10,10 @@ describe TagTypesController do
   describe "responding to GET index" do
 
     it "should expose all tag_types as @tag_types" do
-      TagType.should_receive(:find).with(:all).and_return([mock_tag_type])
+      TagType.should_receive(:find).with(:all, :order => :id).and_return([mock_tag_type])
       get :index
+      response.should be_success
+      response.should render_template("index")
       assigns[:tag_types].should == [mock_tag_type]
     end
 
@@ -18,9 +21,10 @@ describe TagTypesController do
   
       it "should render all tag_types as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        TagType.should_receive(:find).with(:all).and_return(tag_types = mock("Array of TagTypes"))
+        TagType.should_receive(:find).with(:all, :order => :id).and_return(tag_types = mock("Array of TagTypes"))
         tag_types.should_receive(:to_xml).and_return("generated XML")
         get :index
+        response.should be_success
         response.body.should == "generated XML"
       end
     
@@ -33,6 +37,8 @@ describe TagTypesController do
     it "should expose the requested tag_type as @tag_type" do
       TagType.should_receive(:find).with("37").and_return(mock_tag_type)
       get :show, :id => "37"
+      response.should be_success
+      response.should render_template("show")
       assigns[:tag_type].should equal(mock_tag_type)
     end
     
@@ -43,6 +49,7 @@ describe TagTypesController do
         TagType.should_receive(:find).with("37").and_return(mock_tag_type)
         mock_tag_type.should_receive(:to_xml).and_return("generated XML")
         get :show, :id => "37"
+        response.should be_success
         response.body.should == "generated XML"
       end
 
@@ -55,6 +62,8 @@ describe TagTypesController do
     it "should expose a new tag_type as @tag_type" do
       TagType.should_receive(:new).and_return(mock_tag_type)
       get :new
+      response.should be_success
+      response.should render_template("new")
       assigns[:tag_type].should equal(mock_tag_type)
     end
 
@@ -65,6 +74,8 @@ describe TagTypesController do
     it "should expose the requested tag_type as @tag_type" do
       TagType.should_receive(:find).with("37").and_return(mock_tag_type)
       get :edit, :id => "37"
+      response.should be_success
+      response.should render_template("edit")
       assigns[:tag_type].should equal(mock_tag_type)
     end
 

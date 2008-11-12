@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "/restaurants/index.html.erb" do
+describe "/restaurants/index" do
   include RestaurantsHelper
   
   before(:each) do
@@ -25,13 +25,12 @@ describe "/restaurants/index.html.erb" do
   end
 
   it "should render list of restaurants" do
-    render "/restaurants/index.html.erb"
+    render "/restaurants/index"
     response.should have_tag("tr>td", "value for name", 2)
     response.should have_tag("tr>td", "value for address", 2)
     response.should have_tag("tr>td", "value for city", 2)
     response.should have_tag("tr>td", "1.5", 2)
     response.should have_tag("tr>td", "value for url", 2)
-    response.should have_tag("tr>td", "value for image", 2)
   end
 end
 

@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "/restaurants/new.html.erb" do
+describe "/restaurants/new" do
   include RestaurantsHelper
   
   before(:each) do
@@ -16,7 +16,7 @@ describe "/restaurants/new.html.erb" do
   end
 
   it "should render new form" do
-    render "/restaurants/new.html.erb"
+    render "/restaurants/new"
     
     response.should have_tag("form[action=?][method=post]", restaurants_path) do
       with_tag("input#restaurant_name[name=?]", "restaurant[name]")

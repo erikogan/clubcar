@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "/tag_types/show.html.erb" do
+describe "/tag_types/show" do
   include TagTypesHelper
   
   before(:each) do
@@ -10,7 +10,7 @@ describe "/tag_types/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
-    render "/tag_types/show.html.erb"
+    render "/tag_types/show"
     response.should have_text(/value\ for\ name/)
   end
 end
