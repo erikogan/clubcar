@@ -36,7 +36,6 @@ class MoodsController < ApplicationController
   def show
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
-    @clarifyTitle = ' ' + @mood.name
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @mood.to_xml }
@@ -46,21 +45,18 @@ class MoodsController < ApplicationController
   # GET /users/42/moods/new
   def new
     @mood = Mood.new
-    @clarifyTitle = ' (new)'
   end
 
   # GET /users/42/moods/1;edit
   def edit
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
-    @clarifyTitle = ' ' + @mood.name
   end
 
   # POST /users/42/moods
   # POST /users/42/moods.xml
   def create
     @mood = Mood.new(params[:mood])
-    @clarifyTitle = ' ' + @mood.name
     
     respond_to do |format|
       # if @mood.save
@@ -80,7 +76,6 @@ class MoodsController < ApplicationController
   def update
     # @mood = Mood.find(params[:id])
     @mood = @user.moods.find(params[:id])
-    @clarifyTitle = ' ' + @mood.name
 
     respond_to do |format|
       if @mood.update_attributes(params[:mood])
@@ -100,7 +95,6 @@ class MoodsController < ApplicationController
     # @mood = Mood.find(params[:id])
     # why does only this one need the .to_i ?
     mood = @user.moods.find(params[:id].to_i)
-    @clarifyTitle = ' ' + mood.name
     mood.destroy
     @user.moods.delete(mood)
 
@@ -185,6 +179,5 @@ private
   end
 
   def clarify_title
-    @clarifyTitle = 's'
   end
 end

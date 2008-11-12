@@ -100,7 +100,6 @@ private
   end
 
   def clarify_title
-    @clarifyTitle = 's'
   end
 
 

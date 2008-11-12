@@ -1,3 +1,5 @@
+<% clarify_title "s for #{@user.name}'s #{@mood.name} mood" %>
+<%= render :partial => :for_head %>
 <h1>Listing preferences (for <%= @mood.name %>)</h1>
 
 <%= link_to '(change)', change_user_mood_preferences_path %>

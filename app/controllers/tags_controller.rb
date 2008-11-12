@@ -17,7 +17,6 @@ class TagsController < ApplicationController
   # GET /tags/1.xml
   def show
     @tag = Tag.find(params[:id])
-    @clarifyTitle = ' ' + @tag.name
 
     respond_to do |format|
       format.html # show.rhtml
@@ -28,20 +27,17 @@ class TagsController < ApplicationController
   # GET /tags/new
   def new
     @tag = Tag.new
-    @clarifyTitle = ''
   end
 
   # GET /tags/1;edit
   def edit
     @tag = Tag.find(params[:id])
-    @clarifyTitle = ' ' + @tag.name
   end
 
   # POST /tags
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
-    @clarifyTitle = ' ' + @tag.name
 
     respond_to do |format|
       if @tag.save
@@ -59,7 +55,6 @@ class TagsController < ApplicationController
   # PUT /tags/1.xml
   def update
     @tag = Tag.find(params[:id])
-    @clarifyTitle = ' ' + @tag.name
 
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
@@ -77,7 +72,6 @@ class TagsController < ApplicationController
   # DELETE /tags/1.xml
   def destroy
     @tag = Tag.find(params[:id])
-    @clarifyTitle = ' ' + @tag.name
     @tag.destroy
 
     respond_to do |format|
@@ -89,6 +83,5 @@ class TagsController < ApplicationController
 private
 
   def clarify_title
-    @clarifyTitle = 's'
   end
 end

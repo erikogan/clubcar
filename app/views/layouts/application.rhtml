@@ -3,13 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Restaurant<%= @clarifyTitle %>: <%= controller.action_name %></title>
+  <title>Clubcar : <%= yield(:title) || (controller.controller_name.underscore.humanize.singularize + (yield(:clarify_title) || 's') + ": " + controller.action_name) %></title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'clubcar' %>
+  <%= yield(:head) %>
 </head>
-<body>
+<body id="<%= controller.action_name %>">
 
+<% unless flash[:notice].nil? || flash[:notice].empty? %>
 <p style="color: green"><%= flash[:notice] %></p>
+<% end %>
 
 <%= yield  %>
 

@@ -24,7 +24,6 @@ class UsersController < ApplicationController
   def show
     
     @user = User.find(params[:id])
-    @clarifyTitle = ' ' + @user.name
 
     respond_to do |format|
       format.html # show.rhtml
@@ -35,20 +34,17 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @clarifyTitle = ''
   end
 
   # GET /users/1;edit
   def edit
     @user = User.find(params[:id])
-    @clarifyTitle = ' ' + @user.name
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    @clarifyTitle = ' ' + @user.name
 
     respond_to do |format|
       if @user.save
@@ -66,7 +62,6 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
-    @clarifyTitle = ' ' + @user.name
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -84,7 +79,6 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @clarifyTitle = ' ' + @user.name
     @user.destroy
 
     respond_to do |format|
@@ -130,7 +124,6 @@ class UsersController < ApplicationController
 private
 
   def clarify_title
-    @clarifyTitle = 's'
   end
 
   def do_activation(value)

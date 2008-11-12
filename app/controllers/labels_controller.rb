@@ -141,7 +141,6 @@ private
   end
 
   def clarify_title
-    @clarifyTitle = ' for ' + @restaurant.name
   end
 
 end
