@@ -2,6 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  # Don't log passwords!
+  filter_parameter_logging :password, :plain_password
+
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_clubcar_session_id'
 
