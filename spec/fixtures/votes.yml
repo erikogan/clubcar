@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+positive:
+  name: Positive
+  value: 1
+  genre_value: 1
+
+neutral:
+  name: Neutral
+  value: 0
+  genre_value: 0
+  
+negative:
+  name: Negative
+  value: -1
+  genre_value: -1
+  
+veto:
+  name: Veto
+  value: -1000
+  genre_value: -1
