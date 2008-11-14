@@ -66,6 +66,8 @@ Rails::Initializer.run do |config|
   
   config.gem "gruff"
 
+  config.gem "haml"
+
   #config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
 end
