@@ -2,8 +2,8 @@ class EmailsController < ApplicationController
   before_filter :admin_access
   before_filter :find_user
 
-  # GET /emails
-  # GET /emails.xml
+  # GET /users/:user_id/emails
+  # GET /users/:user_id/emails.xml
   def index
     @emails = @user.emails.sort { |a,b| a.address <=> b.address }
 
@@ -13,8 +13,8 @@ class EmailsController < ApplicationController
     end
   end
 
-  # GET /emails/1
-  # GET /emails/1.xml
+  # GET /users/:user_id/emails/1
+  # GET /users/:user_id/emails/1.xml
   def show
     @email = @user.emails.find(params[:id])
 
@@ -24,18 +24,18 @@ class EmailsController < ApplicationController
     end
   end
 
-  # GET /emails/new
+  # GET /users/:user_id/emails/new
   def new
     @email = Email.new
   end
 
-  # GET /emails/1;edit
+  # GET /users/:user_id/emails/1;edit
   def edit
     @email = @user.emails.find(params[:id])
   end
 
-  # POST /emails
-  # POST /emails.xml
+  # POST /users/:user_id/emails
+  # POST /users/:user_id/emails.xml
   def create
     @email = Email.new(params[:email])
 
@@ -43,8 +43,8 @@ class EmailsController < ApplicationController
       # if @email.save
       if @user.emails << @email 
         flash[:notice] = 'Email was successfully created.'
-        format.html { redirect_to email_url(@user, @email) }
-        format.xml  { head :created, :location => email_url(@user, @email) }
+        format.html { redirect_to user_email_url(@user, @email) }
+        format.xml  { head :created, :location => user_email_url(@user, @email) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @email.errors.to_xml }
@@ -52,15 +52,15 @@ class EmailsController < ApplicationController
     end
   end
 
-  # PUT /emails/1
-  # PUT /emails/1.xml
+  # PUT /users/:user_id/emails/1
+  # PUT /users/:user_id/emails/1.xml
   def update
     @email = @user.emails.find(params[:id])
 
     respond_to do |format|
       if @email.update_attributes(params[:email])
         flash[:notice] = 'Email was successfully updated.'
-        format.html { redirect_to email_url(@user,@email) }
+        format.html { redirect_to user_email_url(@user,@email) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -69,14 +69,14 @@ class EmailsController < ApplicationController
     end
   end
 
-  # DELETE /emails/1
-  # DELETE /emails/1.xml
+  # DELETE /users/:user_id/emails/1
+  # DELETE /users/:user_id/emails/1.xml
   def destroy
     @email = @user.emails.find(params[:id])
     @email.destroy
 
     respond_to do |format|
-      format.html { redirect_to emails_url }
+      format.html { redirect_to user_emails_url(@user) }
       format.xml  { head :ok }
     end
   end
@@ -93,6 +93,7 @@ private
         return
       end
     rescue
+      logger.debug("EmailsController.find_user: #{$!}")
       # The return handled the base case, everything else is redirected
     end
 

@@ -2,9 +2,9 @@
 
 <%= error_messages_for :email %>
 
-<% tagged_form_for(:email, :url => user_emails_path) do |f| %>
+<% tagged_form_for(:email, :url => user_emails_path(@user)) do |f| %>
     <%= f.text_field :address %>
     <%= submit_tag "Create" %>
 <% end %>
 
-<%= link_to 'Back', user_emails_path %>
+<%= link_to 'Back', user_emails_path(@user) %>
