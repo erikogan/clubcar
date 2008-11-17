@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+brought_in:
+  name: brought in
+  canonical: broughtin
+  tag_type: tag
+
+mexican:
+  name: Mexican
+  canonical: mexican
+  tag_type: genre
