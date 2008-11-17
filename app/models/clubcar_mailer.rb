@@ -3,8 +3,7 @@ class ClubcarMailer < ActionMailer::Base
 FROM_ADDRESS = 'clubcar@slackers.net'
 
   def reactivate(user)
-    magic = make_magic(user)
-    @subject    = "[clubcar] Lunch today?#{magic}"
+    @subject    = "[clubcar] Lunch today?#{magic_subject(user)}"
     @body       = {
       :user => user,
       :mood => user.moods.find_by_active(true)
@@ -28,8 +27,17 @@ FROM_ADDRESS = 'clubcar@slackers.net'
     @headers    = {}
   end
 
+  def forgotten_password(user)
+    @subject = "[clubcar] Forgotten Password?"
+    @body = {:user => user, :magic => make_magic(user)}
+    @recipients = user.emails[0].address
+    @from       = FROM_ADDRESS
+    @sent_on    = Time.now
+    @headers    = {}  
+  end
+
   def receive(email)
-    (user,errors, magic) = confirm_magic(email)
+    (user,errors, magic) = confirm_subject(email)
 
     unless (user.nil? || errors.length > 0) 
       user.present = true;
@@ -66,31 +74,40 @@ FROM_ADDRESS = 'clubcar@slackers.net'
   end
 
 private
+
+  def magic_subject(user)
+    return ' ' * 60 + "[[#{make_magic(user)}]]"
+  end
+  
   def make_magic(user)
     now = Time.now
     # 32 characters, at most 31 days, that's handy
     magic = Digest::MD5.hexdigest(user.salt + user.password)
     base64= ["#{user.login}!!#{Time.now.to_i}!!#{magic[now.day,1]}"].pack("m*").chomp
-    return ' ' * 60 + "[[#{base64}]]"
+    return base64
   end
 
-  def confirm_magic(email)
+  def confirm_subject(email)
+    email.subject =~ /(\s+\[\[(\w+={0,2})\]\])/
+    token = $1
+    return confirm_magic($2) << token
+  end
+
+public 
+
+  def self.confirm_magic(base64)
     errors = []
 
     begin 
-      email.subject =~ /(\s+\[\[(\w+={0,2})\]\])/
-      magic = $1
-      base64 = $2
-
       if base64.nil?
-        raise "Token missing from subject-line"
+        raise "Token missing"
       end
 
       (login,time,mini) = base64.unpack("m*")[0].split(/!!/)
       time = time.to_i
 
       if (time.nil? || mini.nil?) 
-        raise "Corrupted subject-line"
+        raise "Corrupted token"
       end
 
       if (Time.now.to_i - time > 60 * 60 * 12)

@@ -39,6 +39,22 @@ class User < ActiveRecord::Base
     valid
   end
 
+  def self.find_by_login_or_email(params) 
+    loe = params[:login_or_email]
+    
+    if (params[:login] || loe)
+      user = User.find_by_login(params[:login] || loe)
+      return user if user
+    end
+    
+    if (params[:email] || loe) 
+      user = Email.find_by_address(params[:email] || loe).user
+      return user if user
+    end
+    
+    return nil
+  end
+
   def self.authenticate(user,password) 
     user = self.find_by_login(user)
     if user && user.password != encrypted_password(password, user.salt)

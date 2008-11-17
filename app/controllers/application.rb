@@ -3,12 +3,12 @@
 
 class ApplicationController < ActionController::Base
   # Don't log passwords!
-  filter_parameter_logging :password, :plain_password
+  filter_parameter_logging :plain_password
 
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_clubcar_session_id'
 
-  before_filter :authorize, :except => [ :login, :logout ]
+  before_filter :authorize
   
   helper :builder
 

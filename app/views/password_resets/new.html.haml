@@ -1,0 +1,11 @@
+
+%h1 Forgot Your Password?
+
+- unless flash[:error].to_s.empty?
+  %p{ :style => 'color: #f00' }= flash[:error]
+
+%p Fill in this form and we'll send you email that will help you fix the problem.
+
+- tagged_form_for(:password_reset, :url => password_resets_path) do |f|
+  = f.text_field :login_or_email
+  = f.submit "Go!"
