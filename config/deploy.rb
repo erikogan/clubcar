@@ -17,6 +17,7 @@ set :branch, 'master'
 
 #server "clubcar.app.cloudshield.com", :app, :web, :db, :primary => true
 server "sarnath.slackers.net", :app, :web, :db, :primary => true
+#server "10.23.41.5", :app, :web, :db, :primary => true
 
 # For now, we'll fix it later
 set :user, "erik"
