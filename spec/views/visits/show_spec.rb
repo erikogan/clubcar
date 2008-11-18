@@ -4,7 +4,8 @@ describe "/visits/show" do
   include VisitsHelper
   
   before(:each) do
-    @now = Date.now
+    assigns[:restaurant] = @restaurant = stub_model(Restaurant, :name => "Restaurant Name")
+    @now = Time.now
     assigns[:visit] = @visit = stub_model(Visit,
       :restaurant_id => restaurants(:hobees),
       :date => @now,

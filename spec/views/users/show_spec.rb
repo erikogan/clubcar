@@ -15,8 +15,6 @@ describe "/users/show" do
   end
 
   it "should render attributes in <p>" do
-    # TODO remove this once we have vote fixtures
-    Vote.should_receive(:find_by_name).with('Veto').and_return(stub_model(Vote, :name => 'Veto'))
     @request.session[:user] = @user
     render "/users/show"
     response.should have_text(/value\ for\ login/)

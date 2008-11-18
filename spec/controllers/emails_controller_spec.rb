@@ -4,7 +4,7 @@ describe EmailsController do
   it_should_behave_like 'login'
 
   before do
-    # Most of these require admin access. Need to move them into an /admin namespace
+    # Most of these require admin access for editing others. Need to move them into an /admin namespace
     log_in(users(:admin))
     User.should_receive(:find).with("1").and_return(mock_user({:id => 1}))
     @emails = mock("Array of Emails")

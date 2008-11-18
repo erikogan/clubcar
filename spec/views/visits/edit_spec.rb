@@ -4,10 +4,11 @@ describe "/visits/edit" do
   include VisitsHelper
   
   before(:each) do
+    assigns[:restaurant] = @restaurant = stub_model(Restaurant, :name => "Restaurant Name")
     assigns[:visit] = @visit = stub_model(Visit,
       :new_record? => false,
       :restaurant_id => restaurants(:hobees),
-      :date => Date.now,
+      :date => Time.now,
       :duration => "1"
     )
   end
