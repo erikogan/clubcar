@@ -1,7 +1,7 @@
 class ClubcarMailer < ActionMailer::Base
 
   FROM_ADDRESS = 'clubcar-admin@slackers.net'
-  REPLY_ADDRESS = 'clubcar@slackers.net'
+  ACTIVATION_ADDRESS = 'clubcar@slackers.net'
 
   def reactivate(user)
     @subject    = "[clubcar] Lunch today?#{magic_subject(user)}"
@@ -12,7 +12,7 @@ class ClubcarMailer < ActionMailer::Base
     @recipients = user.emails[0].address
     @from       = FROM_ADDRESS
     @sent_on    = Time.now
-    @headers    = {'Reply-to' => REPLY_ADDRESS }
+    @headers    = {'Reply-to' => ACTIVATION_ADDRESS }
   end
 
   def decision(choices)
