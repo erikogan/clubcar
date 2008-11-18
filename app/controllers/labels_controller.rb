@@ -6,7 +6,7 @@ class LabelsController < ApplicationController
   # GET /labels
   # GET /labels.xml
   def index
-    @labels = Label.find(:all, :include => :tag, :order => 'tags.canonical')
+    @labels = Label.find_all_by_restaurant_id(@restaurant.id, :include => :tag, :order => 'tags.type_id, tags.canonical')
 
     respond_to do |format|
       format.html # index.rhtml
@@ -17,7 +17,7 @@ class LabelsController < ApplicationController
   # GET /labels/1
   # GET /labels/1.xml
   def show
-    @label = Label.find(params[:id] )
+    @restaurant.labels.find(params[:id], :include => :tag)
 
     @clarifyTitle += '/' + @label.tag.name
 
