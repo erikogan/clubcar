@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+erik_light:
+  user: erik
+  name: Light
+  active: true
+  order: 1
+
+erik_heavy:
+  user: erik
+  name: Heavy
+  active: false
+  order: 2
