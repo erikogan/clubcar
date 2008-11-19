@@ -13,6 +13,7 @@
       <%= render :partial => 'vote_buttons', :object => [ @preference, 'preference', @preference_values ] %>
     </div>
     <%= submit_tag "Update" %>
+  </div>
 <% end %>
 
 <%= link_to 'Show', user_mood_preference_path(@user, @mood, @preference) %> |

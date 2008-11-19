@@ -1,4 +1,4 @@
-<% clarify_title "s for #{@preference.restauarant.name} in #{@user.name}'s #{@mood.name} mood" %>
+<% clarify_title "s for #{@preference.restaurant.name} in #{@user.name}'s #{@mood.name} mood" %>
 <%= render :partial => 'for_head' %>
 <h1>Preference</h1>
 
@@ -19,4 +19,4 @@
 
 
 <%= link_to 'Edit', edit_user_mood_preference_path(@user, @mood, @preference) %> |
-<%= link_to 'Back', user_mood_preferences_path %>
+<%= link_to 'Back', user_mood_preferences_path(@user, @mood) %>
