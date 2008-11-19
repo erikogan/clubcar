@@ -7,7 +7,7 @@ describe "/visits/edit" do
     assigns[:restaurant] = @restaurant = stub_model(Restaurant, :name => "Restaurant Name")
     assigns[:visit] = @visit = stub_model(Visit,
       :new_record? => false,
-      :restaurant_id => restaurants(:hobees),
+      :restaurant_id => restaurants(:hobees).id,
       :date => Time.now,
       :duration => "1"
     )
@@ -16,8 +16,8 @@ describe "/visits/edit" do
   it "should render edit form" do
     render "/visits/edit"
     
-    response.should have_tag("form[action=#{visit_path(@visit)}][method=post]") do
-      with_tag('input#visit_date[name=?]', "visit[date]")
+    response.should have_tag("form[action=#{restaurant_visit_path(@restaurant, @visit)}][method=post]") do
+      with_tag("select#visit_date_1i[name=?]", "visit[date(1i)]")
       with_tag('input#visit_duration[name=?]', "visit[duration]")
     end
   end
