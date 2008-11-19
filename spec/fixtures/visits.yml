@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+hobees:
+  restaurant: hobees 
+  date: 2001-05-23
+  duration: 1 hour
+
+mango:
+  restaurant: mango 
+  date: 1942-12-17
+#  duration: 2:32 # this gets converted to seconds, which makes the DB unhappy
+  duration: 2 hours

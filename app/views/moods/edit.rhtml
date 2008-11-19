@@ -6,6 +6,7 @@
 <% tagged_form_for(:mood, :url => user_mood_path(@user, @mood), :html => { :method => :put }) do |f| %>
   <%= f.text_field :name %>
   <%= f.text_field :order %>
+  <%= f.select :active, [["Active", true, true], ["Inactive", false, false]]%>
   <%= submit_tag "Update" %>
 <% end %>
 

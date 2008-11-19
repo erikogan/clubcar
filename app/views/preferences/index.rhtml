@@ -2,10 +2,10 @@
 <%= render :partial => 'for_head' %>
 <h1>Listing preferences (for <%= @mood.name %>)</h1>
 
-<%= link_to '(change)', change_user_mood_preferences_path %>
+<%= link_to '(change)', change_user_mood_preferences_path(@user, @mood) %>
 
 <%= render :partial => 'list', :object => @preferences %>
 
 <br />
 
-<%= link_to 'New preference', new_user_mood_preference_path %>
+<%= link_to 'New preference', new_user_mood_preference_path(@user, @mood) %>

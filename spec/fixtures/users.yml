@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% SALT = User.encrypted_password("KCl", '') unless defined?(SALT) # we use potassium :) %> 
+
+admin:
+  login: admin
+  name: The Administrator
+  password: <%= User.encrypted_password('foobar', SALT) %>
+  salt: <%= SALT %>
+  present: false
+  admin: true
+
+erik:
+  login: erik
+  name: Erik Ogan
+  password: <%= User.encrypted_password('barfoo', SALT) %>
+  salt: <%= SALT %>
+  present: false
+  admin: false

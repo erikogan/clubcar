@@ -5,6 +5,22 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 
+def log_in(user)
+  @logged_in = user
+  @request.session[:user] = @logged_in
+end
+
+unless Object.const_defined?(:SPECS_INITIALIZED)
+  describe 'login', :shared => true do
+    before do
+      log_in(users(:erik))
+    end
+  end
+
+  SPECS_INITIALIZED = true
+end
+
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -44,4 +60,7 @@ Spec::Runner.configure do |config|
   # == Notes
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
+  config.global_fixtures = *Dir["#{config.fixture_path}/*.yml"].map do |file|
+    File.basename(file, '.yml').to_sym
+  end
 end

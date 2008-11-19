@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
       session[:original_uri] = request.request_uri
       flash[:notice] = "Please log in"
       redirect_to(:controller => "users", :action => "login")
-    else
-      # Pull it from the DB again. This guarantees the session object is
-      # up-to-date at the (minute) expense of some performance
-      session[:user] = User.find(session[:user].id)
     end
   end
 
