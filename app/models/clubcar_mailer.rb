@@ -91,7 +91,7 @@ private
   def confirm_subject(email)
     email.subject =~ /(\s+\[\[(\w+={0,2})\]\])/
     token = $1
-    return confirm_magic($2) << token
+    return self.class.confirm_magic($2) << token
   end
 
 public 
