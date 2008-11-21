@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. /afs/slackers.net/projects/infrastructure/etc/functions
+getToken postman clubcar 20m
+
+scriptdir=`dirname $0`
+basedir=`readlink -f $scriptdir/../release/current`
+
+export RAILS_ENV=production
+#TODO figure out the SSL issues
+export PGSSLMODE=disable
+
+cd $basedir
+
+exec script/incoming_mail
+
