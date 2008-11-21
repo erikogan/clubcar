@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . /afs/slackers.net/projects/infrastructure/etc/functions
-getToken postman clubcar 20m
+getToken postman clubcar 10m
 
 scriptdir=`dirname $0`
 basedir=`readlink -f $scriptdir/../release/current`
