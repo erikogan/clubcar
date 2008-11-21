@@ -1,15 +1,12 @@
 class TagsController < ApplicationController
   # GET /tags
   # GET /tags.xml
-
-  before_filter :clarify_title
-
   def index
-    @tags = Tag.find(:all, :order => :canonical)
+    @tags = Tag.find(:all)
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @tags.to_xml }
+      format.html # index.html.erb
+      format.xml  { render :xml => @tags }
     end
   end
 
@@ -19,17 +16,23 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @tag.to_xml }
+      format.html # show.html.erb
+      format.xml  { render :xml => @tag }
     end
   end
 
   # GET /tags/new
+  # GET /tags/new.xml
   def new
     @tag = Tag.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @tag }
+    end
   end
 
-  # GET /tags/1;edit
+  # GET /tags/1/edit
   def edit
     @tag = Tag.find(params[:id])
   end
@@ -42,11 +45,11 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.save
         flash[:notice] = 'Tag was successfully created.'
-        format.html { redirect_to tag_url(@tag) }
-        format.xml  { head :created, :location => tag_url(@tag) }
+        format.html { redirect_to(@tag) }
+        format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @tag.errors.to_xml }
+        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -59,11 +62,11 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         flash[:notice] = 'Tag was successfully updated.'
-        format.html { redirect_to tag_url(@tag) }
+        format.html { redirect_to(@tag) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @tag.errors.to_xml }
+        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -75,13 +78,8 @@ class TagsController < ApplicationController
     @tag.destroy
 
     respond_to do |format|
-      format.html { redirect_to tags_url }
+      format.html { redirect_to(tags_url) }
       format.xml  { head :ok }
     end
-  end
-
-private
-
-  def clarify_title
   end
 end

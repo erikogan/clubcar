@@ -15,16 +15,12 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :restaurants, :collection => {:choose => :get} do |restaurant|
-    restaurant.resources :labels, :collection => { :change => :get, :save => :post }
-    # restaurant.resources :labels  do |label|
-    #   label.resources :tags
-    # end
     restaurant.resources :visits
   end
 
   map.resources :tags
 
-  map.resources :tag_types
+  map.resources :taggings
   
   # The priority is based upon order of creation: first created -> highest priority.
   

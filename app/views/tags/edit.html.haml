@@ -1,0 +1,11 @@
+%h1 Editing tag
+
+-tagged_form_for(@tag) do |f| 
+  = f.error_messages
+
+  = f.text_field :name
+  = f.submit "Update"
+
+= link_to 'Show', @tag 
+|
+= link_to 'Back', tags_path

@@ -10,7 +10,7 @@ describe TagsController do
   describe "responding to GET index" do
 
     it "should expose all tags as @tags" do
-      Tag.should_receive(:find).with(:all, :order => :canonical).and_return([mock_tag])
+      Tag.should_receive(:find).with(:all).and_return([mock_tag])
       get :index
       assigns[:tags].should == [mock_tag]
     end
@@ -19,7 +19,7 @@ describe TagsController do
   
       it "should render all tags as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        Tag.should_receive(:find).with(:all, :order => :canonical).and_return(tags = mock("Array of Tags"))
+        Tag.should_receive(:find).with(:all).and_return(tags = mock("Array of Tags"))
         tags.should_receive(:to_xml).and_return("generated XML")
         get :index
         response.body.should == "generated XML"
