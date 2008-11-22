@@ -3,6 +3,7 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     #create_table :tags do |t|
     #  t.column :name, :string
     #end
+    add_index :tags :name
 
     create_table :taggings do |t|
       t.column :tag_id, :integer, :null => false
@@ -40,7 +41,7 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
   def self.down
     
     create_table :tag_types do |t|
-      t.column :name, :null => false
+      t.column :name,           :string,  :null => false
     end
     
     create_table :labels do |t|
@@ -55,17 +56,17 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     add_index :labels, :restaurant_id
     add_index :labels, :tag_id
     
-    add_column :tags, :canonical
-    add_column :tags, :type_id
+    add_column :tags, :canonical, :string
+    add_column :tags, :type_id, :integer
     
     execute <<-EndSQL
       INSERT  INTO tag_types (name)
-      SELECT  rtrim(initcap(distinct(context)),'s')
+      SELECT  distinct(initcap(rtrim(context,'s')))
       FROM    taggings
     EndSQL
 
     execute <<-EndSQL
-      INSERT  INTO labels (restauart_id, tag_id)
+      INSERT  INTO labels (restaurant_id, tag_id)
       SELECT  taggable_id, tag_id
       FROM    taggings
     EndSQL
@@ -73,12 +74,13 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     # TODO: This will break if a tag is used in more than one context (as a tag and genre)
     execute <<-EndSQL
       UPDATE  tags AS t
-      SET     type_id = (SELECT  tt.id
-                         FROM   taggings AS tg,
-                                tag_types AS tt
-                         WHERE  tag_id = t.id
-                                AND tt.name = rtrim(initcap(distinct(context)),'s')
-                         LIMIT  1),
+      SET     type_id = (SELECT  id
+                         FROM    tag_types AS tt
+                         WHERE   name = (SELECT  distinct(initcap(rtrim(context,'s'))) AS name
+                                         FROM    taggings AS tg
+                                         WHERE   tag_id = t.id
+                                         LIMIT   1)
+                        ),
               canonical = REPLACE(LOWER(name), ' ', '')
     EndSQL
     
