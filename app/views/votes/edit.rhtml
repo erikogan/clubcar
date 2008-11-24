@@ -3,20 +3,11 @@
 
 <%= error_messages_for :vote %>
 
-<% form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f| %>
-  <p>
-    <b>Name</b><br />
+<% tagged_form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f| %>
     <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <b>Value</b><br />
     <%= f.text_field :value %>
-  </p>
-
-  <p>
+    <%= f.text_field :genre_value %>
     <%= submit_tag "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', vote_path(@vote) %> |

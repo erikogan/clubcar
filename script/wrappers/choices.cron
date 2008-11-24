@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. /afs/slackers.net/projects/infrastructure/etc/functions
+getToken webmaster webmaster 20m
+
+scriptdir=`dirname $0`
+basedir=`readlink -f $scriptdir/../release/current`
+
+export RAILS_ENV=production
+
+cd $basedir
+
+exec script/cron/clubcar_choices.cron 2>&1 | grep -v 'Ruby version is not'
+

@@ -3,12 +3,12 @@
 
 class ApplicationController < ActionController::Base
   # Don't log passwords!
-  filter_parameter_logging :password, :plain_password
+  filter_parameter_logging :plain_password
 
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_clubcar_session_id'
 
-  before_filter :authorize, :except => [ :login, :logout ]
+  before_filter :authorize
   
   helper :builder
 
@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
       session[:original_uri] = request.request_uri
       flash[:notice] = "Please log in"
       redirect_to(:controller => "users", :action => "login")
-    else
-      # Pull it from the DB again. This guarantees the session object is
-      # up-to-date at the (minute) expense of some performance
-      session[:user] = User.find(session[:user].id)
     end
   end
 

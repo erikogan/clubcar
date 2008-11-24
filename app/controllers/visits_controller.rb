@@ -46,8 +46,8 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @restaurant.save
         flash[:notice] = 'Visit was successfully created.'
-        format.html { redirect_to visit_url(@restaurant, @visit) }
-        format.xml  { head :created, :location => visit_url(@restaurant, @visit) }
+        format.html { redirect_to restaurant_visit_url(@restaurant, @visit) }
+        format.xml  { head :created, :location => restaurant_visit_url(@restaurant, @visit) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @visit.errors.to_xml }
@@ -67,7 +67,7 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @visit.update_attributes(params[:visit])
         flash[:notice] = 'Visit was successfully updated.'
-        format.html { redirect_to visit_url(@visit) }
+        format.html { redirect_to restaurant_visit_url(@restaurant, @visit) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -86,7 +86,7 @@ class VisitsController < ApplicationController
     @restaurant.visits.delete(visit)
 
     respond_to do |format|
-      format.html { redirect_to visits_url }
+      format.html { redirect_to restaurant_visits_url(@restaurant) }
       format.xml  { head :ok }
     end
   end

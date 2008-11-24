@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :clarify_title
   before_filter :admin_access, :except => [:index]
 
+  skip_before_filter :authorize, :only => [:login, :logout]
   # This is a Bad Idea(tm). We should go back to just storing the ID, but
   # that's more invasive
   after_filter :update_session, :only => [:create, :update, :delete, 
@@ -65,6 +66,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        if session[:user].id == @user.id
+          session[:user].reload
+        end
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to user_url(@user) }
         format.xml  { head :ok }

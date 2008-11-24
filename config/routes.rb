@@ -1,10 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :password_resets
+
   map.resources :votes
 
   # special case for login
-  map.connect '/users/login', :controller => "users", :action => "login"
-  map.connect '/users/logout', :controller => "users", :action => "logout"
-  
+  map.login '/users/login', :controller => "users", :action => "login"
+  map.logout '/users/logout', :controller => "users", :action => "logout"
+
   map.resources :users, :member => {:activate => :post, :deactivate => :post} do |user|
     user.resources :emails
     user.resources :moods, :member => {:activate => :post, :copy => :get }, :collection => { :list_activate => :any}  do |pref|

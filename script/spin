@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 . /afs/slackers.net/projects/infrastructure/etc/functions
 getToken webmaster webmaster 36h
 

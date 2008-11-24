@@ -56,17 +56,24 @@ class MoodsController < ApplicationController
   # POST /users/42/moods
   # POST /users/42/moods.xml
   def create
-    @mood = Mood.new(params[:mood])
+    activate = false;
+    if (params[:mood][:active] == true)
+      params[:mood].delete(:active)
+      activate = true
+    end
     
+    @mood = Mood.new(params[:mood])
     respond_to do |format|
-      # if @mood.save
-      if @user.moods << @mood 
-        flash[:notice] = 'Mood was successfully created.'
-        format.html { redirect_to change_preferences_url(@user, @mood) }
-        format.xml  { head :created, :location => mood_url(@user, @mood) }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @mood.errors.to_xml }
+      Mood.transaction do
+        # if @mood.save
+        if @user.moods << @mood && (!activate || @mood.activate)
+          flash[:notice] = 'Mood was successfully created.'
+          format.html { redirect_to change_user_mood_preferences_url(@user, @mood) }
+          format.xml  { head :created, :location => user_mood_url(@user, @mood) }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @mood.errors.to_xml }
+        end
       end
     end
   end
@@ -74,17 +81,24 @@ class MoodsController < ApplicationController
   # PUT /users/42/moods/1
   # PUT /users/42/moods/1.xml
   def update
-    # @mood = Mood.find(params[:id])
+    activate = false;
+    if (params[:mood][:active] == true)
+      params[:mood].delete(:active)
+      activate = true
+    end
+
     @mood = @user.moods.find(params[:id])
 
     respond_to do |format|
-      if @mood.update_attributes(params[:mood])
-        flash[:notice] = 'Mood was successfully updated.'
-        format.html { redirect_to mood_url(@user, @mood) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @mood.errors.to_xml }
+      Mood.transaction do
+        if @mood.update_attributes(params[:mood]) && (!activate || @mood.activate)
+          flash[:notice] = 'Mood was successfully updated.'
+          format.html { redirect_to user_mood_url(@user, @mood) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @mood.errors.to_xml }
+        end
       end
     end
   end
@@ -99,7 +113,7 @@ class MoodsController < ApplicationController
     @user.moods.delete(mood)
 
     respond_to do |format|
-      format.html { redirect_to moods_url(@user) }
+      format.html { redirect_to user_moods_url(@user) }
       format.xml  { head :ok }
     end
   end
@@ -114,7 +128,7 @@ class MoodsController < ApplicationController
       flash[:notice] = "Failed to activate #{@mood.name}: #{$!} (#{e.message})"
     end
     respond_to do |format|
-      format.html { redirect_to mood_url(@user,@mood) }
+      format.html { redirect_to user_mood_url(@user,@mood) }
       format.xml  { render :xml => @mood.errors.to_xml }
     end
   end
@@ -158,7 +172,7 @@ class MoodsController < ApplicationController
       flash[:notice] = "Can't save mood! #{@mood.errors}"
     end
     
-    redirect_to edit_mood_url(@user,@mood)
+    redirect_to edit_user_mood_url(@user,@mood)
   end
 private
 
@@ -173,6 +187,7 @@ private
       end
     rescue
       # The return handled the base case, everything else is redirected
+      logger.debug("Exception: #{$!.inspect}")
     end
 
     redirect_to users_url

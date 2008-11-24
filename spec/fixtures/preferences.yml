@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# Rails 2 auto _id feature: AWESOME
+erik_light_hobees:
+  mood: erik_light
+  restaurant: hobees
+  vote: positive
+
+erik_light_mango:
+  mood: erik_light
+  restaurant: mango
+  vote: negative
+  
+erik_light_fjl2:
+  mood: erik_light
+  restaurant: fjl2
+  vote: veto

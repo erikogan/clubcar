@@ -7,7 +7,7 @@ class PreferencesController < ApplicationController
   # GET /preferences
   # GET /preferences.xml
   def index
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote], :order => 'restaurants.name')
+    @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
 
     respond_to do |format|
       format.html # index.rhtml
@@ -18,7 +18,7 @@ class PreferencesController < ApplicationController
   # GET /preferences/1
   # GET /preferences/1.xml
   def show
-    @preference = Preference.find(params[:id], :include => [:restaurant, :vote])
+    @preference = @mood.preferences.find(params[:id], :include => [:restaurant, :vote])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -33,7 +33,7 @@ class PreferencesController < ApplicationController
 
   # GET /preferences/1;edit
   def edit
-    @preference = Preference.find(params[:id])
+    @preference = @mood.preferences.find(params[:id])
   end
 
   # POST /preferences
@@ -44,8 +44,8 @@ class PreferencesController < ApplicationController
     respond_to do |format|
       if @preference.save
         flash[:notice] = 'Preference was successfully created.'
-        format.html { redirect_to preference_url(@preference) }
-        format.xml  { head :created, :location => preference_url(@preference) }
+        format.html { redirect_to user_mood_preference_url(@user,@mood,@preference) }
+        format.xml  { head :created, :location => user_mood_preference_url(@user,@mood,@preference) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @preference.errors.to_xml }
@@ -56,12 +56,12 @@ class PreferencesController < ApplicationController
   # PUT /preferences/1
   # PUT /preferences/1.xml
   def update
-    @preference = Preference.find(params[:id])
+    @preference = @mood.preferences.find(params[:id])
 
     respond_to do |format|
       if @preference.update_attributes(params[:preference])
         flash[:notice] = 'Preference was successfully updated.'
-        format.html { redirect_to preference_url(@preference) }
+        format.html { redirect_to user_mood_preference_url(@user,@mood,@preference) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,11 +73,11 @@ class PreferencesController < ApplicationController
   # DELETE /preferences/1
   # DELETE /preferences/1.xml
   def destroy
-    @preference = Preference.find(params[:id])
+    @preference = @mood.preferences.find(params[:id])
     @preference.destroy
 
     respond_to do |format|
-      format.html { redirect_to preferences_url }
+      format.html { redirect_to user_mood_preferences_url(@user,@mood) }
       format.xml  { head :ok }
     end
   end
@@ -85,7 +85,7 @@ class PreferencesController < ApplicationController
   # GET /preferences;change
   # GET /preferences.xml;change
   def change 
-    @preferences = Preference.find_all_by_mood_id(@mood_id, :include => [:restaurant, :vote], :order => 'restaurants.name')
+    @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
     @missing = Preference.missing_for(@mood)
 
     respond_to do |format|
@@ -154,7 +154,7 @@ class PreferencesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to change_preferences_url(@user_id,@mood_id) }
+        format.html { redirect_to change_user_mood_preferences_url(@user,@mood) }
         format.xml  { head :ok }
       end
     end
@@ -179,14 +179,14 @@ private
 
     begin
       unless @mood_id.blank?
-        @mood = Mood.find(@mood_id)
+        @mood = @user.moods.find(@mood_id)
         return
       end
     rescue
       # The return handled the base case, everything else is redirected
     end
 
-    redirect_to moods_url(@user)
+    redirect_to user_moods_url(@user)
   end
 
   def get_preference_values
