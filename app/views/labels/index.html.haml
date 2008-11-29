@@ -1,0 +1,20 @@
+%h1 
+  Listing labels for
+  = @restaurant.name
+
+%table 
+  %tr 
+    %th Restaurant
+    %th Tag
+  
+- for label in @labels
+  %tr{ :class => cycle('rowA', 'rowB') } 
+    %td=h label.restaurant.name
+    %td=h label.tag.name
+    %td= link_to 'Show', restaurant_label_path(label.restaurant, label)
+    %td= link_to 'Edit', edit_restaurant_label_path(label.restaurant, label)
+    %td= link_to 'Destroy', restaurant_label_path(label.restaurant, label), :confirm => 'Are you sure?', :method => :delete
+
+%br 
+
+= link_to 'New label', new_restaurant_label_path

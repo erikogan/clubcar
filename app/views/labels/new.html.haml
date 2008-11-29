@@ -1,0 +1,13 @@
+%h1 
+  New label for
+  = @restaurant.name
+
+= error_messages_for :label
+
+- tagged_form_for(:label, :url => restaurant_labels_path) do |f| 
+    = f.text_field :restaurant_id
+    = f.text_field :tag_id
+    = submit_tag "Create"
+
+= link_to 'Back', restaurant_labels_path
+

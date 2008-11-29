@@ -1,0 +1,11 @@
+%h1 Editing email
+
+= error_messages_for :email
+
+-tagged_form_for(:email, :url => user_email_path(@user, @email), :html => { :method => :put }) do |f| 
+  = f.text_field :address
+  = submit_tag "Update"
+
+= link_to 'Show', user_email_path(@user, @email) 
+|
+= link_to 'Back', user_emails_path(@user)

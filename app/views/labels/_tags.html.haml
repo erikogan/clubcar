@@ -1,0 +1,5 @@
+- # Maybe I should rethink this schema, given that I join on the label
+- # to get the tag, and then end up selecting it again
+%li 
+  = link_to '[-]', restaurant_label_path(@restaurant, Label.find_by_tag_id_and_restaurant_id(tags.id, @restaurant.id)), :confirm => 'delete?', :method => :delete
+  = link_to h(tags.name), tag_path(tags)

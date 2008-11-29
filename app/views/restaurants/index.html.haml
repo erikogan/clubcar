@@ -1,0 +1,27 @@
+%h1 Listing restaurants
+
+%table 
+  %tr 
+    %th Name
+    %th Address
+    %th City
+    %th Distance
+    -# th>Image</th
+    %th URL
+  
+- for restaurant in @restaurants
+  %tr.= cycle('rowA', 'rowB') 
+    %td= link_to h(restaurant.name), restaurant_path(restaurant)
+    %td= h restaurant.address
+    %td= h restaurant.city
+    %td= h restaurant.distance
+    -#  = h restaurant.image</td -->
+    %td 
+      - unless restaurant.url.nil? || restaurant.url.empty?
+        = link_to h(restaurant.url), h(restaurant.url)
+    %td= link_to 'Edit', edit_restaurant_path(restaurant)
+    %td= link_to 'Destroy', restaurant_path(restaurant), :confirm => 'Are you sure?', :method => :delete
+
+%br 
+
+= link_to 'New restaurant', new_restaurant_path

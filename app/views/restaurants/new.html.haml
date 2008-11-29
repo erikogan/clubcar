@@ -1,0 +1,21 @@
+%h1 New restaurant
+
+= error_messages_for :restaurant
+
+- tagged_form_for(:restaurant, :url => restaurants_path) do |f|
+  %fieldset#restaurant 
+    %legend Restaurant
+      = f.text_field :name
+      = f.text_field :address
+      = f.text_field :city
+      = f.text_field :distance
+      = f.text_field :url
+      = f.text_field :image
+
+  %fieldset#tags 
+    %legend Tags
+      = f.text_field :tags_string
+      = f.text_field :genres_string
+  = submit_tag "Create"
+
+= link_to 'Back', restaurants_path

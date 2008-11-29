@@ -1,0 +1,22 @@
+- clarify_title "(logged in as #{@user.name})"
+
+- content_for :head do
+  = stylesheet_link_tag 'main'
+  = javascript_include_tag :defaults
+  %meta{ :content => 'nocache', :equiv => 'pragma' } 
+
+%h1 Welcome to Clubcar!
+
+#leftSide 
+  %h2#presence Your Presence
+
+  = render :partial => '/users/presence', :object => @user
+
+  %h2#moods Your Moods
+
+  = render :partial => '/moods/list', :object => @user.moods
+
+#rightSide 
+  #graphsLoggedIn 
+    = render :partial => '/graphs/genres', :object => params
+    = render :partial => '/main/logged_in', :object => @logged_in

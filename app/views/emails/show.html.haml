@@ -1,0 +1,7 @@
+%p 
+  %b Address:
+  = h @email.address
+
+= link_to 'Edit', edit_user_email_path(@user, @email) 
+|
+= link_to 'Back', user_emails_path(@user)

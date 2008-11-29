@@ -1,0 +1,36 @@
+- clarify_title @restaurant.name
+
+.floatImg 
+  %img{ :src => '= @restaurant.image' } 
+  .caption 
+    = h @restaurant.image
+
+%h1 Restaurant
+
+%p 
+  %b Name:
+  = h @restaurant.name
+
+%p 
+  %b Address:
+  = h @restaurant.address
+
+%p 
+  %b City:
+  = h @restaurant.city
+
+%p 
+  %b Distance:
+  = h @restaurant.distance
+
+%p 
+  %b URL:
+  - unless @restaurant.url.nil? || @restaurant.url.empty?
+    = link_to h(@restaurant.url), h(@restaurant.url)
+  
+= link_to 'Edit', edit_restaurant_path(@restaurant) |
+= link_to 'Back', restaurants_path
+
+= render :partial => '/labels/restaurant', :object => @restaurant
+
+= render :partial => '/visits/restaurant', :object => @restaurant

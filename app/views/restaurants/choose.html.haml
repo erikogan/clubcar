@@ -1,0 +1,59 @@
+%h1 Choosing Restaurants
+
+- i = 0;
+- @choices.each do |choice|
+  - i += 1
+  %h2 
+    Choice #
+    = i
+
+  %h3 Choosing a Genre
+  %h4 Scored Genres
+
+  %table 
+    %thead 
+      %tr 
+        %th Name
+        %th Date Distance
+    %tbody 
+      - for genre in choice['scored_genres']
+      %tr{ :class => cycle('rowA', 'rowB') }
+        %td= link_to h(genre.name), tag_path(genre)
+        %td= h genre.distance
+      
+  %h3 Count
+
+  .count= choice['scored_genres'].length
+
+  %h2 Selecting A Restaurant
+
+  %h3 Scored restaurants
+
+  %table 
+    %thead 
+      %tr 
+        %th Name
+        %th Score
+    %tbody 
+      - for r in choice['scored_restaurants']
+        %tr{ :class => cycle('rowA', 'rowB') }
+          %td= link_to h(r.name), restaurant_path(r)
+          %td= h r.total
+    
+  %h3 Weighted Restaurants
+
+  %table 
+    %thead 
+      %tr 
+        %th Weight
+        %th Name
+    %tbody 
+      - last = 0 ; for k in choice['weighted_restaurants'].keys.sort
+        %tr.= cycle('rowA', 'rowB') 
+          %td= k - last
+          %td= link_to h(choice['weighted_restaurants'][k].name), restaurant_path(choice['weighted_restaurants'][k])
+        - last = k
+      
+  %h3 Choice
+
+  .choice= link_to h(choice['restaurant'].name), restaurant_path(choice['restaurant'])

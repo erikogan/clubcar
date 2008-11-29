@@ -1,0 +1,7 @@
+- content_for :head do
+  = stylesheet_link_tag 'inputs'
+  = stylesheet_link_tag 'preferences'
+%h1 Listing moods
+
+= render :partial => 'list', :object => @moods
+

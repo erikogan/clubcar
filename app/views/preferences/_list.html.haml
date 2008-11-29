@@ -1,0 +1,16 @@
+%table 
+  %tr 
+    -# th>Mood</th
+    %th Restaurant
+    %th Value
+  
+- for preference in list
+  %tr { :class => cycle('rowA', 'rowB') }
+    
+    - # %td= h preference.mood_id
+    %td= link_to h(preference.restaurant.name), restaurant_path(preference.restaurant)
+      %td 
+        .customRadio display vote= preference.vote.name 
+          %span= h preference.vote.name
+    %td= link_to 'Edit', edit_user_mood_preference_path(@user, @mood, preference)
+    %td= link_to 'Destroy', user_mood_preference_path(@user, @mood, preference), :confirm => 'Are you sure?', :method => :delete

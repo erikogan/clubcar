@@ -1,0 +1,17 @@
+%h1 Listing emails
+
+%table 
+  %tr 
+    %th Address
+  
+  
+- for email in @emails
+  %tr{ :class=> cycle('rowA', 'rowB') }
+    %td= h email.address
+    %td= link_to 'Show', user_email_path(@user, email)
+    %td= link_to 'Edit', edit_user_email_path(@user, email)
+    %td= link_to 'Destroy', user_email_path(@user, email), :confirm => 'Are you sure?', :method => :delete
+  
+%br
+
+= link_to 'New email', new_user_email_path(@user)
