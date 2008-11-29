@@ -1,14 +1,14 @@
-<% clarify_title @vote.name %>
-<h1>Editing vote</h1>
+- clarify_title @vote.name
+%h1 Editing Vote
 
-<%= error_messages_for :vote %>
+= error_messages_for :vote
 
-<% tagged_form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f| %>
-    <%= f.text_field :name %>
-    <%= f.text_field :value %>
-    <%= f.text_field :genre_value %>
-    <%= submit_tag "Update" %>
-<% end %>
+- tagged_form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f|
+    = f.text_field :name
+    = f.text_field :value
+    = f.text_field :genre_value
+    = submit_tag "Update"
 
-<%= link_to 'Show', vote_path(@vote) %> |
-<%= link_to 'Back', votes_path %>
+= link_to 'Show', vote_path(@vote) 
+|
+= link_to 'Back', votes_path

@@ -1,16 +1,15 @@
-<% clarify_title "to #{@restaurant.name} on #{@visit.date}" %>
-<h1>Visit</h1>
+- clarify_title "to #{@restaurant.name} on #{@visit.date}"
+%h1 Visit
 
-<p>
-  <b>Date:</b>
-  <%=h @visit.date %>
-</p>
+%p 
+  %b Date:
+  = h @visit.date
 
-<p>
-  <b>Duration:</b>
-  <%=h @visit.duration %>
-</p>
+%p 
+  %b Duration:
+  = h @visit.duration
 
 
-<%= link_to 'Edit', edit_restaurant_visit_path(@restaurant, @visit) %> |
-<%= link_to 'Back', restaurant_visits_path(@restaurant) %>
+= link_to 'Edit', edit_restaurant_visit_path(@restaurant, @visit) 
+|
+= link_to 'Back', restaurant_visits_path(@restaurant)

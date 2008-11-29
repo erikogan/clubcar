@@ -1,12 +1,11 @@
-<% clarify_title " to #{@restaurant.name}" %>
-<h1>New visit for <%= @restaurant.name %></h1>
+- clarify_title " to #{@restaurant.name}"
+%h1 New visit for = @restaurant.name
 
-<%= error_messages_for :visit %>
+= error_messages_for :visit
 
-<% tagged_form_for(:visit, :url => restaurant_visits_path(@restaurant)) do |f| %>
-    <%= f.date_select :date %>
-    <%= f.text_field :duration %>
-    <%= submit_tag "Create" %>
-<% end %>
+- tagged_form_for(:visit, :url => restaurant_visits_path(@restaurant)) do |f|
+    = f.date_select :date
+    = f.text_field :duration
+    = submit_tag "Create"
 
-<%= link_to 'Back', restaurant_visits_path(@restaurant) %>
+= link_to 'Back', restaurant_visits_path(@restaurant)

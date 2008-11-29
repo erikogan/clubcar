@@ -1,16 +1,15 @@
-<% clarify_title @vote.name %>
-<h1>Vote</h1>
+- clarify_title @vote.name
+%h1 Vote
 
-<p>
-  <b>Name:</b>
-  <%=h @vote.name %>
-</p>
+%p 
+  %b Name:
+  = h @vote.name
 
-<p>
-  <b>Value:</b>
-  <%=h @vote.value %>
-</p>
+%p 
+  %b Value:
+  = h @vote.value
 
 
-<%= link_to 'Edit', edit_vote_path(@vote) %> |
-<%= link_to 'Back', votes_path %>
+= link_to 'Edit', edit_vote_path(@vote) 
+|
+= link_to 'Back', votes_path

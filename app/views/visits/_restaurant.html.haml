@@ -1,7 +1,5 @@
-<h2>Visits</h2>
+%h2 Visits
 
-<% unless restaurant.visits.empty? %>
-  <%= render :partial => 'visits/list', :object => restaurant.visits %>
-<% end %>
-<%= link_to 'New Visit', new_restaurant_visit_path(restaurant) %>
-
+- unless restaurant.visits.empty?
+  = render :partial => 'visits/list', :object => restaurant.visits
+= link_to 'New Visit', new_restaurant_visit_path(restaurant)

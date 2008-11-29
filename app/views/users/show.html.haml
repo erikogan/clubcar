@@ -1,29 +1,27 @@
-<% clarify_title @user.name %>
-<%= render :partial => 'for_head' %>
+- clarify_title @user.name
+= render :partial => 'for_head'
 
-<h1>User</h1>
+%h1 User
 
-<p>
-  <b>Login:</b>
-  <%=h @user.login %>
-</p>
+%p 
+  %b Login:
+  = h @user.login
 
-<p>
-  <b>Name:</b>
-  <%=h @user.name %>
-</p>
+%p 
+  %b Name:
+  = h @user.name
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+= link_to 'Edit', edit_user_path(@user) |
+= link_to 'Back', users_path
 
-<h2>Presence</h2>
+%h2 Presence
 
-<%= render :partial => '/users/presence', :object => @user %>
+= render :partial => '/users/presence', :object => @user
 
-<h2>Moods</h2>
+%h2 Moods
 
-<%= render :partial => '/moods/list', :object => @user.moods -%>
+= render :partial => '/moods/list', :object => @user.moods -
 
-<h2>Emails</h2>
+%h2 Emails
 
-<%= render :partial => '/emails/list', :object => @user.emails -%>
+= render :partial => '/emails/list', :object => @user.emails -

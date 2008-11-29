@@ -1,23 +1,19 @@
-<%= render :partial => 'for_head' %>
+= render :partial => 'for_head'
 
-<h1>Listing users</h1>
+%h1 Listing users
 
-<table>
-  <tr>
-    <th>Login</th>
-    <th>Name</th>
-  </tr>
+%table 
+  %tr 
+    %th Login
+    %th Name
   
-<% for user in @users %>
-  <tr class="<%= cycle('rowA', 'rowB') %>">
-    <td><%= link_to h(user.login), user_path(user) %></td>
-    <td><%=h user.name %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+- for user in @users
+  %tr.= cycle('rowA', 'rowB') 
+    %td= link_to h(user.login), user_path(user)
+    %td= h user.name
+    %td= link_to 'Edit', edit_user_path(user)
+    %td= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete
 
-<br />
+%br 
 
-<%= link_to 'New user', new_user_path %>
+= link_to 'New user', new_user_path

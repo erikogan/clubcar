@@ -1,12 +1,11 @@
-<h1>New vote</h1>
+%h1 New vote
 
-<%= error_messages_for :vote %>
+= error_messages_for :vote
 
-<% tagged_form_for(:vote, :url => votes_path) do |f| %>
-    <%= f.text_field :name %>
-    <%= f.text_field :value %>
-    <%= f.text_field :genre_value %>
-    <%= submit_tag "Create" %>
-<% end %>
+- tagged_form_for(:vote, :url => votes_path) do |f|
+    = f.text_field :name
+    = f.text_field :value
+    = f.text_field :genre_value
+    = submit_tag "Create"
 
-<%= link_to 'Back', votes_path %>
+= link_to 'Back', votes_path

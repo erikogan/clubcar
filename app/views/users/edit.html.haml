@@ -1,17 +1,17 @@
-<% clarify_title @user.name %>
-<%= render :partial => 'for_head' %>
+- clarify_title @user.name
+= render :partial => 'for_head'
 
-<h1>Editing user</h1>
+%h1 Editing user
 
-<%= error_messages_for :user %>
+= error_messages_for :user
 
-<% tagged_form_for(:user, :url => user_path(@user), :html => { :method => :put }) do |f| %>
-    <%= f.text_field :login %>
-    <%= f.text_field :name %>
-    <%= f.password_field :plain_password %>
-    <%= f.password_field :plain_password_confirmation %>
-    <%= submit_tag "Update" %>
-<% end %>
+- tagged_form_for(:user, :url => user_path(@user), :html => { :method => :put }) do |f|
+    = f.text_field :login
+    = f.text_field :name
+    = f.password_field :plain_password
+    = f.password_field :plain_password_confirmation
+    = submit_tag "Update"
 
-<%= link_to 'Show', user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+= link_to 'Show', user_path(@user) 
+|
+= link_to 'Back', users_path

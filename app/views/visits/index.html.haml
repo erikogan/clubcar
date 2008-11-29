@@ -1,9 +1,10 @@
-<% clarify_title "s to #{@restaurant.name}" %>
-<h1>Listing visits to <%= @restaurant.name %></h1>
+- clarify_title "s to #{@restaurant.name}"
+%h1 Listing visits to = @restaurant.name
 
-<%= render :partial => 'list', :object => @visits %>
+= render :partial => 'list', :object => @visits
 
-<br />
+%br 
 
-<%= link_to 'Back', restaurant_path(@restaurant) %> |
-<%= link_to 'New visit', new_restaurant_visit_path(@restaurant) %>
+= link_to 'Back', restaurant_path(@restaurant) 
+|
+= link_to 'New visit', new_restaurant_visit_path(@restaurant)

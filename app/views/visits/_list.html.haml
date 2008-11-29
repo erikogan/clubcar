@@ -1,15 +1,11 @@
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Duration</th>
-  </tr>
+%table 
+  %tr 
+    %th Date
+    %th Duration
   
-<% for visit in list %>
-  <tr class="<%= cycle('rowA', 'rowB') %>">
-    <td><%=h visit.date %></td>
-    <td><%=h visit.duration %></td>
-    <td><%= link_to 'Edit', edit_restaurant_visit_path(@restaurant, visit) %></td>
-    <td><%= link_to 'Destroy', restaurant_visit_path(@restaurant, visit), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  - for visit in list
+    %tr{:class => cycle('rowA', 'rowB') }
+      %td= h visit.date
+      %td= h visit.duration
+      %td= link_to 'Edit', edit_restaurant_visit_path(@restaurant, visit)
+      %td= link_to 'Destroy', restaurant_visit_path(@restaurant, visit), :confirm => 'Are you sure?', :method => :delete
