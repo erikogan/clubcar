@@ -6,14 +6,10 @@ describe "/tags/index" do
   before(:each) do
     assigns[:tags] = [
       stub_model(Tag,
-        :name => "value for name",
-        :canonical => "valueforname",
-        :type_id => tag_types(:tag).id
+        :name => "value for name"
       ),
       stub_model(Tag,
-        :name => "another value for name",
-        :canonical => "anothervalueforname",
-        :type_id => tag_types(:tag).id
+        :name => "another value for name"
       )
     ]
   end

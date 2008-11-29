@@ -1,0 +1,16 @@
+%h1 New tagging
+
+- tagged_form_for(@tagging) do |f| 
+  .err= f.error_messages
+  
+  = f.text_field :tag_id
+  = f.text_field :taggable_id
+  = f.text_field :taggable_type
+  = f.text_field :tagger_id
+  = f.text_field :tagger_type
+  = f.text_field :context
+  = f.datetime_select :created_at
+
+  = f.submit "Create"
+
+= link_to 'Back', taggings_path

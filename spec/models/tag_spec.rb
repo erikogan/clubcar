@@ -4,8 +4,6 @@ describe Tag do
   before(:each) do
     @valid_attributes = {
       :name => "value for name",
-      :canonical => "valueforname",
-      :type_id => tag_types(:tag).id
     }
   end
 

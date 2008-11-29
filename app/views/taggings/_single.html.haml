@@ -1,0 +1,8 @@
+%li
+  %span.remove
+    = link_to_remote '[-]', {:url => "#{tagging_path(single)}?type=#{type.class.name.tableize}", :confirm => 'delete?', :method => :delete}
+  %span.link
+    -if (type.is_a?(Tag))
+      = link_to h(single.taggable.to_s), polymorphic_path(single.taggable)
+    -else
+      = link_to h(single.tag.name), tag_path(single.tag)

@@ -1,0 +1,27 @@
+%h1 Listing taggings
+
+%table
+  %tr
+    %th Taggable type
+    %th Taggable
+    %th Context
+    %th Tag
+    %th Tagger
+    %th Tagger type
+    %th Created at
+  - for tagging in @taggings
+    %tr{:class => cycle('rowA', 'rowB')}
+      %td= h tagging.taggable_type
+      %td= h tagging.taggable
+      %td= h tagging.context
+      %td= h tagging.tag
+      %td= h tagging.tagger
+      %td= h tagging.tagger_type
+      %td= h tagging.created_at.to_s(:db)
+      %td= link_to 'Show', tagging
+      %td= link_to 'Edit', edit_tagging_path(tagging)
+      %td= link_to 'Destroy', tagging, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New tagging', new_tagging_path

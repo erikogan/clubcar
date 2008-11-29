@@ -39,6 +39,6 @@
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
 
-<%= render :partial => '/labels/restaurant', :object => @restaurant %>
+<%= render :partial => '/taggings/list', :object => @restaurant %>
 
 <%= render :partial => '/visits/restaurant', :object => @restaurant %>

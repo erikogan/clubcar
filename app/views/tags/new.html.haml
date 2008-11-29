@@ -1,0 +1,9 @@
+%h1 New tag
+
+-tagged_form_for(@tag) do |f| 
+  = f.error_messages
+
+  = f.text_field :name
+  = f.submit "Create"
+
+= link_to 'Back', tags_path

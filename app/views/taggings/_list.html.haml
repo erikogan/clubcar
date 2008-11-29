@@ -1,0 +1,10 @@
+- # This is complex enough it should probably come from a helper
+- contexts = list.taggings.collect {|n| n.context}.inject(Hash.new) { |hash,t| hash[t] = 1 ;  hash }.keys.sort
+#taggings
+  - contexts.each do |context|
+    - plural = context.pluralize
+    %h2=context.capitalize
+    %ul{:id => "#{list.class.name.downcase}#{plural.humanize}"}
+      - # I need to pass more than this will allow
+      - # render :partial => '/taggings/single', :collection => list.method(plural).call
+      = render :partial => '/taggings/single', :collection => list.taggings.find_all_by_context(plural), :locals => {:type => list }
