@@ -3,7 +3,7 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     #create_table :tags do |t|
     #  t.column :name, :string
     #end
-    add_index :tags :name
+    add_index :tags, :name
 
     create_table :taggings do |t|
       t.column :tag_id, :integer, :null => false
