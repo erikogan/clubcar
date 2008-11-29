@@ -68,7 +68,7 @@ Rails::Initializer.run do |config|
 
   config.gem "haml"
 
-  #config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
+  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
 end
 
@@ -86,3 +86,4 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+require File.join(File.dirname(__FILE__), '../app/models/tag_mixin')

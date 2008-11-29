@@ -17,3 +17,5 @@ tr.rowB {
 table#preferences td {
   line-height: 35px;
 }
+
+.notice { color: green;}

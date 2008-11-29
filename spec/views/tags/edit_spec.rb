@@ -6,9 +6,7 @@ describe "/tags/edit" do
   before(:each) do
     assigns[:tag] = @tag = stub_model(Tag,
       :new_record? => false,
-      :name => "value for name",
-      :canonical => "valueforname",
-      :type_id => tag_types(:tag).id
+      :name => "value for name"
     )
   end
 

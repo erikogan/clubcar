@@ -1,12 +1,15 @@
 - #!!! Strict
-%html{ :lang => 'en', :xmlns => 'http://www.w3.org/1999/xhtml' } 
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", 'xml:lang' => "en" }
   %head 
     %meta{ :content => 'text/html;charset=UTF-8', :equiv => 'content-type' } 
     %title 
       Clubcar : 
       = yield(:title) || (controller.controller_name.underscore.humanize.singularize + (yield(:clarify_title) || 's') + ": " + controller.action_name)
+    = javascript_include_tag(:defaults)
     = stylesheet_link_tag 'scaffold'
     = stylesheet_link_tag 'clubcar'
+    
+    = render :partial => 'layouts/js_onload'
     = yield(:head)
   %body{ :id => controller.action_name } 
 

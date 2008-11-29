@@ -1,8 +1,0 @@
-<p>
-  <b>Name:</b>
-  <%=h @tag_type.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_tag_type_path(@tag_type) %> |
-<%= link_to 'Back', tag_types_path %>

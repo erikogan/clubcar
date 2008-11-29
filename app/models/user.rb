@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   attr_protected :admin
   attr_accessor :plain_password_confirmation
   
+  acts_as_tagger
+  
   ## this also fails when the fields are both nil, which is
   ## counter-intuitive, and undesirable in the update case (when you
   ## might not want to change their password)

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+mango_caribbean:
+  tag: caribbean 
+  taggable_type: Restaurant
+  taggable: mango
+  tagger_type: User
+  tagger: erik
+  context: genres
+  created_at: 2008-11-19 22:38:39
+
+fjl2_brought_in:
+  tag: brought_in
+  taggable_type: Restaurant
+  taggable: fjl2
+  tagger_type: User
+  tagger: erik
+  context: tags
+  created_at: 2008-11-19 22:38:39
