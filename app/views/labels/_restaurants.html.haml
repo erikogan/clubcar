@@ -1,5 +1,0 @@
-- # This may be a tad confusing, but the object passed to this template
-- # is the label so "restaurants" is a Label
-%li
-  = link_to '[-]', restaurant_label_path(restaurants.restaurant, restaurants), :confirm => 'delete?', :method => :delete
-  = link_to h(restaurants.restaurant.name), restaurant_path(restaurants.restaurant)

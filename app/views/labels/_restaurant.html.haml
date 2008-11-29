@@ -1,9 +1,0 @@
-- unless restaurant.tags.empty? 
-  %h2 Tags
-  %ul#retaurantTags
-    = render :partial => '/labels/tags', :collection => restaurant.tags
-
-- unless restaurant.genres.empty? 
-  %h2 Genres
-  %ul#genreTags
-    = render :partial => '/labels/tags', :collection => restaurant.genres
