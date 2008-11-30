@@ -9,6 +9,5 @@
 
 =prefix
 currently: 
-%strong=current
-:
+%strong="#{current}:"
 = link_to_remote 'toggle', {:url => {:controller => :users, :action => action, :id => presence_link.id}, :update => 'presenceLink'}, { :onclick => genre_graph_update } 

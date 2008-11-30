@@ -17,9 +17,9 @@
         %th Date Distance
     %tbody 
       - for genre in choice['scored_genres']
-      %tr{ :class => cycle('rowA', 'rowB') }
-        %td= link_to h(genre.name), tag_path(genre)
-        %td= h genre.distance
+        %tr{ :class => cycle('rowA', 'rowB') }
+          %td= link_to h(genre.name), tag_path(genre)
+          %td= h genre.distance
       
   %h3 Count
 
@@ -49,7 +49,7 @@
         %th Name
     %tbody 
       - last = 0 ; for k in choice['weighted_restaurants'].keys.sort
-        %tr.= cycle('rowA', 'rowB') 
+        %tr{ :class => cycle('rowA', 'rowB') }
           %td= k - last
           %td= link_to h(choice['weighted_restaurants'][k].name), restaurant_path(choice['weighted_restaurants'][k])
         - last = k

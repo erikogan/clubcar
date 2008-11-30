@@ -2,18 +2,18 @@
   - form_remote_tag :url => { :controller => :moods, :action => :list_activate }, :html => { :onsubmit => genre_graph_update } do
 
     - # This is being ignored in the XHR URL, I'm guessing it doesn't
-      # merge GET & POST options
+    - # merge GET & POST options
     = hidden_field_tag(:user_id, @user.id)
     / The Prototype Form.serialize doesn't DtRT for image inputs. Fake it with this
     = hidden_field_tag(:activate_input, -1)
-  %table.moods 
-    %thead 
-      %tr
-        %th Name
-        %th Sort Order
-        %th Active
-        %th Edit
-        %th Destroy
-        %th Copy
-    %tbody 
-      = render :partial => '/moods/row', :collection => list_inner
+    %table.moods 
+      %thead 
+        %tr
+          %th Name
+          %th Sort Order
+          %th Active
+          %th Edit
+          %th Destroy
+          %th Copy
+      %tbody 
+        = render :partial => '/moods/row', :collection => list_inner

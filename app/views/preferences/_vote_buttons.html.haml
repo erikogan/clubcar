@@ -3,6 +3,6 @@
 - name = vote_buttons[1]
 - values = vote_buttons[2]
 - for v in values 
-  %div{ :class => "customRadio vote#{v0}" }
+  %div{ :class => "customRadio vote#{v[0]}" }
     = radio_button("#{name}[]", :vote_id, v[2])
     %label.radioLabel{:for => "#{name}[#{obj.id}][vote_id]" }

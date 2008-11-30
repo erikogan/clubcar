@@ -7,10 +7,10 @@
 = error_messages_for :visit
 
 - tagged_form_for(:visit, :url => restaurant_visit_path(@restaurant, @visit), :html => { :method => :put }) do |f|
-    - # f.text_field :restaurant_id
-    = f.date_select :date
-    = f.text_field :duration
-    = submit_tag "Update"
+  - # f.text_field :restaurant_id
+  = f.date_select :date
+  = f.text_field :duration
+  = submit_tag "Update"
 
 = link_to 'Show', restaurant_visit_path(@restaurant, @visit) 
 |

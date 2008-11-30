@@ -6,7 +6,7 @@
     %th Value
   
   - for vote in @votes
-    %tr.= cycle('rowA', 'rowB') 
+    %tr{ :class => cycle('rowA', 'rowB') }
       %td= h vote.name
       %td= h vote.value
       %td= link_to 'Show', vote_path(vote)

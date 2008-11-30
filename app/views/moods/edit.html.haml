@@ -9,6 +9,8 @@
   = f.select :active, [["Active", true, true], ["Inactive", false, false]]
   = submit_tag "Update"
 
-= link_to 'Show', user_mood_path(@user, @mood) |
-= link_to 'Back', user_moods_path(@user) |
+= link_to 'Show', user_mood_path(@user, @mood)
+|
+= link_to 'Back', user_moods_path(@user)
+|
 = link_to 'Preferences', change_user_mood_preferences_path(@user, @mood)

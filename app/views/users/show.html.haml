@@ -11,7 +11,8 @@
   %b Name:
   = h @user.name
 
-= link_to 'Edit', edit_user_path(@user) |
+= link_to 'Edit', edit_user_path(@user)
+|
 = link_to 'Back', users_path
 
 %h2 Presence
@@ -20,8 +21,8 @@
 
 %h2 Moods
 
-= render :partial => '/moods/list', :object => @user.moods -
+= render :partial => '/moods/list', :object => @user.moods
 
 %h2 Emails
 
-= render :partial => '/emails/list', :object => @user.emails -
+= render :partial => '/emails/list', :object => @user.emails

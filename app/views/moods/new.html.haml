@@ -4,9 +4,9 @@
 = error_messages_for :mood
 
 - tagged_form_for(:mood, :url => user_moods_path(@user)) do |f| 
-    = f.text_field :name
-    = f.select :active, [["Active", true, true], ["Inactive", false, false]]
-    = f.text_field :order
-    = submit_tag "Create"
+  = f.text_field :name
+  = f.select :active, [["Active", true, true], ["Inactive", false, false]]
+  = f.text_field :order
+  = submit_tag "Create"
 
 = link_to 'Back', user_moods_path(@user)

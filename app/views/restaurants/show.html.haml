@@ -28,7 +28,8 @@
   - unless @restaurant.url.nil? || @restaurant.url.empty?
     = link_to h(@restaurant.url), h(@restaurant.url)
   
-= link_to 'Edit', edit_restaurant_path(@restaurant) |
+= link_to 'Edit', edit_restaurant_path(@restaurant)
+|
 = link_to 'Back', restaurants_path
 
 = render :partial => '/taggings/list', :object => @restaurant

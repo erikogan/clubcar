@@ -19,5 +19,6 @@
     = render :partial => 'vote_buttons', :object => [ @preference, 'preference', @preference_values ]
     = submit_tag "Update"
 
-= link_to 'Show', user_mood_preference_path(@user, @mood, @preference) |
+= link_to 'Show', user_mood_preference_path(@user, @mood, @preference)
+|
 = link_to 'Back', user_mood_preferences_path(@user, @mood)

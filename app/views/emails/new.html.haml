@@ -2,7 +2,7 @@
 
 = error_messages_for :email
 
--tagged_form_for(:email, :url => user_email_path(@user, @email), :html => { :method => :put }) do |f| 
+-tagged_form_for(:email, :url => user_emails_path(@user), :html => { :method => :put }) do |f| 
   = f.text_field :address
   = submit_tag "Create"
 

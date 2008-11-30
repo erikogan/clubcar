@@ -4,7 +4,8 @@
 
 - tagged_form_for(:restaurant, :url => restaurants_path) do |f|
   %fieldset#restaurant 
-    %legend Restaurant
+    %legend 
+      Restaurant
       = f.text_field :name
       = f.text_field :address
       = f.text_field :city
@@ -13,7 +14,8 @@
       = f.text_field :image
 
   %fieldset#tags 
-    %legend Tags
+    %legend 
+      Tags
       = f.text_field :tags_string
       = f.text_field :genres_string
   = submit_tag "Create"

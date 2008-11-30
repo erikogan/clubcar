@@ -9,7 +9,8 @@
   %b Sort order:
   = h @mood.order
 
-= link_to 'Edit', edit_user_mood_path(@user, @mood) |
+= link_to 'Edit', edit_user_mood_path(@user, @mood)
+|
 = link_to 'Back', user_moods_path(@user)
 
 %h2= link_to 'Preferences', user_mood_preferences_path(@user, @mood)

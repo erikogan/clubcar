@@ -1,4 +1,4 @@
-%tr.= cycle('rowA', 'rowB') 
+%tr{ :id => cycle('rowA', 'rowB') }
   %td= link_to h(row.name), user_mood_path(@user,row)
   %td= h row.order
   %td 

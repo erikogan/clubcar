@@ -4,10 +4,10 @@
 = error_messages_for :vote
 
 - tagged_form_for(:vote, :url => vote_path(@vote), :html => { :method => :put }) do |f|
-    = f.text_field :name
-    = f.text_field :value
-    = f.text_field :genre_value
-    = submit_tag "Update"
+  = f.text_field :name
+  = f.text_field :value
+  = f.text_field :genre_value
+  = submit_tag "Update"
 
 = link_to 'Show', vote_path(@vote) 
 |

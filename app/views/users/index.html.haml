@@ -7,12 +7,12 @@
     %th Login
     %th Name
   
-- for user in @users
-  %tr.= cycle('rowA', 'rowB') 
-    %td= link_to h(user.login), user_path(user)
-    %td= h user.name
-    %td= link_to 'Edit', edit_user_path(user)
-    %td= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete
+  - for user in @users
+    %tr{ :class => cycle('rowA', 'rowB') }
+      %td= link_to h(user.login), user_path(user)
+      %td= h user.name
+      %td= link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete
 
 %br 
 
