@@ -1,1 +1,0 @@
-page.replace_html("moodList", :partial => "/moods/list_inner", :object => @user.moods)

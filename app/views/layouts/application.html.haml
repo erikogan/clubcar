@@ -13,6 +13,9 @@
     = yield(:head)
   %body{ :id => controller.action_name } 
 
+    #header
+      = render :partial => '/users/presence', :object => @user
+
     - unless flash[:notice].nil? || flash[:notice].empty?
       %p{ :style => 'color: green' }= flash[:notice]
 

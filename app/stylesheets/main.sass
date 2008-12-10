@@ -1,23 +1,40 @@
-h2
-  :background-color #abc
-  :margin-bottom 0
-  :padding 2px
-  :font-size 1.25em
+@import globals.sass
 
+h1
+  :display none
+
+h2
+  :background-color= !h2_bg
+  :color= !h2_fg
+  :margin 0
+  :padding 2px 5px
+  :font-size 1.25em
+  
 
 #loggedIn ul
   :margin-top 0
 
 
 #leftSide
-  :margin-right 220px
+  :width 16em
+  :margin-left 0.5em
+  :margin-top 1em
+  //:padding 0.5em
+  :border
+    :width 1px
+    :style solid
+    :color= !main_left_border_color
 
+#moodList table
+  :width 100%
 
 #rightSide
   :position absolute
-  :top 0
+  :top 30px
   :right 0
-  :padding 4px
+  :padding
+    :left 4px
+    :bottom 4px
   :width 200px
 
 

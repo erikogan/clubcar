@@ -7,11 +7,7 @@
 
 %h1 Welcome to Clubcar!
 
-#leftSide 
-  %h2#presence Your Presence
-
-  = render :partial => '/users/presence', :object => @user
-
+#leftSide
   %h2#moods Your Moods
 
   = render :partial => '/moods/list', :object => @user.moods
