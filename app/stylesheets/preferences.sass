@@ -1,12 +1,32 @@
-.missing
-  :color #f00
+@import globals.sass
 
+#change_preferences
+  td
+    :line-height inherit
+    :min-height 34px
+    :color= !pref_fg
+  tr.rowB
+    :background-color= !pref_bg
   select, a
-    :color #f00
+    :color= !pref_fg
+    &:visited
+      :color= !pref_visited_fg
 
-  &.rowB
-    :background-color #fcc
+  tr.missing
+    td
+      :color= !pref_new_fg
 
+    select, a
+      :color= !pref_new_fg
+
+    &.rowB
+      :background-color= !pref_new_bg
+
+  .buttons
+    :text-align right
+  .submit_prefs
+    :float left
+    :margin 0 5px
 
 .customRadio
   &.votePositive
@@ -24,15 +44,26 @@
   &.voteVeto
     :background-image url(../images/vote_veto.png)
 
+#change_preferences_controls
+  :padding-top 1em
+  :min-height 2em
 
-
+#change_preferences_spinner
+  :float left
+  :text-align left
+  :width 16px
+  :height 16px
+  :background-image url(../images/indicator.gif)
+  
+#change_preferences_saved
+  :margin-top -2px
+  :padding 2px 5px
+  :background-color= !pref_saved_bg
+  :color= !pref_saved_fg
+  
 div.customRadio
   label, span
     :display none
 
   &.display
     :background-position 0 -86px
-
-
-td.bigger
-  :height 34px

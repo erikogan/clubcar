@@ -130,7 +130,13 @@ class MoodsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to user_mood_url(@user,@mood) }
       format.xml  { render :xml => @mood.errors.to_xml }
-      format.js  {}
+      format.js  do
+        @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
+        @missing = Preference.missing_for(@mood)
+        @preference_values = Vote.find(:all, :order => 'value DESC').collect do |v|
+          [v.name, v, v.id]
+        end
+      end
     end
   end
 

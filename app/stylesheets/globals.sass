@@ -1,3 +1,18 @@
+/*
+  -- Color Scheme
+  Base:            1e377a	
+  Left neighbor:   175e5b
+  Right neighbor:  2d185e	
+  Halfway? :       675233
+  Compliment:      9b6a26
+  
+  -- Color Pallette
+  x             PRIME   pale    paler   dark    darker  dark+pale dark+paler  
+  Base:         1e377a	4c587a	63697a	283351	141928	39425b  	565b6a
+  Right:        2d185e	453b5e	524c5e	291f3e	140f1f	342c46	  474252
+  Left:         175e5b	3a5e5d	4c5e5d	1f3e3d	0f1f1e	2c4645	  425251
+  Compliment:   9b6a26	9b8361	9b8f7e	675233	332919	746248	  877c6d
+  
 !color_base             = #1e377a
 !color_base_pale        = #4c587a
 !color_base_paler       = #63697a
@@ -43,18 +58,13 @@
 !h2_bg                  = !color_rn_darkPale
 !h2_fg                  = #fff
 
-/*
-  -- Color Scheme
-  Base:            1e377a	
-  Left neighbor:   175e5b
-  Right neighbor:  2d185e	
-  Halfway? :       675233
-  Compliment:      9b6a26
-  
-  -- Color Pallette
-  x             PRIME   pale    paler   dark    darker  dark+pale dark+paler  
-  Base:         1e377a	4c587a	63697a	283351	141928	39425b  	565b6a
-  Right:        2d185e	453b5e	524c5e	291f3e	140f1f	342c46	  474252
-  Left:         175e5b	3a5e5d	4c5e5d	1f3e3d	0f1f1e	2c4645	  425251
-  Compliment:   9b6a26	9b8361	9b8f7e	675233	332919	746248	  877c6d
-  
+!pref_new_bg            = !color_ln_paler + #333
+!pref_new_fg            = !color_ln_dark
+
+!pref_bg                = !color_rn_paler + #333
+!pref_fg                = !color_rn_dark
+!pref_visited_fg        = !color_rn_darker
+!pref_border            = !color_rn_darker
+
+!pref_saved_fg          = !color_compl_darker
+!pref_saved_bg          = !color_compl_paler

@@ -1,5 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag 'inputs'
   = stylesheet_link_tag 'preferences'
-  - # I'm surprised there's no method for this -
-  %script{ :src => '/javascripts/inputs.js', :type => 'text/javascript' } 
+  = javascript_include_tag 'inputs'
+  = javascript_include_tag 'preferences'

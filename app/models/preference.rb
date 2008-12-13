@@ -30,9 +30,9 @@ class Preference < ActiveRecord::Base
       # I'm not really sure this bit of cleverness is a good idea, either.
       # (Rails uses this method in the field names (foo[id]))
       class << p
-        attr_accessor :id_before_type_cast
+        attr_accessor :to_param
       end
-      p.id_before_type_cast = i
+      p.to_param = i
       i+=1
       p
     end

@@ -154,6 +154,11 @@ class PreferencesController < ApplicationController
       end
     else
       respond_to do |format|
+        format.js {
+          @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
+          @missing = Preference.missing_for(@mood)
+          get_preference_values
+        }
         format.html { redirect_to change_user_mood_preferences_url(@user,@mood) }
         format.xml  { head :ok }
       end
