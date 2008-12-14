@@ -138,10 +138,6 @@ class PreferencesController < ApplicationController
         # I think this needs to be explicit, since we didn't change
         # these via the normal interfaces
         @mood.preferences.each {|p| p.save! }
-
-        if updated
-          flash[:notice] = 'Preferences successfully updated.'
-        end
       end
     rescue Exception => e
       @preferences = @mood.preferences.sort_by { |p| p.restaurant.name }
@@ -159,6 +155,9 @@ class PreferencesController < ApplicationController
           @missing = Preference.missing_for(@mood)
           get_preference_values
         }
+        if updated
+          flash[:notice] = 'Preferences successfully updated.'
+        end
         format.html { redirect_to change_user_mood_preferences_url(@user,@mood) }
         format.xml  { head :ok }
       end

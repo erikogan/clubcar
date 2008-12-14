@@ -1,23 +1,21 @@
-#change_preferences
-  - if header
-    %h2= @mood.name
+- if header
+  %h2#change_preferences_mood_name= @mood.name
+
+- form_remote_tag :url => save_user_mood_preferences_path(@user,@mood), :html => {:id => 'change_preferences_form'} do
+  %table#preferences 
+    - for @new in @missing
+      %tr{ :class => "missing #{cycle('rowA', 'rowB')}" }
+        %td.name
+          = link_to h(@new.restaurant.name), restaurant_path(@new.restaurant)
+          = hidden_field "new[]", :restaurant_id
+          = hidden_field "new[]", :mood_id
+        %td.buttons= render :partial => '/preferences/vote_buttons', :locals => {:pref => @new, :name => 'new', :values => @preference_values }
   
-  - Rails.logger.debug("WTF PATH #{save_user_mood_preferences_path(@user,@mood)}")
-  - form_remote_tag :url => save_user_mood_preferences_path(@user,@mood) do
-    %table#preferences 
-      - for @new in @missing
-        %tr{ :class => "missing #{cycle('rowA', 'rowB')}" }
-          %td.name
-            = link_to h(@new.restaurant.name), restaurant_path(@new.restaurant)
-            = hidden_field "new[]", :restaurant_id
-            = hidden_field "new[]", :mood_id
-          %td.buttons= render :partial => '/preferences/vote_buttons', :locals => {:pref => @new, :name => 'new', :values => @preference_values }
-    
-      - for @preference in @preferences
-        %tr{:class => cycle('rowA', 'rowB') }
-          %td.name= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant)
-          %td.buttons= render :partial => '/preferences/vote_buttons', :locals => {:pref => @preference, :name => 'preference', :values => @preference_values }
-    #change_preferences_controls
-      = submit_tag 'Save', :class => 'submit_prefs', :onclick => '$("change_preferences_spinner").show(); return true;'
-      %span#change_preferences_spinner{ :style => 'display: none' }
-      %div#change_preferences_saved{ :style => 'display: none' }
+    - for @preference in @preferences
+      %tr{:class => cycle('rowA', 'rowB') }
+        %td.name= link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant)
+        %td.buttons= render :partial => '/preferences/vote_buttons', :locals => {:pref => @preference, :name => 'preference', :values => @preference_values }
+  #change_preferences_controls
+    = submit_tag 'Save', :class => 'submit_prefs', :onclick => '$("change_preferences_spinner").show(); return true;'
+    %span#change_preferences_spinner{ :style => 'display: none' }
+    %div#change_preferences_saved{ :style => 'display: none' }

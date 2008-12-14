@@ -13,14 +13,18 @@
 
 #leftSide
   %h2#moods Your Moods
+  
+  #moodList 
+    = render :partial => '/moods/list', :object => @user.moods
 
-  = render :partial => '/moods/list', :object => @user.moods
+  %h2#loggedInHeader Logged In Users
 
+  #loggedIn 
+    = render :partial => '/main/logged_in', :object => @logged_in
 
 #center
-  = render :partial => '/preferences/change_form', :locals => {:header => true}
+  #change_preferences
+    = render :partial => '/preferences/change_form', :locals => {:header => true}
 
 #rightSide 
-  #graphsLoggedIn 
-    = render :partial => '/graphs/genres', :object => params
-    = render :partial => '/main/logged_in', :object => @logged_in
+  #graphs= render :partial => '/graphs/genres'

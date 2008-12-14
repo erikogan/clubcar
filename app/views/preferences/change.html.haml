@@ -8,7 +8,8 @@
 = error_messages_for :preference
 = error_messages_for :mood
 
-= render :partial => 'change_form'
+#change_preferences
+  = render :partial => 'change_form'
   
 = link_to 'Show', user_mood_preferences_path
 = link_to 'Back', user_mood_path(@user, @mood)
