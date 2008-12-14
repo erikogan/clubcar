@@ -1,9 +1,7 @@
 @import globals.sass
 
-html,
 body
-  :margin 0
-  :padding 0
+  :margin-top 3em
 
 tr.rowB
   :background-color= #fff - !rowB_diff
@@ -48,14 +46,17 @@ table#preferences td
   :color green
 
 #header
+  :position absolute
+  :top 0
+  :left 0
+  :right 0
+  :min-height 30px
   :color= !header_fg
   :background
     :color= !header_bg
     :image= !header_img
     :repeat no-repeat
-  :text
-    :align right
-  :min-height 30px
+  :text-align right
   
   p
     :margin 0

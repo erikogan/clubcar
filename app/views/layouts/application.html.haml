@@ -11,7 +11,7 @@
     
     = render :partial => 'layouts/js_onload'
     = yield(:head)
-  %body{ :id => controller.action_name } 
+  %body{ :id => "#{controller.controller_name}_#{controller.action_name}", :class => controller.controller_name } 
 
     #header
       = render :partial => '/users/presence', :object => @user
