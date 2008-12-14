@@ -13,11 +13,15 @@
 
 #leftSide
   %h2#moods Your Moods
+  :javascript
+    Nifty('h2#moods', 'top')
   
   #moodList 
     = render :partial => '/moods/list', :object => @user.moods
 
   %h2#loggedInHeader Logged In Users
+  :javascript
+    Nifty('h2#loggedInHeader', 'top')
 
   #loggedIn 
     = render :partial => '/main/logged_in', :object => @logged_in

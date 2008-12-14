@@ -1,5 +1,7 @@
 - if header
   %h2#change_preferences_mood_name= @mood.name
+  :javascript
+    Nifty('h2#change_preferences_mood_name', 'top')
 
 - form_remote_tag :url => save_user_mood_preferences_path(@user,@mood), :html => {:id => 'change_preferences_form'} do
   %table#preferences 
