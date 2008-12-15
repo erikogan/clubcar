@@ -1,0 +1,5 @@
+page.replace_html("graphs", :partial => "/graphs/genres", :object => @user)
+page.replace_html("change_preferences", :partial => '/preferences/change_form', :locals => {:header => true})
+page.call('Input.initialize')
+page.replace_html("change_preferences_saved", 'Preferences Saved.')
+page.call('finish_save', 'change_preferences')

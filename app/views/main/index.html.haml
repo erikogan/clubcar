@@ -2,21 +2,34 @@
 
 - content_for :head do
   = stylesheet_link_tag 'main'
-  - #= javascript_include_tag :defaults
+  = stylesheet_link_tag 'inputs'
+  = stylesheet_link_tag 'preferences'
+  = javascript_include_tag 'inputs'
+  = javascript_include_tag 'preferences'
+  = javascript_include_tag 'NiftyCube/niftycube'
   %meta{ :content => 'nocache', :equiv => 'pragma' } 
 
 %h1 Welcome to Clubcar!
 
-#leftSide 
-  %h2#presence Your Presence
-
-  = render :partial => '/users/presence', :object => @user
-
+#leftSide
   %h2#moods Your Moods
+  :javascript
+    Nifty('h2#moods', 'top')
+  
+  #moodList 
+    = render :partial => '/moods/list', :object => @user.moods
 
-  = render :partial => '/moods/list', :object => @user.moods
+  %h2#loggedInHeader Logged In Users
+  :javascript
+    Nifty('h2#loggedInHeader', 'top')
+
+  #loggedIn 
+    = render :partial => '/main/logged_in', :object => @logged_in
+
+#center
+  #change_preferences
+    -unless @mood.nil?
+      = render :partial => '/preferences/change_form', :locals => {:header => true}
 
 #rightSide 
-  #graphsLoggedIn 
-    = render :partial => '/graphs/genres', :object => params
-    = render :partial => '/main/logged_in', :object => @logged_in
+  #graphs= render :partial => '/graphs/genres'

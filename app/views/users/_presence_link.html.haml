@@ -1,13 +1,16 @@
--if session[:user].id == presence_link.id
-  -prefix = 'You are'
--else
-  -prefix = "User #{presence_link.name} is"
+-unless session[:user].nil?
+  -if session[:user].id == presence_link.id
+    -prefix = 'You are'
+  -else
+    -prefix = "User #{presence_link.name} is"
 
--present = presence_link.present?
--current = ( present ? "" : "<em>not</em> ") + "coming to lunch"
--action =  ( present ? "de" : "") + "activate"
+  -present = presence_link.present?
+  -current = ( present ? "" : "<em>not</em> ") + "coming to lunch"
+  -action =  ( present ? "de" : "") + "activate"
 
-=prefix
-currently: 
-%strong="#{current}:"
-= link_to_remote 'toggle', {:url => {:controller => :users, :action => action, :id => presence_link.id}, :update => 'presenceLink'}, { :onclick => genre_graph_update } 
+  =prefix
+  currently: 
+  %strong="#{current}:"
+  = link_to_remote 'toggle', :url => {:controller => :users, :action => action, :id => presence_link.id}
+- else
+  Saving you from yourself since 2007

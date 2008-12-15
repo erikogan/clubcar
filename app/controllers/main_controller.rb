@@ -4,7 +4,16 @@ class MainController < ApplicationController
   def index
     # @moods = Mood.find_all_by_user_id(session[:user].id, :order => 'moods.order, name')
     #@restaurants = Restaurant.find(:all, :order => :name)
-    @logged_in = User.find_all_by_present(true, :order => :name)
+    @logged_in = User.present.find(:all)
+    # There should be only one
+    @mood = @user.moods.active.first
+    unless (@mood.nil?)
+      @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
+      @missing = Preference.missing_for(@mood)
+      @preference_values = Vote.find(:all, :order => 'value DESC').collect do |v|
+        [v.name, v, v.id]
+      end
+    end
   end
 
 

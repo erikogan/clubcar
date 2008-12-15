@@ -43,7 +43,7 @@ class GraphsController < ApplicationController
           '#d18410', '#ff0000', '#00ff00', '#0000ff', '#330000',
           '#003300', '#000033'
           ],
-          :background_colors => ['#999999', '#ffffff'],
+          :background_colors => ['#9B8F7E', '#ffffff'],
           # why is this ignored? 
           :marker_color => 'white'
         }

@@ -1,0 +1,12 @@
+diff -uNr nifty_cube.24786/NiftyCube/niftycube.js nifty_cube.24790/NiftyCube/niftycube.js
+--- nifty_cube.24786/NiftyCube/niftycube.js	2006-03-20 12:46:00.000000000 -0800
++++ nifty_cube.24790/NiftyCube/niftycube.js	2008-12-13 18:51:57.000000000 -0800
+@@ -34,7 +34,7 @@
+ var l=CreateEl("link");
+ l.setAttribute("type","text/css");
+ l.setAttribute("rel","stylesheet");
+-l.setAttribute("href","niftyCorners.css");
++l.setAttribute("href","/stylesheets/NiftyCube/niftyCorners.css");
+ l.setAttribute("media","screen");
+ document.getElementsByTagName("head")[0].appendChild(l);
+ }

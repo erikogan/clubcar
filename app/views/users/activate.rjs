@@ -1,0 +1,3 @@
+page.replace_html("graphs", :partial => "/graphs/genres")
+page.replace_html("presenceLink", :partial => "/users/presence_link", :object => @user)
+page.replace_html("loggedIn", :partial => "main/logged_in", :object => @logged_in)

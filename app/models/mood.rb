@@ -5,6 +5,8 @@ class Mood < ActiveRecord::Base
 
   attr_protected :active
 
+  named_scope :active, :conditions => ['active = true']
+
   VETO_MAX = 3
 
   VETO_ID = Vote.find_by_name('Veto').id

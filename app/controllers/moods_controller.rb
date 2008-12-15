@@ -113,6 +113,7 @@ class MoodsController < ApplicationController
     @user.moods.delete(mood)
 
     respond_to do |format|
+      format.js {}
       format.html { redirect_to user_moods_url(@user) }
       format.xml  { head :ok }
     end
@@ -130,29 +131,13 @@ class MoodsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to user_mood_url(@user,@mood) }
       format.xml  { render :xml => @mood.errors.to_xml }
-    end
-  end
-
-  # POST /users/42/moods;list_activate
-  def list_activate
-    begin
-      # if more than one mood is activated, only one is actually
-      # activated, non-deterministically
-      if (request.xhr?) 
-        # The Prototype Form.serialize doesn't DtRT with image inputs.
-        # Faking it with a hidden field update on click
-        mood_id = params[:activate_input].to_i
-      else
-        mood_id = params[:activate].keys[0].to_i
+      format.js  do
+        @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
+        @missing = Preference.missing_for(@mood)
+        @preference_values = Vote.find(:all, :order => 'value DESC').collect do |v|
+          [v.name, v, v.id]
+        end
       end
-      @mood = @user.moods.find(mood_id)
-      @mood.activate
-      # graceful degredation
-      redirect_to :action => :index unless request.xhr?
-    rescue ActiveRecord::RecordNotFound => rnf
-      logger.fatal("Attempt to access invalid mood [#{mood_id}] " +
-                   "for user [#{@user.id}]")
-      redirect_to moods_url(@user)
     end
   end
 

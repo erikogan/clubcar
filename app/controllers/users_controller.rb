@@ -134,11 +134,12 @@ private
     @user = User.find(params[:id])
     @user.present = value;
     @user.save!
-
-    if (request.xhr?) 
-      render :partial => '/users/presence_link', :object => @user
-    else 
-      redirect_to(url_for(:action => :show, :id => @user.id)) 
+    @logged_in = User.present.find(:all)
+    
+    respond_to do |format|
+      format.js { render :template => '/users/activate', :object => @user }
+      format.html { redirect_to(url_for(:action => :show, :id => @user.id)) }
+      format.xml  { head :ok }
     end
   end
 

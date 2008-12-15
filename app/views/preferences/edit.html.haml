@@ -16,7 +16,7 @@
       = link_to h(@preference.restaurant.name), restaurant_path(@preference.restaurant)
     = f.select :vote_id, @preference_values
      
-    = render :partial => 'vote_buttons', :object => [ @preference, 'preference', @preference_values ]
+    = render :partial => 'vote_buttons', :locals => {:pref => @preference, :name => 'preference', :values => @preference_values }
     = submit_tag "Update"
 
 = link_to 'Show', user_mood_preference_path(@user, @mood, @preference)

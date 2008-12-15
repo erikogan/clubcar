@@ -13,6 +13,7 @@ namespace :deploy do
 
   task :after_symlink, :roles => :app do
     run "mkdir -p #{deploy_to}/current/public/stylesheets ; fs sa #{deploy_to}/current/public/stylesheets webmaster write"
+    run "cd #{deploy_to}/current ; rake niftycube:install"
     # run "rm -f ~/public_html;ln -s #{deploy_to}/current/public ~/public_html"
     # run "ln -s #{deploy_to}/shared/database.yml #{deploy_to}/current/config/database.yml"
   end
