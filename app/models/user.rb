@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   # for now, 1-1, eventually 1-many
   has_many :emails, :dependent => :destroy
 
+  named_scope :present, :conditions => ['present = true'], :order => 'name'
+
   validates_presence_of :login
   validates_uniqueness_of :login
 
