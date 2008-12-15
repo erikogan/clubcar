@@ -101,17 +101,6 @@ CREATE TABLE emails (
 
 
 --
--- Name: labels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE labels (
-    id integer NOT NULL,
-    restaurant_id integer NOT NULL,
-    tag_id integer NOT NULL
-);
-
-
---
 -- Name: restaurants; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -156,12 +145,18 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: tag_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: taggings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE tag_types (
+CREATE TABLE taggings (
     id integer NOT NULL,
-    name character varying(255) NOT NULL
+    tag_id integer NOT NULL,
+    taggable_id integer NOT NULL,
+    taggable_type character varying(255) NOT NULL,
+    tagger_id integer,
+    tagger_type character varying(255),
+    context character varying(255) NOT NULL,
+    created_at timestamp without time zone
 );
 
 
@@ -171,9 +166,7 @@ CREATE TABLE tag_types (
 
 CREATE TABLE tags (
     id integer NOT NULL,
-    canonical character varying(255) NOT NULL,
-    name character varying(255),
-    type_id integer NOT NULL
+    name character varying(255)
 );
 
 
@@ -218,24 +211,6 @@ CREATE SEQUENCE emails_id_seq
 --
 
 ALTER SEQUENCE emails_id_seq OWNED BY emails.id;
-
-
---
--- Name: labels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE labels_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: labels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE labels_id_seq OWNED BY labels.id;
 
 
 --
@@ -293,10 +268,10 @@ ALTER SEQUENCE restaurants_id_seq OWNED BY restaurants.id;
 
 
 --
--- Name: tag_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE tag_types_id_seq
+CREATE SEQUENCE taggings_id_seq
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -304,10 +279,10 @@ CREATE SEQUENCE tag_types_id_seq
 
 
 --
--- Name: tag_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE tag_types_id_seq OWNED BY tag_types.id;
+ALTER SEQUENCE taggings_id_seq OWNED BY taggings.id;
 
 
 --
@@ -394,13 +369,6 @@ ALTER TABLE emails ALTER COLUMN id SET DEFAULT nextval('emails_id_seq'::regclass
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE labels ALTER COLUMN id SET DEFAULT nextval('labels_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE moods ALTER COLUMN id SET DEFAULT nextval('moods_id_seq'::regclass);
 
 
@@ -422,7 +390,7 @@ ALTER TABLE restaurants ALTER COLUMN id SET DEFAULT nextval('restaurants_id_seq'
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE tag_types ALTER COLUMN id SET DEFAULT nextval('tag_types_id_seq'::regclass);
+ALTER TABLE taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
 
 
 --
@@ -462,14 +430,6 @@ ALTER TABLE ONLY emails
 
 
 --
--- Name: labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT labels_pkey PRIMARY KEY (id);
-
-
---
 -- Name: moods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -494,11 +454,11 @@ ALTER TABLE ONLY restaurants
 
 
 --
--- Name: tag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY tag_types
-    ADD CONSTRAINT tag_types_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY taggings
+    ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
 
 
 --
@@ -518,35 +478,11 @@ ALTER TABLE ONLY emails
 
 
 --
--- Name: uniq_label_restaurant_tag; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT uniq_label_restaurant_tag UNIQUE (tag_id, restaurant_id);
-
-
---
 -- Name: uniq_preferences_mood_restaurant; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY preferences
     ADD CONSTRAINT uniq_preferences_mood_restaurant UNIQUE (mood_id, restaurant_id);
-
-
---
--- Name: uniq_tag_types_name; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY tag_types
-    ADD CONSTRAINT uniq_tag_types_name UNIQUE (name);
-
-
---
--- Name: uniq_tags_canonical; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY tags
-    ADD CONSTRAINT uniq_tags_canonical UNIQUE (canonical);
 
 
 --
@@ -589,20 +525,6 @@ CREATE INDEX index_emails_on_email ON emails USING btree (address);
 
 
 --
--- Name: index_labels_on_restaurant_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_labels_on_restaurant_id ON labels USING btree (restaurant_id);
-
-
---
--- Name: index_labels_on_tag_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_labels_on_tag_id ON labels USING btree (tag_id);
-
-
---
 -- Name: index_moods_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -638,17 +560,24 @@ CREATE INDEX index_restaurants_on_name ON restaurants USING btree (name);
 
 
 --
--- Name: index_tags_on_canonical; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_tags_on_canonical ON tags USING btree (canonical);
+CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
 
 
 --
--- Name: index_tags_on_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_tags_on_type_id ON tags USING btree (type_id);
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
+-- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_tags_on_name ON tags USING btree (name);
 
 
 --
@@ -702,22 +631,6 @@ ALTER TABLE ONLY emails
 
 
 --
--- Name: fk_label_restaurants; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT fk_label_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_label_tags; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT fk_label_tags FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE;
-
-
---
 -- Name: fk_mood_users; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -750,11 +663,11 @@ ALTER TABLE ONLY preferences
 
 
 --
--- Name: fk_tag_types; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_tagging_tags; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags
-    ADD CONSTRAINT fk_tag_types FOREIGN KEY (type_id) REFERENCES tag_types(id) ON DELETE CASCADE;
+ALTER TABLE ONLY taggings
+    ADD CONSTRAINT fk_tagging_tags FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE;
 
 
 --
@@ -808,3 +721,5 @@ INSERT INTO schema_migrations (version) VALUES ('17');
 INSERT INTO schema_migrations (version) VALUES ('18');
 
 INSERT INTO schema_migrations (version) VALUES ('19');
+
+INSERT INTO schema_migrations (version) VALUES ('20081119064449');
