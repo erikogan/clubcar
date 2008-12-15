@@ -3,7 +3,7 @@
     - if row.active
       = row.name
     - else
-      = link_to_remote h(row.name), {:url => activate_user_mood_path(@user, row), :id => row.id }, :method => :activate, :title => "Activate"
-  %td.img= link_to_remote image_tag("icon_trash.png"), user_mood_path(@user, row), :confirm => 'Are you sure?', :method => :delete, :title => "Delete"
+      = link_to_remote h(row.name), {:url => activate_user_mood_path(@user, row), :id => row.id }, :title => "Activate"
+  %td.img= link_to_remote image_tag("icon_trash.png"), {:url => user_mood_path(@user, row), :confirm => 'Are you sure?', :method => :delete}, :title => "Delete"
   %td.img= link_to image_tag("icon_copy.png"), copy_user_mood_path(@user, row), :title => "Copy"
   %td.img= link_to image_tag("icon_edit.png"), edit_user_mood_path(@user, row), :title => "Edit"

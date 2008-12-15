@@ -1,0 +1,1 @@
+page.replace_html("moodList", :partial => "/moods/list", :object => @user.moods)

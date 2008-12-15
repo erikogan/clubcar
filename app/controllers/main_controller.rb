@@ -4,7 +4,7 @@ class MainController < ApplicationController
   def index
     # @moods = Mood.find_all_by_user_id(session[:user].id, :order => 'moods.order, name')
     #@restaurants = Restaurant.find(:all, :order => :name)
-    @logged_in = User.find_all_by_present(true, :order => :name)
+    @logged_in = User.present.find(:all)
     # There should be only one
     @mood = @user.moods.active.first
     unless (@mood.nil?)

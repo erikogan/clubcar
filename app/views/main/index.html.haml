@@ -28,7 +28,8 @@
 
 #center
   #change_preferences
-    = render :partial => '/preferences/change_form', :locals => {:header => true}
+    -unless @mood.nil?
+      = render :partial => '/preferences/change_form', :locals => {:header => true}
 
 #rightSide 
   #graphs= render :partial => '/graphs/genres'

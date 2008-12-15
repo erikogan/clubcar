@@ -113,6 +113,7 @@ class MoodsController < ApplicationController
     @user.moods.delete(mood)
 
     respond_to do |format|
+      format.js {}
       format.html { redirect_to user_moods_url(@user) }
       format.xml  { head :ok }
     end
