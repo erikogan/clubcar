@@ -14,6 +14,8 @@
   %body{ :id => "#{controller.controller_name}_#{controller.action_name}", :class => controller.controller_name } 
 
     #header
+      %a.homeLink{:href => '/'}
+        %span.removeMe Clubcar
       = render :partial => '/users/presence', :object => @user
 
     - unless flash[:notice].nil? || flash[:notice].empty?
