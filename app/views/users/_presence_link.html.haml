@@ -1,16 +1,19 @@
 -unless session[:user].nil?
   -if session[:user].id == presence_link.id
-    -prefix = 'You are'
+    -prefix = 'You'
+    -verb = 'are'
   -else
-    -prefix = "User #{presence_link.name} is"
+    -prefix = "User #{presence_link.name}"
+    -verb = 'is'
 
   -present = presence_link.present?
-  -current = ( present ? "" : "<em>not</em> ") + "coming to lunch"
+  -current = present ? "" : " <em>not</em>"
   -action =  ( present ? "de" : "") + "activate"
 
-  =prefix
   currently: 
-  %strong="#{current}:"
-  = link_to_remote 'toggle', :url => {:controller => :users, :action => action, :id => presence_link.id}
+  =prefix
+  %strong
+    = link_to_remote "#{verb}#{current}", {:url => {:controller => :users, :action => action, :id => presence_link.id}}, {:title => 'toggle', :class => 'presenceLink'}
+  coming to lunch
 - else
   Saving you from yourself since 2007

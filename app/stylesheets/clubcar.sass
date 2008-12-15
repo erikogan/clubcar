@@ -79,3 +79,17 @@ table#preferences td
     
 img
   :border 0
+  
+  
+.presenceLink
+  :font-size 125%
+  :color= !header_fg
+  :text-decoration none
+  :border-bottom= 1px dotted !header_fg
+  &:visited
+    :color= !header_fg
+  &:hover
+    :background transparent
+    :color= !header_fg + #333
+    :border-bottom= 1px dotted !header_fg + #333
+    
