@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Please log in"
       redirect_to(:controller => "users", :action => "login")
     end
+    @user = session[:user]
   end
 
   def admin_access
