@@ -29,20 +29,26 @@
     :margin 0 5px
 
 .customRadio
+  &.votePositive,
+  &.voteNeutral,
+  &.voteNegative,
+  &.voteVeto
+    :background-image url(../images/clubcar_votes.png)
+
   &.votePositive
-    :background-image url(../images/vote_positive.png)
-
-
+    :background-position 0 0
+    
   &.voteNeutral
-    :background-image url(../images/vote_neutral.png)
-
-
+    :background-position -45px 0
+    
   &.voteNegative
-    :background-image url(../images/vote_negative.png)
-
+    :background-position -89px 0
 
   &.voteVeto
-    :background-image url(../images/vote_veto.png)
+    :background-position -140px 0
+    
+    
+  
 
 #change_preferences_controls
   :padding-top 1em

@@ -47,6 +47,28 @@ function customClassSet(classString, value) {
   }
 }
 
+function setBGy(element, value) {
+  var pos;
+  if (window.getComputedStyle) {
+    pos = window.getComputedStyle(element, null).backgroundPosition;
+  } else if (element.currentStyle) {
+    pos = element.currentStyle.backgroundPosition;
+  }
+  var parts = pos.split(" ", 3);
+  var x = 0;
+  var suffix ="";
+  
+  if (parts.length > 0 && parts[0].length > 0) {
+    x = parts[0]
+  }
+  
+  if (parts.length > 2) {
+    suffix = " " + parts[2]
+  }
+  
+  element.style.backgroundPosition = "" + x + " " + value + suffix
+}
+
 var Input = {
   initialize: function() {
     if(document.getElementsByTagName("form")) {
@@ -70,9 +92,9 @@ var Input = {
 
   effect: function() {
     if (customClassSelected(this.className)) {
-      this.style.backgroundPosition = "0 " + (bgOffset * 3) + "px";
+      setBGy(this, (bgOffset * 3) + "px");
     } else {
-      this.style.backgroundPosition = "0 " + bgOffset + "px";
+      setBGy(this, bgOffset + "px");
     }
   },
 
@@ -88,7 +110,7 @@ var Input = {
     } else if (this.className.match(customRclass)) {
       selector.checked = true;
       this.className = customClassSet(this.className, true);
-      this.style.backgroundPosition = "0 " + (bgOffset * 2) + "px";
+      setBGy(this, (bgOffset * 2) + "px");
 
       /* If we assume radio button groups all have the same
       parent, we don't need to loop over all the inputs on a
@@ -103,7 +125,7 @@ var Input = {
         && inputs[i] != selector) {
           p = inputs[i].parentNode;
           p.className = customClassSet(p.className, false);
-          p.style.backgroundPosition = "0 0";
+          setBGy(p, 0)
         }
       }
     } // else { // this should never happen }
@@ -114,10 +136,9 @@ var Input = {
     for(var i = 0; i < divs.length; i++) {
       if (divs[i].className.match(customClassMatch)) {
         if(customClassSelected(divs[i].className)) {
-          divs[i].style.backgroundPosition = "0 "
-          + (bgOffset * 2) + "px";
+          setBGy(divs[i], (bgOffset * 2) + "px")
         } else {
-          divs[i].style.backgroundPosition = "0 0";
+          setBGy(divs[i], 0)
         }
       }
     }
