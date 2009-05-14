@@ -21,7 +21,7 @@ class MainController < ApplicationController
     users = User.find_all_by_present(false, :include => :emails)
     text = "<pre>\n"
     users.each do |u|
-      if u.emails
+      if u.emails && u.emails.size > 0
         email = ClubcarMailer.create_reactivate(u)
         ClubcarMailer.deliver(email)
         logger.info "QUEUE: #{u.emails[0].address}"
