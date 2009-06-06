@@ -70,6 +70,8 @@ Rails::Initializer.run do |config|
 
   config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
+  config.gem "authlogic"
+  
 end
 
 # Add new inflection rules using the following format 
