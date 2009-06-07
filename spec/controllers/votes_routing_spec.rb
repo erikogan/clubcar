@@ -11,19 +11,19 @@ describe VotesController do
     end
   
     it "should map #show" do
-      route_for(:controller => "votes", :action => "show", :id => 1).should == "/votes/1"
+      route_for(:controller => "votes", :action => "show", :id => "1").should == "/votes/1"
     end
   
     it "should map #edit" do
-      route_for(:controller => "votes", :action => "edit", :id => 1).should == "/votes/1/edit"
+      route_for(:controller => "votes", :action => "edit", :id => "1").should == "/votes/1/edit"
     end
   
     it "should map #update" do
-      route_for(:controller => "votes", :action => "update", :id => 1).should == "/votes/1"
+      route_for(:controller => "votes", :action => "update", :id => "1").should == { :path => "/votes/1", :method => "put" }
     end
   
     it "should map #destroy" do
-      route_for(:controller => "votes", :action => "destroy", :id => 1).should == "/votes/1"
+      route_for(:controller => "votes", :action => "destroy", :id => "1").should == { :path => "/votes/1", :method => "delete" }
     end
   end
 

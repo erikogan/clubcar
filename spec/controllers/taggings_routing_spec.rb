@@ -11,19 +11,19 @@ describe TaggingsController do
     end
   
     it "should map #show" do
-      route_for(:controller => "taggings", :action => "show", :id => 1).should == "/taggings/1"
+      route_for(:controller => "taggings", :action => "show", :id => "1").should == "/taggings/1"
     end
   
     it "should map #edit" do
-      route_for(:controller => "taggings", :action => "edit", :id => 1).should == "/taggings/1/edit"
+      route_for(:controller => "taggings", :action => "edit", :id => "1").should == "/taggings/1/edit"
     end
   
     it "should map #update" do
-      route_for(:controller => "taggings", :action => "update", :id => 1).should == "/taggings/1"
+      route_for(:controller => "taggings", :action => "update", :id => "1").should == { :path => "/taggings/1", :method => "put" }
     end
   
     it "should map #destroy" do
-      route_for(:controller => "taggings", :action => "destroy", :id => 1).should == "/taggings/1"
+      route_for(:controller => "taggings", :action => "destroy", :id => "1").should == { :path => "/taggings/1", :method => "delete" }
     end
   end
 

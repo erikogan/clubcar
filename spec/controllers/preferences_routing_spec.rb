@@ -11,19 +11,19 @@ describe PreferencesController do
     end
   
     it "should map #show" do
-      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "show", :id => 1).should == "/users/42/moods/23/preferences/1"
+      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "show", :id => "1").should == "/users/42/moods/23/preferences/1"
     end
   
     it "should map #edit" do
-      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "edit", :id => 1).should == "/users/42/moods/23/preferences/1/edit"
+      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "edit", :id => "1").should == "/users/42/moods/23/preferences/1/edit"
     end
   
     it "should map #update" do
-      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "update", :id => 1).should == "/users/42/moods/23/preferences/1"
+      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "update", :id => "1").should == { :path => "/users/42/moods/23/preferences/1", :method => "put" }
     end
   
     it "should map #destroy" do
-      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "destroy", :id => 1).should == "/users/42/moods/23/preferences/1"
+      route_for(:controller => "preferences", :user_id => "42", :mood_id => "23", :action => "destroy", :id => "1").should == { :path => "/users/42/moods/23/preferences/1", :method => "delete" }
     end
   end
 

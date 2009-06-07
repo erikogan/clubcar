@@ -3,27 +3,27 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe VisitsController do
   describe "route generation" do
     it "should map #index" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "index").should == "/restaurants/42/visits"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "index").should == "/restaurants/42/visits"
     end
   
     it "should map #new" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "new").should == "/restaurants/42/visits/new"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "new").should == "/restaurants/42/visits/new"
     end
   
     it "should map #show" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "show", :id => 1).should == "/restaurants/42/visits/1"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "show", :id => "1").should == "/restaurants/42/visits/1"
     end
   
     it "should map #edit" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "edit", :id => 1).should == "/restaurants/42/visits/1/edit"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "edit", :id => "1").should == "/restaurants/42/visits/1/edit"
     end
   
     it "should map #update" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "update", :id => 1).should == "/restaurants/42/visits/1"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "update", :id => "1").should == { :path => "/restaurants/42/visits/1", :method => "put" }
     end
   
     it "should map #destroy" do
-      route_for(:controller => "visits", :restaurant_id => 42, :action => "destroy", :id => 1).should == "/restaurants/42/visits/1"
+      route_for(:controller => "visits", :restaurant_id => "42", :action => "destroy", :id => "1").should == { :path => "/restaurants/42/visits/1", :method => "delete" }
     end
   end
 
