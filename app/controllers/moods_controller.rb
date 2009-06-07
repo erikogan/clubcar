@@ -27,7 +27,7 @@ class MoodsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @moods.to_xml }
+      format.xml  { render :xml => @moods }
     end
   end
 
@@ -38,7 +38,7 @@ class MoodsController < ApplicationController
     @mood = @user.moods.find(params[:id])
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @mood.to_xml }
+      format.xml  { render :xml => @mood }
     end
   end
 
@@ -72,7 +72,7 @@ class MoodsController < ApplicationController
           format.xml  { head :created, :location => user_mood_url(@user, @mood) }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @mood.errors.to_xml }
+          format.xml  { render :xml => @mood.errors }
         end
       end
     end
@@ -97,7 +97,7 @@ class MoodsController < ApplicationController
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @mood.errors.to_xml }
+          format.xml  { render :xml => @mood.errors }
         end
       end
     end
@@ -130,7 +130,7 @@ class MoodsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to user_mood_url(@user,@mood) }
-      format.xml  { render :xml => @mood.errors.to_xml }
+      format.xml  { render :xml => @mood.errors }
       format.js  do
         @preferences = @mood.preferences.find(:all, :include => [:restaurant, :vote], :order => 'restaurants.name')
         @missing = Preference.missing_for(@mood)

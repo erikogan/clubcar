@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @users.to_xml }
+      format.xml  { render :xml => @users }
     end
   end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @user.to_xml }
+      format.xml  { render :xml => @user }
     end
   end
 
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
         format.xml  { head :created, :location => user_url(@user) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors.to_xml }
+        format.xml  { render :xml => @user.errors }
       end
     end
   end
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors.to_xml }
+        format.xml  { render :xml => @user.errors }
       end
     end
   end

@@ -6,7 +6,7 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @votes.to_xml }
+      format.xml  { render :xml => @votes }
     end
   end
 
@@ -17,7 +17,7 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @vote.to_xml }
+      format.xml  { render :xml => @vote }
     end
   end
 
@@ -43,7 +43,7 @@ class VotesController < ApplicationController
         format.xml  { head :created, :location => vote_url(@vote) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @vote.errors.to_xml }
+        format.xml  { render :xml => @vote.errors }
       end
     end
   end
@@ -60,7 +60,7 @@ class VotesController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @vote.errors.to_xml }
+        format.xml  { render :xml => @vote.errors }
       end
     end
   end

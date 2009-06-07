@@ -11,7 +11,7 @@ class PreferencesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @preferences.to_xml }
+      format.xml  { render :xml => @preferences }
     end
   end
 
@@ -22,7 +22,7 @@ class PreferencesController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @preference.to_xml }
+      format.xml  { render :xml => @preference }
     end
   end
 
@@ -48,7 +48,7 @@ class PreferencesController < ApplicationController
         format.xml  { head :created, :location => user_mood_preference_url(@user,@mood,@preference) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @preference.errors.to_xml }
+        format.xml  { render :xml => @preference.errors }
       end
     end
   end
@@ -65,7 +65,7 @@ class PreferencesController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @preference.errors.to_xml }
+        format.xml  { render :xml => @preference.errors }
       end
     end
   end
@@ -90,7 +90,7 @@ class PreferencesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @preferences.to_xml }
+      format.xml  { render :xml => @preferences }
     end
   end
 
@@ -146,7 +146,7 @@ class PreferencesController < ApplicationController
       respond_to do |format|
         # flash[:notice] = e.message
         format.html { render :action => "change" }
-        format.xml { render :xml => @mood.errors.to_xml }
+        format.xml { render :xml => @mood.errors }
       end
     else
       respond_to do |format|
