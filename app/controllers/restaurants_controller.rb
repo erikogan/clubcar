@@ -14,7 +14,7 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @restaurants.to_xml }
+      format.xml  { render :xml => @restaurants }
     end
   end
 
@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @restaurant.to_xml }
+      format.xml  { render :xml => @restaurant }
     end
   end
 
@@ -52,7 +52,7 @@ class RestaurantsController < ApplicationController
         format.xml  { head :created, :location => restaurant_url(@restaurant) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @restaurant.errors.to_xml }
+        format.xml  { render :xml => @restaurant.errors }
       end
     end
   end
@@ -69,7 +69,7 @@ class RestaurantsController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @restaurant.errors.to_xml }
+        format.xml  { render :xml => @restaurant.errors }
       end
     end
   end

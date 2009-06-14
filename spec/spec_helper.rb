@@ -61,6 +61,6 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
   config.global_fixtures = *Dir["#{config.fixture_path}/*.yml"].map do |file|
-       File.basename(file, '.yml').to_sym
-     end
+    File.basename(file, '.yml').to_sym
+  end
 end

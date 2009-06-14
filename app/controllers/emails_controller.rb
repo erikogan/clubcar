@@ -9,7 +9,7 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @emails.to_xml }
+      format.xml  { render :xml => @emails }
     end
   end
 
@@ -20,7 +20,7 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @email.to_xml }
+      format.xml  { render :xml => @email }
     end
   end
 
@@ -47,7 +47,7 @@ class EmailsController < ApplicationController
         format.xml  { head :created, :location => user_email_url(@user, @email) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @email.errors.to_xml }
+        format.xml  { render :xml => @email.errors }
       end
     end
   end
@@ -64,7 +64,7 @@ class EmailsController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @email.errors.to_xml }
+        format.xml  { render :xml => @email.errors }
       end
     end
   end
