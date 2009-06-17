@@ -19,7 +19,6 @@ class MainController < ApplicationController
 
   def mail_warnings
     users = User.find_all_by_present(false, :include => :emails)
-    text = "<pre>\n"
     users.each do |u|
       if u.emails && u.emails.size > 0
         email = ClubcarMailer.create_reactivate(u)
@@ -27,12 +26,9 @@ class MainController < ApplicationController
         logger.info "QUEUE: #{u.emails[0].address}"
       end
     end
-    
-    #render(:text => text + "\n</pre>")
   end
 
   def inform_user
-    @user = User.find(session[:user])
     email = ClubcarMailer.create_reactivate(@user) 
     render(:text => "<pre>" + email.encoded + "</pre>") 
   end
@@ -41,7 +37,7 @@ private
 
   def find_user
     # It's not so much "find" anymore
-    @user = session[:user]
+    @user = current_user
   end
 
 end

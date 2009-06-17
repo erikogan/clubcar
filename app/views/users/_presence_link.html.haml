@@ -1,5 +1,5 @@
--unless session[:user].nil?
-  -if session[:user].id == presence_link.id
+-unless current_user.nil? || presence_link.nil?
+  -if current_user.id == presence_link.id
     -prefix = 'You'
     -verb = 'are'
   -else

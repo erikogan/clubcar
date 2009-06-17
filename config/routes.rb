@@ -2,10 +2,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :password_resets
 
   map.resources :votes
+  
+  map.resources :user_sessions, :only => [:new, :create, :destroy]
 
   # special case for login
-  map.login '/users/login', :controller => "users", :action => "login"
-  map.logout '/users/logout', :controller => "users", :action => "logout"
+  map.login 'login', :controller => "user_sessions", :action => "new"
+  map.logout 'logout', :controller => "user_sessions", :action => "destroy"
 
   map.resources :users, :member => {:activate => :post, :deactivate => :post} do |user|
     user.resources :emails
@@ -35,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
   # map.connect '', :controller => "welcome"
-  map.connect '', :controller => "main"
+  map.root :controller => "main"
 
   map.connect '/spin', :controller => "restaurants", :action => "mail_choices"
   map.connect '/wondertwins', :controller => "main", :action => "mail_warnings"

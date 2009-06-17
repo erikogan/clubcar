@@ -6,10 +6,6 @@ class UsersController < ApplicationController
   before_filter :admin_access, :except => [:index]
 
   skip_before_filter :authorize, :only => [:login, :logout]
-  # This is a Bad Idea(tm). We should go back to just storing the ID, but
-  # that's more invasive
-  after_filter :update_session, :only => [:create, :update, :delete, 
-    :activate, :deactivate ]
 
   def index
     @users = User.find(:all, :order => :login)
@@ -131,7 +127,7 @@ private
   end
 
   def do_activation(value)
-    @user = User.find(params[:id])
+    @user = current_user
     @user.present = value;
     @user.save!
     @logged_in = User.present.find(:all)
@@ -142,12 +138,4 @@ private
       format.xml  { head :ok }
     end
   end
-
-  # Still a Bad IDEA(tm)
-  def update_session
-    unless @user.nil? || @user.id != session[:user].id
-      session[:user] = @user
-    end
-  end
-
 end

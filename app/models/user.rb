@@ -1,6 +1,16 @@
-require 'digest/md5'
+require "lib/reverse_md5"
 
 class User < ActiveRecord::Base
+  acts_as_authentic do |c|
+    # (understandably) bad things happen thus configured
+    # c.crypted_password_field :password
+    # I LOVE Authlogic for this
+    c.transition_from_crypto_providers Authlogic::CryptoProviders::ReverseMD5
+    # May want to add this later
+    # c.validations_scope = :group_id
+    c.perishable_token_valid_for 3.hours
+  end
+  
   has_many :moods, :dependent => :destroy, :order => 'moods.order, moods.name'
   # I don't think this relationship is actually meaningful 
   # has_many :preferences, :through => :moods
@@ -10,38 +20,9 @@ class User < ActiveRecord::Base
 
   named_scope :present, :conditions => ['present = true'], :order => 'name'
 
-  validates_presence_of :login
-  validates_uniqueness_of :login
+  acts_as_tagger
 
   attr_protected :admin
-  attr_accessor :plain_password_confirmation
-  
-  acts_as_tagger
-  
-  ## this also fails when the fields are both nil, which is
-  ## counter-intuitive, and undesirable in the update case (when you
-  ## might not want to change their password)
-  # validates_confirmation_of :plain_password
-  def validate_on_create 
-    valid = true;
-    if @plain_password != @plain_password_confirmation
-      errors.add(:plain_password,  "should match confirmation")
-      valid = false; 
-    elsif @plain_password.blank?
-      errors.add(:plain_password, "can't be blank")
-      valid = false
-    end
-    valid
-  end
-
-  def validate_on_update
-    valid = true;
-    if (!(@plain_password.blank? && @plain_password_confirmation.blank?) && @plain_password != @plain_password_confirmation)
-      errors.add(:plain_password, "should match confirmation")
-      valid = false; 
-    end
-    valid
-  end
 
   def self.find_by_login_or_email(params) 
     loe = params[:login_or_email]
@@ -59,41 +40,7 @@ class User < ActiveRecord::Base
     return nil
   end
 
-  def self.authenticate(user,password) 
-    user = self.find_by_login(user)
-    if user && user.password != encrypted_password(password, user.salt)
-      user = nil
-    end
-    user
-  end
-
-  # plain_password is a virutal attribute
-  def plain_password 
-    @plain_password
-  end
-
-  def plain_password=(pwd)
-    # Don't encrypt nil
-    if !pwd.blank?
-      @plain_password = pwd
-      create_new_salt
-      self.password = User.encrypted_password(self.plain_password, self.salt)
-    end
-  end
-
   def is_admin?
     return self.valid? && self.admin
-  end
-
-  def self.encrypted_password(password,salt)
-    Digest::MD5.hexdigest(salt + password)
-  end
-  
-  ####################################################################
-  private
-
-  def create_new_salt 
-    # Might as well use the same digest algorithm
-    self.salt = User.encrypted_password(self.object_id.to_s, rand.to_s)
   end
 end

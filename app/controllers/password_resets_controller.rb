@@ -64,12 +64,14 @@ class PasswordResetsController < ApplicationController
     respond_to do |format|
       if @errors.empty? && @user.update_attributes(params[:user]) && @user.save
         flash[:notice] = 'Your Password has been changed.'
-        format.html { redirect_to(@user) }
+        format.html { redirect_to root_url }
         format.xml  { head :ok }
       else
         if (!@user)
           @user = User.new
-          @user.errors = @errors
+          @errors.each do |e|
+            @user.errors.add :perishable_token
+          end
         end
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
