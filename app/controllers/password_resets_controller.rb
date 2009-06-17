@@ -1,18 +1,6 @@
 class PasswordResetsController < ApplicationController
   skip_before_filter :authorize
   
-  # GET /password_resets
-  # GET /password_resets.xml
-  def index
-    redirect_to(new_password_reset_path) 
-  end
-
-  # GET /password_resets/1
-  # GET /password_resets/1.xml
-  def show
-    redirect_to(new_password_reset_path) 
-  end
-
   # GET /password_resets/new
   # GET /password_resets/new.xml
   def new
@@ -77,11 +65,5 @@ class PasswordResetsController < ApplicationController
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
-  end
-
-  # DELETE /password_resets/1
-  # DELETE /password_resets/1.xml
-  def destroy
-    redirect_to(new_password_reset_path) 
   end
 end

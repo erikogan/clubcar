@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :password_resets
+  map.resources :password_resets, :olny => [:new, :edit, :create, :update]
 
   map.resources :votes
   

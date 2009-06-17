@@ -6,20 +6,6 @@ describe PasswordResetsController do
     @mock_user ||= mock_model(User, stubs)
   end
 
-  describe "responding to GET index" do
-    it "should redirect to new" do
-      get :index
-      response.should redirect_to(new_password_reset_url)
-    end
-  end
-
-  describe "responding to GET show" do
-    it "should redirect to new" do
-      get :index
-      response.should redirect_to(new_password_reset_url)
-    end
-  end
-
   describe "responding to GET new" do
     # TODO slightly less useless
     it "should expose a new password_reset as @password_reset" do
@@ -90,12 +76,12 @@ describe PasswordResetsController do
         put :update, :id => "fnord", :user => {:these => 'params'}
       end
 
-      it "should redirect to the user" do
+      it "should redirect to the root" do
         ClubcarMailer.should_receive(:confirm_magic).with('fnord').and_return([user = mock_user,[]])
         mock_user.should_receive(:update_attributes).with({'these' => 'params'}).and_return(true)
         mock_user.should_receive(:save).and_return(true)
         put :update, :id => "fnord", :user => {:these => 'params'}
-        response.should redirect_to(user_url(user))
+        response.should redirect_to(root_url)
       end
 
     end
@@ -121,13 +107,6 @@ describe PasswordResetsController do
 
     end
 
-  end
-
-  describe "responding to DELETE destroy" do
-    it "should redirect to new" do
-      get :index
-      response.should redirect_to(new_password_reset_url)
-    end
   end
 
 end
