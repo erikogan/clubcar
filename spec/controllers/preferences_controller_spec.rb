@@ -25,7 +25,7 @@ describe PreferencesController do
   
   before do
     # Most of these require admin access for editing others. Need to move them into an /admin namespace
-    log_in(users(:admin))
+    login({}, {:admin => true})
     User.should_receive(:find).with("42").and_return(mock_user)
     mock_user.should_receive(:moods).and_return(mock_array_moods)
     mock_array_moods.should_receive(:find).with("23").and_return(mock_mood)

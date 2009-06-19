@@ -5,7 +5,7 @@ describe UsersController do
   
   # Most of these require admin access. Need to move them into an /admin namespace
   before do
-    log_in(users(:admin))
+    login({}, {:admin => true})
   end
   
   def mock_user(stubs={})

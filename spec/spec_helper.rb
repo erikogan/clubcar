@@ -5,21 +5,33 @@ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_
 require 'spec/autorun'
 require 'spec/rails'
 
-def log_in(user)
-  @logged_in = user
-  @request.session[:user] = @logged_in
+def current_user(stubs = {})
+  @current_user ||= mock_model(User, stubs)
 end
+ 
+def user_session(stubs = {}, user_stubs = {})
+  @user_session ||= mock_model(UserSession, {:user => current_user(user_stubs), :record => true}.merge(stubs))
+end
+
+def login(session_stubs = {}, user_stubs = {})
+  UserSession.stub!(:find).and_return(user_session(session_stubs, user_stubs))
+end
+ 
+def logout
+  @user_session = nil
+end
+
 
 unless Object.const_defined?(:SPECS_INITIALIZED)
   describe 'login', :shared => true do
     before do
-      log_in(users(:erik))
+      #log_in(users(:erik))
+      login
     end
   end
 
   SPECS_INITIALIZED = true
 end
-
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these

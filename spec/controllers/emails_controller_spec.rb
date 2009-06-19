@@ -5,7 +5,7 @@ describe EmailsController do
 
   before do
     # Most of these require admin access for editing others. Need to move them into an /admin namespace
-    log_in(users(:admin))
+    login({}, {:admin => true})
     User.should_receive(:find).with("1").and_return(mock_user({:id => 1}))
     @emails = mock("Array of Emails")
     Rails.logger.debug("M: #{mock_user.args_and_options.inspect}")

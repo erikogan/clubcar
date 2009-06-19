@@ -17,7 +17,7 @@ describe MoodsController do
   
   before do
     # Most of these require admin access for editing others. Need to move them into an /admin namespace
-    log_in(users(:admin))
+    login({}, {:admin => true})
     User.should_receive(:find).with("42").and_return(mock_user)
   end
 
