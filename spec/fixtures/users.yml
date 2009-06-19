@@ -1,18 +1,26 @@
+require 'digest/md5'
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-<% SALT = User.encrypted_password("KCl", '') unless defined?(SALT) # we use potassium :) %> 
+<% SALT1 = Digest::MD5.hexdigest('NaCl') unless defined?(SALT1) %>
+<% SALT2 = Digest::MD5.hexdigest('KCl') unless defined?(SALT2)  %>
 
 admin:
   login: admin
   name: The Administrator
-  password: <%= User.encrypted_password('foobar', SALT) %>
-  salt: <%= SALT %>
+  crypted_password: <%= User.crypto_provider.encrypt('foobar', SALT1) %>
+  salt: <%= SALT1 %>
   present: false
   admin: true
+  persistence_token: admin
+  perishable_token: admin
+  single_access_token: admin
 
 erik:
   login: erik
   name: Erik Ogan
-  password: <%= User.encrypted_password('barfoo', SALT) %>
-  salt: <%= SALT %>
+  crypted_password: <%= User.crypto_provider.encrypt('barfoo', SALT2) %>
+  salt: <%= SALT2 %>
   present: false
   admin: false
+  persistence_token:  erik
+  perishable_token: erik
+  single_access_token: erik
