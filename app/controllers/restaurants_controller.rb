@@ -97,7 +97,8 @@ class RestaurantsController < ApplicationController
     email = ClubcarMailer.create_decision(@choices) 
     ClubcarMailer.deliver(email)
     #render(:text => "<pre>" + email.encoded + "</pre>") 
-    puts "QUEUE: ", email.to;
+    @to = email.to
+    puts "QUEUE: ", @to;
   end
 
   #private
