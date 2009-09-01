@@ -1,0 +1,10 @@
+%h1 Tags
+
+%dl
+  - for context in @contexts do
+    %dt
+      %strong= context.humanize
+    %dd
+      %ul
+      - for tag in @by_context[context].sort {|a,b| a.name <=> b.name } do
+        %li= link_to h(tag.name), tag

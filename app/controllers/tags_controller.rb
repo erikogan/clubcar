@@ -2,19 +2,37 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.xml
   def index
-    @tags = Tag.find(:all)
+    # I know there is a more clever way to do this, but functionally this is
+    # what it would do under the hood.    
+    @tags = Tag.find(:all, :include => :taggings)
+    @by_context = {}
+    for tag in @tags do
+      for tagging in tag.taggings do
+        unless @by_context.has_key?(tagging.context)
+          @by_context[tagging.context] = Set.new
+        end
+        @by_context[tagging.context] << tag
+      end
+    end
+
+    @contexts = @by_context.keys.sort
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tags }
+      format.html # index.html.haml
+      format.xml  { render :xml => @by_context }
     end
   end
 
   # GET /tags/1
   # GET /tags/1.xml
   def show
-    @tag = Tag.find(params[:id])
+    # Can't include the polymorphic end-point, but there shouldn't be many
+    # (famous last words)
+    @tag = Tag.find(params[:id], :include => :taggings)
+    @by_type = @tag.taggings.group_by(&:taggable_type).to_hash
 
+    @types = @by_type.keys.sort
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }
@@ -23,35 +41,13 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   # GET /tags/new.xml
-  def new
-    @tag = Tag.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @tag }
-    end
-  end
+  # POST /tags
+  # POST /tags.xml
+  ##### Tags should only be created by tagging items
 
   # GET /tags/1/edit
   def edit
     @tag = Tag.find(params[:id])
-  end
-
-  # POST /tags
-  # POST /tags.xml
-  def create
-    @tag = Tag.new(params[:tag])
-
-    respond_to do |format|
-      if @tag.save
-        flash[:notice] = 'Tag was successfully created.'
-        format.html { redirect_to(@tag) }
-        format.xml  { render :xml => @tag, :status => :created, :location => @tag }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /tags/1

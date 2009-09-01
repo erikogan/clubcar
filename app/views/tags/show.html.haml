@@ -1,0 +1,19 @@
+%h1
+  Tag
+  = @tag.name.humanize
+  
+%h2 Targets
+
+%dl
+  - for type in @types
+    %dt
+      %strong= type.humanize
+    %dd
+      %ul
+        - for tagging in @by_type[type].sort {|a,b| a.taggable.name <=> b.taggable.name }
+          %li
+            %span.remove
+              = link_to_remote '[-]', {:url => "#{tagging_path(tagging)}?type=#{type.tableize}", :confirm => 'delete?', :method => :delete}
+            %span.link
+              = link_to h(tagging.taggable.name), polymorphic_path(tagging.taggable)
+          
