@@ -10,6 +10,7 @@ set :deploy_to, "/afs/slackers.net/projects/#{application}/release"
 # your SCM below:
 set :scm, :git
 set :branch, 'master'
+set :git_enable_submodules, 1
 
 #role :app, "your app-server here"
 #role :web, "your web-server here"
